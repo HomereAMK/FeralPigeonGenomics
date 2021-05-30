@@ -7,7 +7,7 @@ Documention outlining the entire reasoning behind this pipeline. Please, contact
 The GBS raw data was directly downloaded from the Institute of Biotechnology | University of Cornell's server using an ordinary "-wget" command and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 
 
-## 2) SEQUENCING QUALITY CHECK | FASTQc--v0.11.5
+## 2) Sequencing Quality Check | _FASTQc--v0.11.5_(https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 A general sequencing quality check of each plate was performed using the software FastQC--v0.11.5 using default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 
@@ -16,7 +16,7 @@ Example:
 ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Fastqced--v0.11.5/
 ```
 
-## 3) DEMULTIPLEXING | GBSX--v1.3
+## 3) Demultiplexing | [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX)
 
 All the plates were demultiplexed in the very same way using the software GBSX--v1.3 based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 
