@@ -1,8 +1,7 @@
 # **FPGP — _University of Copenhagen_**
 ### Re-Sequencing + GBS Data Pipeline — by **Filipe G. Vieira** [![Foo](ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George Pacheco** [![Foo](ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
 
-**Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline.
-Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
+**Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline.  Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
 
 ### 1) Acess to Raw Data & Local Storage | [ERDA](https://www.erda.dk/)
 
