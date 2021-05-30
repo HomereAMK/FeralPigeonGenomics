@@ -7,7 +7,6 @@
 
 The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary "-wget" command, and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 
-
 ### 2) Sequencing Quality Check | [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 A general sequencing quality check of each plate was performed using the software FastQC--v0.11.5 using default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
@@ -62,19 +61,19 @@ mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GB
 
 We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same _BED_ file presented in this publication to restrict our analyses to the _GBS_ loci.
 
-We first executed an inicial PaleoMix run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the _YAML_ file below and respective command:
+#### We first executed an inicial PaleoMix run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the _.YAML_ file below and respective command:
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline run --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS_S.risoria.yaml
 ```
 
-Then we generate an ID file for each sample contained the reads that should be excluded. Those are reads having a second or more cut-site and that were mapped to two or more different regions:
+#### Then we generate an ID file for each sample contained the reads that should be excluded. Those are reads having a second or more cut-site and that were mapped to two or more different regions:
 
 ```
 parallel --plus --keep-order --dryrun "samtools view {} | grep -v '^#' | awk '\$6~/[HS]/ && \$10~/ATGCAT/{print \$1}' | sort -u > $TMP_DIR/{/...}.Chimeras.id" ::: ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/*.bam | xsbatch -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 
-Finally, we excluded these identified reads using the software package QIIME. A filtered "fastq.gz" file is created inside the respectives folders of each original demultiplexed files.
+#### Finally, we excluded these identified reads using the software package QIIME. A filtered "fastq.gz" file is created inside the respectives folders of each original demultiplexed files.
 
 ```
 module load blast/v2.2.26
@@ -89,7 +88,7 @@ parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -
 
 #### GBSed Samples:
 
-Basically, we run the very same ".yaml" file used in the inicial GBSed run here, the only different was of course that now we used the filtered ".fastq.gz" files. Please notice that PCR duplicates are NOT removed here!
+Basically, we run the very same _.YAML_ file used in the inicial GBSed run here, the only different was of course that now we used the filtered _.FASTQ.GZ_ files. Please notice that PCR duplicates are NOT removed here!
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
@@ -113,7 +112,7 @@ awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Cover
 
 _Number of LOCI with No data for ALL_: **245,537**
 
-### Filtering of Bad Samples
+### 7) Filtering of Bad Samples
 
 Here we create some auxiliary files.
 
@@ -123,7 +122,7 @@ Here we create some auxiliary files.
 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
 ```
 
-## Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
+### 8) Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
 
 **Dataset I** | ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
 
@@ -518,25 +517,23 @@ do
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 ```
 
-## MULTIDIMENSIONAL SCALING | ngsDist + get_PCA.R
-
-Dataset III
+### Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | **Dataset III**
 
 Here are perform a multidimensional scaling anlysis on the genetic distance matrix created above:
 
-### To get distance matrix:
+#### To get distance matrix:
 
 ```
 xsbatch -c 14 --mem-per-cpu 2000 -J Dist_Corr --time 3-00 -- "ngsDist --n_threads 14 --geno ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.beagle.gz --pairwise_del --seed 32 --probs --n_ind 457 --n_sites 20659 --labels ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.labels --out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.dist"
 ```
 
-### To perform MDS:
+#### To perform MDS:
 
 ```
 tail -n +3 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.dist | Rscript --vanilla --slave /groups/hologenomics/fgvieira/scripts/get_PCA.R --no_header --data_symm -n 10 -m "mds" -o ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.mds
 ```
 
-### Create .annot file:
+#### Create _.ANNOT_ file:
 
 ```
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.annot
@@ -544,13 +541,13 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaN
 
 ### We locally plot these MDS results using the Rscript below:
 
-FPGP--ToPlot_MDSResults.R
+_FPGP--ToPlot_MDSResults.R_
 
-## Estimation of Individual Andestries (ngsAdmix)
+### Estimation of Individual Andestries [ngsAdmix](http://www.popgen.dk/software/index.php/NgsAdmix)
 
 Here we perform an analyse of estimation of individual ancestries:
 
-### With the GBS-WGS pairs:
+#### With the GBS-WGS pairs:
 
 ```
 export N_REP=100
@@ -564,17 +561,17 @@ done | xsbatch -c 11 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --tim
 
 We locally plot these ngsAdmix results using the Rscript below:
 
-FPGP--ToPlot_ngsAdmixResults.R
+_FPGP--ToPlot_ngsAdmixResults.R_
 
-## ESTIMATING SPACIAL POPULATION STRUCTURE | TESS3--v1.1.0  #
+### Estimating Spacial Population Structure | [TESS3--v1.1.0]()
 
 We locally plot these ngsAdmix results using the Rscript below:
 
-FPGP--ToPlotAncestryMap.R
+_FPGP--ToPlotAncestryMap.R_
 
-## Estimation of Supervised Individual Ancestries | ngsAdmix--Filipe
+### Estimation of Supervised Individual Ancestries | ngsAdmix--Filipe
 
-### **Variant Calling | ANGSD--v0.921**
+### Variant Calling | ANGSD--v0.921
 
 ### To get specific BAM list -- ALL GOOD SAMPLES with the ReSeq Ferals without Crupestris-Cpalumbus-Srisoria & Duplicated SAMPLES /// (465 SAMPLES / 463 GBS & 2 WGS):
 
@@ -588,11 +585,11 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 15 --mem-per-cpu 7800 -J FPGP_SNPs --time 2-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 15 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithHomers--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((476*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.005 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((476*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -doVcf 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithHomers--Article--Ultra
 ```
 
-Number of SNPs: **20,966**
+_Number of SNPs_: **20,966**
 
 Here we perform an analyse of supervised estimation of individual ancestries based on chosen populations of breeds:
 
-### With the GBS-WGS pairs:
+#### With the GBS-WGS pairs:
 
 ```
 export N_REP=100
@@ -607,15 +604,15 @@ done | xsbatch -c 45 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --tim
 
 We locally plot these Supervised_ngsAdmix results using the Rscript below:
 
-FPGP--ToPlot_Supervised_ngsAdmixResults.R
+_FPGP--ToPlot_Supervised_ngsAdmixResults.R_
 
 ```
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithFixedBreeds--Article--Ultra.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Supervised_ngsAdmix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithFixedBreeds--Article--Ultra.annot
 ```
 
-## Inference of Poulation Splits | TreeMix--v1.13
+## Inference of Poulation Splits | [TreeMix--v1.13](https://bitbucket.org/nygcresearch/treemix/wiki/Home)
 
-### Firstly, we create an TreeMiX ANNOT file:
+### Firstly, we create an TreeMiX _.ANNOT_ file:
 
 ```
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.annot
@@ -665,40 +662,40 @@ runeems_snps --params ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--EEMS/FPGP--GoodSa
 
 FPGP--ToPlotEEMSResutls.R
 
-## GWAS | GEMMA-v0.96
+### GWAS | GEMMA-v0.96
 
-### To create a DOSAGE file:
+#### To create a DOSAGE file:
 
 ```
 python ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP.dosage.py
 ```
 
-### To compute the relatedness matrix:
+#### To compute the relatedness matrix:
 
 ```
 chmod a+x gemma-0.98.1-linux-static
 ./gemma-0.98.1-linux-static -debug -g ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.dosage -gk 1 -p ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral.pheno -o FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral -maf 0.01
 ```
 
-### Create SNPAnnotation File:
+#### Create SNPAnnotation File:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.beagle.gz | tail -n +2 | awk '{split($1,a,"_"); print $1 "\t" a[3] "\t" a[1] "_" a[2]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.SNPAnnotation
 ```
 
-### Run Association Tests with Univariate Linear Mixed Models:
+#### Run Association Tests with Univariate Linear Mixed Models:
 
 ```
 ./gemma-0.98.1-linux-static -debug -lmm 4 -g ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.dosage -p ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral.pheno -a ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.SNPAnnotation -k ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/output/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral.cXX.txt -n 1 -o FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral
 ```
 
-### To slightly modify the output:
+#### To slightly modify the output:
 
 ```
 cut -f 1,2,3,14 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/output/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral.assoc.txt | awk '{print $2"\t"$1"\t"$3"\t"$4}' | tail -n +2 | sort -k 4,4 > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/output/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral.Edited.assoc.txt
 ```
 
-### Permutation with original GEMMA (permutation using one gemma run including all chrs and scaffolds)
+#### Permutation with original GEMMA (permutation using one gemma run including all chrs and scaffolds)
 
 ```
 for B in `seq -w 1 100`
@@ -709,7 +706,7 @@ do
 done
 ```
 
-### To concatenate all the p-values:
+#### To concatenate all the p-values:
 
 ```
 for i in FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral-BS_???.assoc.txt
@@ -718,7 +715,7 @@ do
 done
 ```
 
-### To concatenate (make sure to remove the header)
+#### To concatenate (make sure to remove the header)
 
 ```
 cp cutFPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral-BS_001.assoc.txt cutFPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral-BS_ALL.assoc.txt
@@ -727,12 +724,12 @@ cat cutFPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--U
 cat cutFPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral-BS_100.assoc.txt | grep -v rs >> cutFPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral-BS_ALL.assoc.txt
 ```
 
-### To get Scaffold Names:
+#### To get Scaffold Names:
 
 ```
 cut -f 2 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/output/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral.Edited.assoc.txt | uniq -c | awk '{print "\"" $2 "\""}' | echo $(cat -) > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--GWAS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra_Feral.ChrLabels.txt
 ```
 
-### We locally plot these GWAS results using the Rscript below:
+#### We locally plot these GWAS results using the Rscript below:
 
-PBGP--ToPlot_GWAS--Ultra.R
+_PBGP--ToPlot_GWAS--Ultra.R_
