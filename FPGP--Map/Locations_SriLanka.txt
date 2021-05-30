@@ -1,0 +1,6 @@
+Location	Country	Continent	Bio_Status	Class_Article	N_Ind	Longitude	Latitude	LocationOnly
+Trincomalee (10)	Sri Lanka	Asia	OutOut	C. l. intermedia	10	81.233333	8.566667	Trincomalee
+PigeonIsland (10)	Sri Lanka	Asia	OutOut	C. l. intermedia	10	81.20559	8.72254	Pigeon Island
+Colombo (10)	Sri Lanka	Asia	OutOut	C. l. intermedia	10	79.84278	6.93444	Colombo
+Wattala (4)	Sri Lanka	Asia	Captive	Captive	4	79.88333333	6.98333333	Wattala
+Wellawatte (4)	Sri Lanka	Asia	Captive	Captive	4	79.86055556	6.87472222	Wellawatte

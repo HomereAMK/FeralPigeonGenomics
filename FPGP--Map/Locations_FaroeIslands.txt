@@ -1,0 +1,7 @@
+Location	Country	Continent	Bio_Status	Class_Article	N_Ind	Longitude	Latitude	LocationOnly
+Eiði (1)	Faroe Islands	Europe	InsideOut	Remote Localities Within Natural Range	1	-7.09028	62.29917	Eiði
+Kunoy (2)	Faroe Islands	Europe	InsideOut	Remote Localities Within Natural Range	2	-6.65	62.3	Kunoy
+Ljós Áir (1)	Faroe Islands	Europe	InsideOut	Remote Localities Within Natural Range	1	-7.0625	62.27289	Ljós Áir
+Nolsoy (4)	Faroe Islands	Europe	InsideOut	Remote Localities Within Natural Range	4	-6.66861	62.00917	Nolsoy
+Sumba (3)	Faroe Islands	Europe	InsideOut	Remote Localities Within Natural Range	3	-6.713228	61.403073	Sumba
+Tórshavn (10)	Faroe Islands	Europe	InsideOut	Remote Localities Within Natural Range	10	-6.7675	62.011667	Tórshavn

@@ -1,0 +1,36 @@
+Location	Country	Continent	Bio_Status	Class_Article	N_Ind	Longitude	Latitude	LocationOnly
+Faroe Islands ()	Faroe Islands	Europa		Remote Localities Within Natural Range	0	-6.7675	62.011667	
+Wadi Hidan (18)	Jordan	Asia	Inside	Remote Localities Within Natural Range	18	35.8	31.71666667	Wadi Hidan
+Vernelle (16)	France	Europe	InsideOut	Remote Localities Within Natural Range	16	3.58111111	45.15944444	Vernelle
+Crete (4)	Greece	Europe	InsideOut	Remote Localities Within Natural Range	4	24.91	35.21	Crete
+Sardinia (10)	Italy	Europe	InsideOut	Remote Localities Within Natural Range	10	9.145583	40.739361	Sardinia
+Abadeh (13)	Iran	Asia	Inside	Urban Localities Within Natural Range	13	52.65056	31.16083	Abadeh
+Isfahan (10)	Iran	Asia	Inside	Urban Localities Within Natural Range	10	51.65	32.63333	Isfahan
+Nowshahr (7)	Iran	Asia	Inside	Urban Localities Within Natural Range	7	51.49611	36.64889	Nowshahr
+Tehran (18)	Iran	Asia	Inside	Urban Localities Within Natural Range	18	51.388889	35.689167	Tehran
+Tel Aviv (18)	Israel	Asia	Inside	Urban Localities Within Natural Range	18	34.783333	32.066667	Tel Aviv
+Lahijan (13)	Iran	Asia	Inside	Urban Localities Within Natural Range	13	50.00389	37.20722	Lahijan
+Jihlava (2)	Czechia	Europe	InsideOut	Urban Localities Within Natural Range	2	15.59056	49.40028	Jihlava
+Prague (16)	Czechia	Europe	InsideOut	Urban Localities Within Natural Range	16	14.41667	50.08333	Prague
+Copenhagen (15)	Denmark	Europe	InsideOut	Urban Localities Within Natural Range	15	12.56833	55.67611	Copenhagen
+Cambridge (1)	England	Europe	InsideOut	Urban Localities Within Natural Range	1	0.119	52.205	Cambridge
+London (14)	England	Europe	InsideOut	Urban Localities Within Natural Range	14	-0.1275	51.50722	London
+Berlin (18)	Germany	Europe	InsideOut	Urban Localities Within Natural Range	18	13.14583	52.50722	Berlin
+Guimaraes (15)	Portugal	Europe	InsideOut	Urban Localities Within Natural Range	15	-8.3	41.45	Guimarães
+Lisbon (20)	Portugal	Europe	InsideOut	Urban Localities Within Natural Range	20	-9.13944	38.71389	Lisbon
+Barcelona (16)	Spain	Europe	InsideOut	Urban Localities Within Natural Range	16	2.18333	41.38333	Barcelona
+Perth (8)	Australia	Oceania	OutOut	Localities Outside Natural Range	8	115.85889	-31.95222	Perth
+Salvador (17)	Brazil	America	OutOut	Localities Outside Natural Range	17	-38.47667	-12.97472	Salvador
+Tatui (20)	Brazil	America	OutOut	Localities Outside Natural Range	20	-47.856944	-23.355833	Tatuí
+Santiago (10)	Chile	America	OutOut	Localities Outside Natural Range	10	-70.66667	-33.45	Santiago
+Nairobi (21)	Kenya	Africa	OutOut	Localities Outside Natural Range	21	36.81667	-1.28333	Nairobi
+Tlaxcala de Xicohtencatl (9)	Mexico	America	OutOut	Localities Outside Natural Range	9	-98.24	19.3125	Tlaxcala de Xicohténcatl
+Mexico City (12)	Mexico	America	OutOut	Localities Outside Natural Range	12	-99.13333	19.43333	Mexico City
+Monterrey (15)	Mexico	America	OutOut	Localities Outside Natural Range	15	-100.3	25.66667	Monterrey
+San Cristobal de las Casas (14)	Mexico	America	OutOut	Localities Outside Natural Range	14	-92.63833	16.73667	San Cristobal de las Casas
+Johannesburg (22)	South Africa	Africa	OutOut	Localities Outside Natural Range	22	28.04556	-26.20444	Johannesburg
+Denver (6)	USA	America	OutOut	Localities Outside Natural Range	6	-104.88111	39.76194	Denver
+Salt Lake City (15)	USA	America	OutOut	Localities Outside Natural Range	15	-111.88333	40.75	Salt Lake City
+Tel Aviv Colony (6)	Israel	Asia	Captive	Captive Populations	6	34.808558	32.114344	Tel Aviv Colony
+Sri Lanka ()	Sri Lanka	Asia		Captive Populations	0	80.064094	7.555294		
+Sri Lanka ()	Sri Lanka	Asia		C. l. intermedia	0	81.344466	7.626522		
