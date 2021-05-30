@@ -1,11 +1,3 @@
----
-title: "FPGP--Map"
-author: "George Pacheco"
-date: "5/30/2021"
-output: html_document
-df_print: kable
----
-
 ## Sets Working Directory:
 
 ```
