@@ -1,7 +1,10 @@
-setwd("C:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--Map")
+### The BEGINNING ~~~~
+##
+# Creates FPGP--Map | By George PACHECO
 
-###    Creates FPGP--Map    ###
-###    By George PACHECO    ###
+# Sets Working Directory:
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Loads libraries:
 
@@ -34,7 +37,8 @@ library(scales)
 library(ggtext)
 library(patchwork)
 
-#font_import() (¡Only Once!)
+# Imports extra fonts:
+
 loadfonts(device = "win", quiet = TRUE) #Every section.
 
 # Imports .shp files:
@@ -182,4 +186,6 @@ geom_label(aes(label = "Sri Lanka"), x = 0.57, y = 0.93, size = 7.5, fontface = 
 MapPanel <- plot_grid(Map1, BottomRowUp, ncol = 1)
 ggsave(MapPanel, file = "FPGP--Map.pdf", device = cairo_pdf, width = 50, height = 50, scale = 0.335, limitsize = FALSE, dpi = 1000)
 
-# The END ~~~~
+#
+##
+### The END ~~~~
