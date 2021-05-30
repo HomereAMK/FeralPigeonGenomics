@@ -3,9 +3,9 @@
 
 Documention outlining the entire reasoning behind this pipeline. Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
 
-### 1) Acess to Raw Data & Local Storage (ERDA)
+### 1) Acess to Raw Data & Local Storage | [ERDA](https://www.erda.dk/)
 
-The GBS raw data was directly downloaded from the Institute of Biotechnology | University of Cornell's server using an ordinary "-wget" command and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
+The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ | _University of Cornell_ using an ordinary "-wget" command, and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 
 
 ### 2) Sequencing Quality Check | [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
