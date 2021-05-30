@@ -1,5 +1,5 @@
-# **Feral Pigeon Genomics Project**
-### Re-Sequencing + GBS Data Pipeline | by **Filipe G. Vieira** [![Foo](ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George Pacheco** [![Foo](ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
+# **Feral Pigeon Genomics Project | _University of Copenhagen_**
+### Re-Sequencing + GBS Data Pipeline — by **Filipe G. Vieira** [![Foo](ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George Pacheco** [![Foo](ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
 
 Documention outlining the entire reasoning behind this pipeline. Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
 
