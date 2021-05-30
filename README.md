@@ -89,7 +89,7 @@ ls ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_*/*_Demultiplexed_GBSX--v1.3/*_!(*Und
 parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -o {..}.FilteredChimeras.fastq -s $TMP_DIR/{/...}-GBS.Chimeras.id -n && gzip --best {..}.FilteredChimeras.fastq && rm {.}" | xsbatch --mem-per-cpu XXX -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 
-### Read Trimming & Mapping | _PaleoMix--v1.2.5_
+### Read Trimming & Mapping | [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix)
 
 #### GBSed Samples:
 
@@ -127,7 +127,7 @@ _Number of LOCI with No data for ALL_: **245,537**
 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
 ```
 
-## Creation of Specific Datasets | _ANGSD--v0.921_
+## Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
 
 **Dataset I** | ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
 
