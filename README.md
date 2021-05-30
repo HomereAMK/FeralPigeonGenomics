@@ -60,11 +60,11 @@ mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GB
 
 ### Creating .bed Files
 
-We used the same BED file described by (Pacheco et al., 2018) to restrict our analyses to the GBS loci.
+We used the same BED file described by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467) to restrict our analyses to the GBS loci.
 
 ### Filtering For Chimeric Reads
 
-We filtered our GBS reads for chimeric reads in the same way presented by (Pacheco et al., 2018).
+We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467).
 
 We first executed an inicial PaleoMix run with the original GBSed demultiplexed files in order to be able to indetify the chemeric reads. We used the ".yaml" file below and respective command:
 
@@ -157,7 +157,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.beagle.gz | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/call_geno.pl --skip 3 | cut -f 4- | awk '{ for(i=1;i<=NF; i++){ if($i==-1)x[i]++} } END{ for(i=1;i<=NF; i++) print i"\t"x[i] }' | paste ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.labels - | awk '{print $1"\t"$3"\t"$3*100/1225204}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/MissingDataCalc/FPGP--GoodSamples--Article--Ultra.GL-Missing.txt
 ```
 
-Dataset II | ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS):
+**Dataset II** | ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS):
 
 ### BAM List:
 
@@ -322,7 +322,7 @@ parallel --plus --dryrun angsd -i {} -anc ~/data/Pigeons/Reference/DanishTumbler
 parallel --plus "realSFS {} > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/{/..}.het" ::: ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/*.saf.idx
 ```
 
-# Finally, we calculate the percentage of heterozygous sites:
+### Finally, we calculate the percentage of heterozygous sites:
 
 ```
 fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match($1,/(GBS|WGS|WGS\-GBS)/,lol);print $1"\t"$2"\t"lol[1]}' | sort -k 1,1gr | awk '{split($0,a,"_"); print $1"\t"a[1]"\t"$2"\t"$3'} > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/FPGP--GoodSamples--Article--Ultra.Heterozygosity.txt
@@ -334,11 +334,11 @@ _FPGP--ToPlotProportionOfHeterozygousSites.R_
 
 ## Initial Phylogenetic Recinstruction
 
-> Dataset I
+**Dataset I**
 
-## We frist generated a simple NJ phylogeny just to confirm the positions of the out-groups.
+### We frist generated a simple NJ phylogeny just to confirm the positions of the out-groups.
 
-### NJ Phylogeny | ngsDist--v, FASTme--v2.1.5 + RAxML-NG--v0.5.1b ###
+### NJ Phylogeny | [ngsDist--v](https://github.com/fgvieira/ngsDist), [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/) + [RAxML-NG--v0.5.1b](https://github.com/amkozlov/raxml-ng)
 
 ## We generate here a NJ phylogeny reconstrution using a combination of several programs. This approach is better described here: 'https://github.com/fgvieira/ngsDist'
 
@@ -360,9 +360,9 @@ perl -p -e 's/\t/ /g' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FP
 fastme -T 15 -i ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples--Article--Ultra_Changed.dist -s -o ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples--Article--Ultra.nwk
 ```
 
-## EXHAUSTIVEPHYLOGENY RECONSTRUCTION | | ngsDist--v, FASTme--v2.1.5 + RAxML-NG--v0.5.1b
+### Exhaustive Phylogenetic Reconstruction | ngsDist--v, FASTme--v2.1.5 + RAxML-NG--v0.5.1b
 
-> Dataset II
+**Dataset II**
 
 ## We generate here a NJ phylogeny reconstrution using a combination of several programs. This approach is better described here: 'https://github.com/fgvieira/ngsDist'
 
