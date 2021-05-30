@@ -256,7 +256,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSris
 xsbatch -c 20 --mem-per-cpu 6400 -J pptFPGP --time 10-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 20 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((475*95/100)) -doCounts 1 -dumpCounts 2 -maxDepth $((475*1000)) -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.depth
 ```
 
-#### First, we create a _.MEAN_ file containing the average GLOBAL DEPTH of each outputted LOCI:
+#### First, we create a `.mean` file containing the average GLOBAL DEPTH of each outputted LOCI:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.depth.pos.gz | awk 'NR>1 {print $1"\t"$2-1"\t"$2"\t"$3}' | bedtools intersect -a - -b ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged.bed -wb | bedtools groupby -g 8 -c 4 -o mean > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_IntersectedWithMerged--Article--Ultra.mean
@@ -266,9 +266,9 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 
 _ToPlotGlobalCov_ReSeq.R_
 
-### Sites Info | **Dataset I**
+### 10) Sites Info | **Dataset I**
 
-#### Here we calculate the number of scaffolds with at least one SNP:
+##### Here we calculate the number of scaffolds with at least one SNP:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.mafs.gz | tail -n +2 | sort -u -k 1,1 | wc -l
@@ -276,7 +276,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 
 _FPGP--GoodSamples--Article--Ultra_: **302 scaffolds**
 
-#### We here calculate the SITES density using ordinary scripts based on the relevant files below:
+##### We here calculate the SITES density using ordinary scripts based on the relevant files below:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.mafs.gz | tail -n +2 | cut -f1 | sort | uniq -c | awk '{print $2"\t"$1}' | sort -n -k 2,2 > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/SitesInfo/FPGP--GoodSamples--Article--Ultra.SitesDensity.txt
@@ -290,34 +290,34 @@ awk 'BEGIN{OFS="\t"} NR==FNR{x[$1]=$2} NR!=FNR && $2>1000{if(!x[$1])x[$1]=0; pri
 awk '{if ($3!=0) print;}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/SitesInfo/FPGP--GoodSamples--Article--Ultra.ScaffoldInfo.txt > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/SitesInfo/FPGP--GoodSamples--Article--Ultra.ScaffoldInfo_OnlyWithSites.txt
 ```
 
-#### We locally plot these results using the Rscript below:
+##### We locally plot these results using the Rscript below:
 
 _FPGP--ToPlot_ScaffoldLength-NumberOfSites.R_
 
-### Heterozygosity Calculation | **Dataset I**
+### 11) Heterozygosity Calculation | **Dataset I**
 
-Here we calculate the percentage of heterozygous genotypes in our NoSNPCalling sites.
+Here we calculate the percentage of heterozygous genotypes in our _NoSNPCalling_ sites.
 
-#### First we generate a _.BED_ file based on the '.mafs' of this run:
+##### First we generate a `.bed` file based on the `.mafs` of this specific run:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.mafs.gz | cut -f1,2 | tail -n +2 | awk '{print $1"\t"$2-1"\t"$2}' | bedtools merge -i - > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.bed
 ```
 
-#### After we create a position file based on this new  `.bed` and index it accordingly usings ANGSD:
+##### After we create a position file based on this new  `.bed` and index it accordingly usings ANGSD:
 
 ```
 awk '{print $1"\t"($2+1)"\t"$3}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.bed > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.pos
 angsd sites index ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.pos
 ```
 
-#### Getting files:
+##### Getting files:
 
 ```
 parallel --plus --dryrun angsd -i {} -anc ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -sites ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -GL 1 -doSaf 1 -fold 1 -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/{/...} :::: ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.list | xsbatch -x node923 -R --max-array-jobs 120 -c 1 --time 1-00 --mem-per-cpu 10000 -J HetCalc --
 ```
 
-#### Getting fractions:
+##### Getting fractions:
 
 ```
 parallel --plus "realSFS {} > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/{/..}.het" ::: ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/*.saf.idx
@@ -329,11 +329,11 @@ Finally, we calculate the percentage of heterozygous sites:
 fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match($1,/(GBS|WGS|WGS\-GBS)/,lol);print $1"\t"$2"\t"lol[1]}' | sort -k 1,1gr | awk '{split($0,a,"_"); print $1"\t"a[1]"\t"$2"\t"$3'} > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/FPGP--GoodSamples--Article--Ultra.Heterozygosity.txt
 ```
 
-#### We locally plot these results using the Rscript below:
+##### We locally plot these results using the Rscript below:
 
 _FPGP--ToPlotProportionOfHeterozygousSites.R_
 
-### Initial Phylogenetic Recinstruction | **Dataset I**
+### 12) Initial Phylogenetic Recinstruction | **Dataset I**
 
 #### We frist generated a simple NJ phylogeny just to confirm the positions of the out-groups.
 
@@ -347,13 +347,13 @@ We generate here a NJ phylogeny reconstrution using a combination of several pro
 xsbatch -c 58 --mem-per-cpu 2000 -J Dist_Corr --time 3-00 -- "ngsDist --n_threads 58 --geno ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.beagle.gz --pairwise_del --seed 21 --probs --n_ind 475 --n_sites 1225204 --labels ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.labels --out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples--Article--Ultra.dist"
 ```
 
-#### Here we twick a bit the matrix of distances created above:
+##### Here we twick a bit the matrix of distances created above:
 
 ```
 perl -p -e 's/\t/ /g' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples--Article--Ultra.dist > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples--Article--Ultra_Changed.dist
 ```
 
-#### Finally, we generate NJ phylogenies runnning 100 boot-strap replicates.
+##### Finally, we generate NJ phylogenies runnning 100 boot-strap replicates.
 
 ```
 fastme -T 15 -i ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples--Article--Ultra_Changed.dist -s -o ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples--Article--Ultra.nwk
@@ -363,19 +363,19 @@ fastme -T 15 -i ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--Go
 
 We generate here a NJ phylogeny reconstrution using a combination of several programs. This approach is better described here: 'https://github.com/fgvieira/ngsDist'
 
-### First, we generate a 100 matrixes of genetic distances:
+##### First, we generate a 100 matrixes of genetic distances:
 
 ```
 xsbatch -c 18 --mem-per-cpu 3000 -J Dist_Corr --time 12:00:00 -- "ngsDist --n_threads 18 --geno ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.beagle.gz --pairwise_del --seed 21 --probs --n_ind 469 --n_sites 1261881 --labels ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.labels --out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.dist"
 ```
 
-### Here we twick a bit the matrix of distances created above:
+##### Here we twick a bit the matrix of distances created above:
 
 ```
 perl -p -e 's/\t/ /g' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.dist > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra_Changed.dist
 ```
 
-### Finally, we generate NJ phylogenies runnning 100 boot-strap replicates.
+##### Finally, we generate NJ phylogenies runnning 100 boot-strap replicates.
 
 ```
 fastme -T 15 -i ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra_Changed.dist -s -o ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.nwk
@@ -383,39 +383,39 @@ fastme -T 15 -i ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/NJ/FPGP--Go
 
 We generate here a ML phylogeny reconstrution using the software RaxML-NG.
 
-### First we convert the HAPLO file into a FASTA:
+##### First we convert the HAPLO file into a FASTA:
 
 ```
 xsbatch -c XXX --mem-per-cpu 95000 -J FASTA --time 2-00 -- "zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.haplo.gz | cut -f 4- | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/tsv_merge.pl --transp --ofs '' - | awk 'NR==FNR{id=$1; sub(".*\\/","",id); sub("\\..*","",id); x[FNR]=id} NR!=FNR{ print ">"x[FNR]"\n"$1}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.labels - > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.fasta"
 ```
 
-### Second, we use RAxML-ng to generate a ML phylogeny based on this FASTA alingment having the NJ phylogeny generated above as a backbone:
+##### Second, we use RAxML-ng to generate a ML phylogeny based on this FASTA alingment having the NJ phylogeny generated above as a backbone:
 
 ```
 raxml-ng --threads 15 --all --model GTR+G --site-repeats on --msa ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.fasta --prefix ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist
 ```
 
-### Then, we use RAxML-ng to bootstrap this generated ML phylogeny:
+##### Then, we use RAxML-ng to bootstrap this generated ML phylogeny:
 
 ```
 raxml-ng-mpi --threads XXX --bootstrap --model GTR+G --bs-trees 100 --site-repeats on --msa ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.fasta --tree ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.raxml.bestTree --prefix ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.BOOT
 ```
 
-### Finally, we add the bootstrap values supports to the generated ML phylogeny:
+##### Finally, we add the bootstrap values supports to the generated ML phylogeny:
 
 ```
 raxml-ng --threads XXX --support --tree ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.raxml.bestTree --bs-trees ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.BOOT.tree --prefix ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.FINAL
 ```
 
-## POPULATION GENETICS STATISTICS | ANGSD--v0.925
+### 13) Population Genetics Statistics | ANGSD--v0.925
 
-### To create ancestral sequence:
+##### To create ancestral sequence:
 
 ```
 xsbatch -c 12 --mem-per-cpu 2048 -J PBGP_AllSites --time 5-00 --force -- angsd -nThreads 12 -i ~/data/Pigeons/Analysis/PaleoMix_Re-Sequencing/Crupestris_01-WGS.RockDove_DoveTail_ReRun.realigned.bam -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -doFasta 1 -doCounts 1 -explode 1 -rmTrans 0 -seed 433 -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -out ~/data/Pigeons/PBGP/PBGP--Analyses/PBGP--PopGenStats/Crupestris_01-WGS.RockDove_DoveTail_ReRun.realigned.Ancestral
 ```
 
-### To get list of specific BAMs:
+##### To get list of specific BAMs:
 
 ```
 POP=("Abadeh" "Barcelona" "Berlin" "Colombo" "Copenhagen" "Crete" "Denver" "Guimaraes" "Isfahan" "Johannesburg" "Lahijan" "Lisbon" "London" "MexicoCity" "Monterrey" "Nairobi" "Nowshahr" "Perth" "PigeonIsland" "Prague" "SaltLakeCity" "Salvador" "SanCristobalDeLasCasas" "Santiago" "Sardinia" "Tatui" "Tehran" "TelAviv" "TelAvivColony" "TlaxcalaDeXicohtencatl" "Torshavn" "Trincomalee" "Vernelle" "WadiHidan")
@@ -427,7 +427,7 @@ do
 done
 ```
 
-## To run ANGSD with '-doSaf':
+##### To run ANGSD with `-doSaf`:
 
 ```
 for query in Torshavn
@@ -439,7 +439,7 @@ do
 done | xsbatch -c 19 --mem-per-cpu 1024 -J AllSafs -R --max-array-jobs 60 --time 1-00 --
 ```
 
-## To run realSFS:
+##### To run realSFS:
 
 ```
 for query in Torshavn
@@ -450,7 +450,7 @@ do
 done
 ```
 
-## To run ANGSD with _-doThetas_:
+##### To run ANGSD with `-doThetas`:
 
 ```
 for query in Torshavn
@@ -462,7 +462,7 @@ echo angsd -nThreads 2 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRu
 done | xsbatch -c 2 --mem-per-cpu 1024 -J AllThetas -R --max-array-jobs 60 --time 5-00 --
 ```
 
-## To get summary of Thetas:
+##### To get summary of Thetas:
 
 ```
 for query in Abadeh Barcelona Berlin Colombo Copenhagen Crete Denver Guimaraes Isfahan Johannesburg Lahijan Lisbon London MexicoCity Monterrey Nairobi Nowshahr Perth PigeonIsland Prague SaltLakeCity Salvador SanCristobalDeLasCasas Santiago Sardinia Tatui Tehran TelAviv TelAvivColony TlaxcalaDeXicohtencatl Torshavn Trincomalee Vernelle WadiHidan
@@ -474,7 +474,7 @@ do
 done
 ```
 
-## To perform final calculations:
+##### To perform final calculations:
 
 ```
 for query in Abadeh Barcelona Berlin Colombo Copenhagen Crete Denver Guimaraes Isfahan Johannesburg Lahijan Lisbon London MexicoCity Monterrey Nairobi Nowshahr Perth PigeonIsland Prague SaltLakeCity Salvador SanCristobalDeLasCasas Santiago Sardinia Tatui Tehran TelAviv TelAvivColony TlaxcalaDeXicohtencatl Torshavn Trincomalee Vernelle WadiHidan
@@ -484,7 +484,7 @@ do
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus-DoSaf-WithWrapper-DoThetas-NoWrapper--Article--Ultra.PopGenSummary.txt
 ```
 
-## To print thetas:
+##### To print thetas:
 
 ```
 for query in Torshavn
@@ -517,33 +517,33 @@ do
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 ```
 
-### Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | **Dataset III**
+### 14) Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | **Dataset III**
 
 Here are perform a multidimensional scaling anlysis on the genetic distance matrix created above:
 
-#### To get distance matrix:
+##### To get distance matrix:
 
 ```
 xsbatch -c 14 --mem-per-cpu 2000 -J Dist_Corr --time 3-00 -- "ngsDist --n_threads 14 --geno ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.beagle.gz --pairwise_del --seed 32 --probs --n_ind 457 --n_sites 20659 --labels ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.labels --out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.dist"
 ```
 
-#### To perform MDS:
+##### To perform MDS:
 
 ```
 tail -n +3 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.dist | Rscript --vanilla --slave /groups/hologenomics/fgvieira/scripts/get_PCA.R --no_header --data_symm -n 10 -m "mds" -o ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.mds
 ```
 
-#### Create `.annot` file:
+##### Create `.annot` file:
 
 ```
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.annot
 ```
 
-### We locally plot these MDS results using the Rscript below:
+##### We locally plot these MDS results using the Rscript below:
 
 _FPGP--ToPlot_MDSResults.R_
 
-### Estimation of Individual Andestries [ngsAdmix](http://www.popgen.dk/software/index.php/NgsAdmix)
+### 14) Estimation of Individual Andestries [ngsAdmix](http://www.popgen.dk/software/index.php/NgsAdmix)
 
 Here we perform an analyse of estimation of individual ancestries:
 
