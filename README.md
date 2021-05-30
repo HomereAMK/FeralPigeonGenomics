@@ -113,11 +113,11 @@ awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Cover
 
 _Number of LOCI with No data for ALL_: **245,537**
 
-## Filtering of Bad Samples
+### Filtering of Bad Samples
 
-## Here we create some auxiliary files.
+Here we create some auxiliary files.
 
-### Here we manually create a list containing SAMPLES to be excluded. Please notice that the 10 BAD GBS SAMPLES and 6 BLANKS are highlighted in the Coverage HeatMap:
+#### We manually create a list containing SAMPLES to be excluded. Please notice that the 10 BAD GBS SAMPLES and 6 BLANKS are highlighted in the Coverage HeatMap:
 
 ```
 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
@@ -621,7 +621,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaN
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.annot
 ```
 
-### Then, we create convert the .GENO file into a .TREEMIX format:
+### Then, we create convert the _.GENO_ file into a .TREEMIX format:
 
 ```
 perl /groups/hologenomics/fgvieira/scripts/geno2treemix.pl --geno ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.geno.gz --format angsd --skip_cols 4 --pop ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.annot | gzip --best > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.gz
@@ -637,19 +637,19 @@ do
 done | xsbatch -c 10 --mem-per-cpu 1024 -J TreeMix -R --max-array-jobs 13 --time 10-00 --
 ```
 
-### Here we generate a .POPORDER file:
+#### Here we generate a _.POPORDER_ file:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.gz | head -n 1 | perl -p -e 's/ /\n/g' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.poporder
 ```
 
-### Here we finally plot the results:
+#### Here we finally plot the results:
 
 ```
 ls -Sv ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.12.llik | perl -p -e 's/\.llik//g' | Rscript --vanilla --slave -e "source('/groups/hologenomics/software/treemix/v1.13/src/plotting_funcs.R'); h=18; w=h*2; x<-read.table('stdin')[,1]; pdf(height=h,width=w); layout(matrix(c(1,2),ncol=2),c(w/2,w/2),c(h)); for(i in x){plot_tree(i);plot_resid(i,'~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.poporder')}; dev.off()"; mv Rplots.pdf  ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.12.pdf
 ```
 
-## Estimating E1fective Migration Surfaces | EEMS--v20180406
+### Estimating E1fective Migration Surfaces | EEMS--v20180406
 
 ### To run the analyses:
 
