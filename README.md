@@ -5,7 +5,7 @@
 
 ### 1) Acess to Raw Data & Local Storage | [ERDA](https://www.erda.dk/)
 
-The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary ´-wget´ command, and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
+The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 
 ### 2) Sequencing Quality Check | [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
@@ -59,9 +59,9 @@ mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GB
 
 ### 4) Filtering For Chimeric Reads
 
-We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same _BED_ file presented in this publication to restrict our analyses to the _GBS_ loci.
+We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same `.bed` file presented in this publication to restrict our analyses to the _GBS_ loci.
 
-#### We first executed an inicial PaleoMix run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the _.YAML_ file below and respective command:
+#### We first executed an inicial PaleoMix run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the `.yaml` file below and respective command:
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline run --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS_S.risoria.yaml
@@ -304,7 +304,7 @@ Here we calculate the percentage of heterozygous genotypes in our NoSNPCalling s
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.mafs.gz | cut -f1,2 | tail -n +2 | awk '{print $1"\t"$2-1"\t"$2}' | bedtools merge -i - > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.bed
 ```
 
-#### After we create a position file based on this new  '.bed' and index it accordingly usings ANGSD:
+#### After we create a position file based on this new  `.bed` and index it accordingly usings ANGSD:
 
 ```
 awk '{print $1"\t"($2+1)"\t"$3}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.bed > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.pos
@@ -533,7 +533,7 @@ xsbatch -c 14 --mem-per-cpu 2000 -J Dist_Corr --time 3-00 -- "ngsDist --n_thread
 tail -n +3 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.dist | Rscript --vanilla --slave /groups/hologenomics/fgvieira/scripts/get_PCA.R --no_header --data_symm -n 10 -m "mds" -o ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.mds
 ```
 
-#### Create _.ANNOT_ file:
+#### Create `.annot` file:
 
 ```
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.annot
@@ -612,7 +612,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaN
 
 ## Inference of Poulation Splits | [TreeMix--v1.13](https://bitbucket.org/nygcresearch/treemix/wiki/Home)
 
-### Firstly, we create an TreeMiX _.ANNOT_ file:
+### Firstly, we create an TreeMiX `.annot` file:
 
 ```
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.annot
@@ -634,7 +634,7 @@ do
 done | xsbatch -c 10 --mem-per-cpu 1024 -J TreeMix -R --max-array-jobs 13 --time 10-00 --
 ```
 
-#### Here we generate a _.POPORDER_ file:
+#### Here we generate a `.poporder` file:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.gz | head -n 1 | perl -p -e 's/ /\n/g' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--TreeMix/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.treemix.poporder
