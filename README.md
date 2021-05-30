@@ -1,13 +1,14 @@
-# **FPGB | Re-Sequencing + GBS Data Pipeline** - by Garrett F. V. & Pacheco G.
+## **Feral Pigeon Genomics Project**
+#### Re-Sequencing + GBS Data Pipeline | by **Filipe G. Vieira**[![Foo](OrcidGreenRoundLogo.png)](https://orcid.org/0000-0002-8464-7770) & **George Pacheco**[![Foo](OrcidGreenRoundLogo.png)](https://orcid.org/0000-0002-9367-6813)
 
-Documention outlining the entire reasoning behind this pipeline. Please, contact 'george.pacheco@snm.ku.dk' should any question arise.
+Documention outlining the entire reasoning behind this pipeline. Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
 
-## 1) Acess to Raw Data & Local Storage (ERDA)
+### 1) Acess to Raw Data & Local Storage (ERDA)
 
 The GBS raw data was directly downloaded from the Institute of Biotechnology | University of Cornell's server using an ordinary "-wget" command and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 
 
-## 2) Sequencing Quality Check | [_FASTQc--v0.11.5_](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+### 2) Sequencing Quality Check | [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 A general sequencing quality check of each plate was performed using the software FastQC--v0.11.5 using default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 
@@ -16,7 +17,7 @@ Example:
 ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Fastqced--v0.11.5/
 ```
 
-## 3) Demultiplexing | [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX)
+### 3) Demultiplexing | [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX)
 
 All the plates were demultiplexed in the very same way using the software GBSX--v1.3 based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 
@@ -57,11 +58,11 @@ Example:
 mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.R1.fastq.gz ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.fastq.gz
 ```
 
-## Creating .bed Files
+### Creating .bed Files
 
 We used the same BED file described by (Pacheco et al., 2018) to restrict our analyses to the GBS loci.
 
-## Filtering For Chimeric Reads
+### Filtering For Chimeric Reads
 
 We filtered our GBS reads for chimeric reads in the same way presented by (Pacheco et al., 2018).
 
@@ -88,9 +89,9 @@ ls ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_*/*_Demultiplexed_GBSX--v1.3/*_!(*Und
 parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -o {..}.FilteredChimeras.fastq -s $TMP_DIR/{/...}-GBS.Chimeras.id -n && gzip --best {..}.FilteredChimeras.fastq && rm {.}" | xsbatch --mem-per-cpu XXX -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 
-## Read Trimming & Mapping | _PaleoMix--v1.2.5_
+### Read Trimming & Mapping | _PaleoMix--v1.2.5_
 
-### GBSed Samples:
+#### GBSed Samples:
 
 Basically, we run the very same ".yaml" file used in the inicial GBSed run here, the only different was of course that now we used the filtered ".fastq.gz" files. Please notice that PCR duplicates are NOT removed here!
 
