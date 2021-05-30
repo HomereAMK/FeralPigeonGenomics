@@ -7,7 +7,7 @@ Documention outlining the entire reasoning behind this pipeline. Please, contact
 The GBS raw data was directly downloaded from the Institute of Biotechnology | University of Cornell's server using an ordinary "-wget" command and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 
 
-## 2) Sequencing Quality Check | _FASTQc--v0.11.5_(https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+## 2) Sequencing Quality Check | [_FASTQc--v0.11.5_](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 A general sequencing quality check of each plate was performed using the software FastQC--v0.11.5 using default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 
