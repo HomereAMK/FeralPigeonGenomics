@@ -1,45 +1,18 @@
 ### The BEGINNING ~~~~
 ##
-# Creates FPGP--Map | By George PACHECO
+# > Creates FPGP--Map | By George PACHECO
 
 # Sets Working Directory:
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# Loads libraries:
+# Loads required packages:
 
-library(sf)
-library(sp)
-library(ggspatial)	
-library(ggmap)
-library(maps)
-library(ggplot2)
-library(raster)
-library(dplyr)
-library(spData)
-library(spDataLarge)
-library(tmap)
-library(ggrepel)
-library(tidyverse)
-library(rnaturalearth)
-library(rnaturalearthdata)
-library(rnaturalearthhires)
-library(rgdal)
-library(rgeos)
-library(ggpubr)
-library(ggthemes)
-library(ggsn)
-library(extrafont)
-library(microplot)
-library(gridExtra)
-library(cowplot)
-library(scales)
-library(ggtext)
-library(patchwork)
+pacman::p_load(rnaturalearth, sf, ggspatial, ggplot2, ggrepel, extrafont, cowplot)
 
 # Imports extra fonts:
 
-loadfonts(device = "win", quiet = TRUE) #Every section.
+loadfonts(device = "win", quiet = TRUE)
 
 # Imports .shp files:
 
