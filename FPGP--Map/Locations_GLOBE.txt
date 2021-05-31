@@ -32,5 +32,6 @@ Johannesburg (22)	South Africa	Africa	OutOut	Localities Outside Natural Range	22
 Denver (6)	USA	America	OutOut	Localities Outside Natural Range	6	-104.88111	39.76194	Denver
 Salt Lake City (15)	USA	America	OutOut	Localities Outside Natural Range	15	-111.88333	40.75	Salt Lake City
 Tel Aviv Colony (6)	Israel	Asia	Captive	Captive Populations	6	34.808558	32.114344	Tel Aviv Colony
-Sri Lanka ()	Sri Lanka	Asia		Captive Populations	0	80.064094	7.555294		
-Sri Lanka ()	Sri Lanka	Asia		C. l. intermedia	0	81.344466	7.626522		
+Sri Lanka ()	Sri Lanka	Asia		Captive Populations	0	81.538576	7.399647		
+Sri Lanka ()	Sri Lanka	Asia		Urban Localities Within Natural Range	0	80.045785	7.159662
+Sri Lanka ()	Sri Lanka	Asia		Remote Localities Within Natural Range	0	80.426704	9.090906

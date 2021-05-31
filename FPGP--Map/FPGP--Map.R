@@ -22,6 +22,10 @@ FRO <- read_sf(dsn = ".", layer = "FRO_adm0")
 SLK <- read_sf(dsn = ".", layer = "LKA_adm0")
 NR <- read_sf(dsn = ".", layer = "Columba_livia")
 
+# Creates sub-sets of the .shp files: 
+
+NR_slk <- st_crop(NR, xmin = 79.5, xmax = 83, ymin = 5, ymax = 10, expand = FALSE)
+
 # Loads coordinates:
 
 Coords_Global <- read.csv2("Locations_GLOBE.txt", sep = "\t", header = TRUE, encoding = "UTF-8")
@@ -48,23 +52,22 @@ Coords_Global_sf$Class_Article <- factor(Coords_Global_sf$Class_Article, levels=
                                "Remote Localities Within Natural Range",
                                "Urban Localities Within Natural Range",
                                "Localities Outside Natural Range",
-                               "Captive Populations",
-                               "C. l. intermedia"))
+                               "Captive Populations"))
 
 # Global:
 
 Map1 <-
 ggplot() +
   geom_sf(data = Global, fill = "#fff5f0", color = "black") +
-  geom_sf(data = NR[NR$origin == "1",], fill = "#addd8e", alpha = 0.35, color = "#2a6b00", linetype = "dotdash") +
+  geom_sf(data = NR[NR$origin == "1",], fill = "#addd8e", alpha = 0.35, color = NA) +
   geom_sf(data = Coords_Global_sf, aes(fill = Class_Article), size = 3, show.legend = "point", shape = 21, colour = "black") +
   coord_sf(xlim = c(-130, 130), ylim = c(-42, 72), expand = FALSE) +
   geom_label_repel(data = Coords_Global, size = 3.75, seed = 10, min.segment.length = 0, force = 25, segment.curvature = 1,
                    nudge_x = 0, nudge_y = 0, max.overlaps = Inf, fontface = "bold", colour = "black",
                    aes(x = Longitude, y = Latitude, label = LocationOnly,
                    fill = Class_Article, family = "Georgia"), alpha = 0.9, show.legend = FALSE) +
-  scale_fill_manual(values=c("#44AA99", "#F0E442", "#E69F00", "#56B4E9", "#CC79A7"), drop=FALSE) +
-  scale_colour_manual(values=c("#44AA99", "#F0E442", "#E69F00", "#56B4E9", "#CC79A7"), drop=FALSE) +
+  scale_fill_manual(values=c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), drop=FALSE) +
+  scale_colour_manual(values=c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), drop=FALSE) +
   scale_x_continuous(breaks = seq(-120, 120, by = 25)) +
   scale_y_continuous(breaks = seq(-20, 70, by = 25)) +
   annotation_north_arrow(location = "br", which_north = "false", style = north_arrow_fancy_orienteering,
@@ -87,13 +90,14 @@ ggplot() +
                              label.theme = element_text(size = 8, face = "italic", family = "Helvetica"),
                              override.aes = list(size = 3, alpha = 0.9)), colour = "none")
 
-#ggsave(Map1, file = "Global.pdf", width = 26, height = 13, scale = 0.8, limitsize = FALSE, dpi = 1000)
+#ggsave(Map1, file = "Global.pdf", device = cairo_pdf, width = 26, height = 13, scale = 0.8, limitsize = FALSE, dpi = 1000)
 
 # Faroe Islands:
 
 Map2 <-
 ggplot() + 
   geom_sf(data = FRO, fill = "#fff5f0", color = "black") +
+  geom_sf(data = NR[NR$origin == "1",], fill = "#addd8e", alpha = 0.35, color = NA) +
   geom_sf(data = Coords_FRO_sf, aes(fill = Class_Article), size = 5, alpha = 0.9, show.legend = "point", shape = 21, colour = "black") +
   geom_label_repel(data = Coords_FRO, size = 4.5, seed = 10, min.segment.length = 0, force = 30, segment.curvature = 1, nudge_x = 0, nudge_y = 0, max.overlaps = Inf,
                    fontface = "bold", colour = "black", aes(x = Longitude, y = Latitude, label = LocationOnly,
@@ -104,7 +108,7 @@ ggplot() +
   scale_y_continuous(breaks = seq(59, 63.0, by = 0.5)) +
   coord_sf(xlim = c(-8, -5.75), ylim = c(61.35, 62.42), expand = FALSE) +
   annotation_north_arrow(location = "br", which_north = "false", style = north_arrow_fancy_orienteering,
-                         pad_x = unit(0.25, "in"), pad_y = unit(0.25, "in")) +
+                         pad_x = unit(0.25, "in"), pad_y = unit(6.85, "in")) +
   annotation_scale(location = 'br', line_width = 2, text_cex = 1.35, style = "ticks") +
   theme(panel.background = element_rect(fill = "#f7fbff"),
         panel.border = element_rect(colour = "#a50026", size = 0.5, linetype = "dotdash", fill = NA),
@@ -116,25 +120,26 @@ ggplot() +
   theme(axis.ticks = element_line(color ="black", size = 0.5)) +
   guides(color = "none", fill = "none")
 
-#ggsave(file = "FO.pdf", width = 13, height = 13, scale = 0.65, limitsize = FALSE, dpi = 1000)
+#ggsave(Map2, file = "FO.pdf", device = cairo_pdf, width = 13, height = 13, scale = 0.65, limitsize = FALSE, dpi = 1000)
 
 # Sri Lanka:
 
 Map3 <-
 ggplot() + 
   geom_sf(data = SLK, fill = "#fff5f0", color = "black") +
+  geom_sf(data = NR_slk[NR_slk$origin == "1",], fill = "#addd8e", alpha = 0.35, color = NA) +
   geom_sf(data = Coords_SLK_sf, aes(fill = Class_Article), size = 5, alpha = 0.9, show.legend = "point", shape = 21, colour = "black") +
   geom_label_repel(data = Coords_SLK, size = 4.5, seed = 10, min.segment.length = 0, force = 50, segment.curvature = 1,
                    nudge_x = c(0, 0, -0.35, 0, 0), nudge_y = c(-0.15, 0.15, 0, 0.15, -0.15), max.overlaps = Inf,
                    fontface = "bold", colour = "black", aes(x = Longitude, y = Latitude, label = LocationOnly,
                    fill = Class_Article, family = "Georgia"), alpha = 0.9, show.legend = FALSE) +
-  scale_fill_manual(values=c("#CC79A7", "#56B4E9"), drop=FALSE) +
-  scale_colour_manual(values=c("#CC79A7", "#56B4E9"), drop=FALSE) +
+  scale_fill_manual(values=c("#56B4E9", "#44AA99", "#F0E442"), drop=FALSE) +
+  scale_colour_manual(values=c("#56B4E9", "#44AA99", "#F0E442"), drop=FALSE) +
   scale_x_continuous(breaks = seq(79, 82, by = 0.5)) +
   scale_y_continuous(breaks = seq(6, 11, by = 0.5)) +
   coord_sf(xlim = c(78.55, 82.65), ylim = c(5.825, 9.90), expand = FALSE, label_graticule = "SE") +
   annotation_north_arrow(location = "br", which_north = "false", style = north_arrow_fancy_orienteering,
-                         pad_x = unit(0.25, "in"), pad_y = unit(0.25, "in")) +
+                         pad_x = unit(0.25, "in"), pad_y = unit(6.85, "in")) +
   annotation_scale(location = 'br', line_width = 2, text_cex = 1.35, style = "ticks") +
   theme(panel.background = element_rect(fill = "#f7fbff"),
         panel.border = element_rect(colour = "#a50026", size = 0.5, linetype = "dotdash", fill = NA),
@@ -146,7 +151,7 @@ ggplot() +
   theme(axis.ticks = element_line(color ="black", size = 0.5)) +
   guides(color = "none", fill = "none")
 
-#ggsave(file = "SLK.pdf", width = 13, height = 13, scale = 0.65, limitsize = FALSE, dpi = 1000)
+#ggsave(Map3, file = "SLK.pdf", device = cairo_pdf, width = 13, height = 13, scale = 0.65, limitsize = FALSE, dpi = 1000)
 
 # Adds final touches:
 
