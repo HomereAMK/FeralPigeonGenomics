@@ -2,7 +2,8 @@
 ##
 # > Creates FPGP--Map | By George PACHECO
 
-# Sets Working Directory:
+
+# Sets working directory:
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
