@@ -33,7 +33,7 @@ opt$annot = "FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCa
 opt$id_column = 1
 opt$in_maj_labels = "Location"
 
-### Reads data
+# Reads data
 
 data <- read.table(opt$in_file, row.names = 1, sep = "\t", header = !opt$no_header, stringsAsFactors = FALSE, check.names = FALSE)
 n <- ncol(data)
@@ -95,8 +95,6 @@ n = n - 1
 data_mean <- ddply(data, opt$in_maj_labels, function(x){colMeans(x[, 1:n], na.rm = TRUE)})
 colors <- as.character(opt$in_maj_labels)}
 
-##############################################################
-
 # Reorganises the data:
 
 data$Location <- factor(data$Location, ordered = T, levels = c("America", "SaltLakeCity", "Denver", "Virginia", "Monterrey", "MexicoCity", "TlaxcalaDeXicohtencatl", "SanCristobalDeLasCasas", "Santiago", "Salvador", "Tatui","",
@@ -105,9 +103,11 @@ data$Location <- factor(data$Location, ordered = T, levels = c("America", "SaltL
                                                            "Asia","Lahijan","Nowshahr","Tehran","Isfahan","Abadeh", "TelAviv","TelAvivColony","WadiHidan","Colombo", "PigeonIsland","Trincomalee", "   ",
                                                            "Oceania","Perth"))
 
+# Creates MDS plots:
+
 #MDS_12 <-
 ggplot(data, aes_string(x = "D1_3.25448642972517", y = "D2_1.88108101324778", colour = "Location")) +
-       geom_point(alpha = 1, size = 2.2, shape = data$Shape) +
+ geom_point(alpha = 1, size = 2.2, shape = data$Shape) +
   
   scale_fill_manual(values = c("#F3F3F3", "#1b9e77", "#d95f02", "#7570b3", "#1b9e77", "#ff7f00", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#F3F3F3", "#F3F3F3",
                              "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#F3F3F3","#F3F3F3",
