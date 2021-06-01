@@ -46,15 +46,16 @@ Coords_Global_sf <- st_as_sf(Coords_Global, coords = c("Longitude", "Latitude"),
 Coords_FRO_sf <- st_as_sf(Coords_FRO, coords = c("Longitude", "Latitude"), crs = 4326)
 Coords_SLK_sf <- st_as_sf(Coords_SLK, coords = c("Longitude", "Latitude"), crs = 4326)
 
-# Creates the base maps:
+# Reorganises the data:
 
 Coords_Global_sf$Class_Article <- factor(Coords_Global_sf$Class_Article, levels=c(
                                "Remote Localities Within Natural Range",
                                "Urban Localities Within Natural Range",
                                "Localities Outside Natural Range",
                                "Captive Populations"))
+# Creates the base maps:
 
-# Global:
+# Map1 - Global:
 
 Map1 <-
 ggplot() +
@@ -92,7 +93,7 @@ ggplot() +
 
 #ggsave(Map1, file = "Global.pdf", device = cairo_pdf, width = 26, height = 13, scale = 0.8, limitsize = FALSE, dpi = 1000)
 
-# Faroe Islands:
+# Map2 - Faroe Islands:
 
 Map2 <-
 ggplot() + 
@@ -122,7 +123,7 @@ ggplot() +
 
 #ggsave(Map2, file = "FO.pdf", device = cairo_pdf, width = 13, height = 13, scale = 0.65, limitsize = FALSE, dpi = 1000)
 
-# Sri Lanka:
+# Map3 - Sri Lanka:
 
 Map3 <-
 ggplot() + 
