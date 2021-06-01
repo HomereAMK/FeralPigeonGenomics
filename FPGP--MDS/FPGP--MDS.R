@@ -149,7 +149,7 @@ ggplot(data, aes_string(x = "D1_3.25448642972517", y = "D2_1.88108101324778", co
   
 # Creates & Saves the final MDS Panel:
 
-ggsave("FPGP--MDS_c.pdf", device = cairo_pdf, height = 15, width = 18, scale = 0.825, dpi = 1000)
+ggsave("FPGP--MDS.pdf", device = cairo_pdf, height = 15, width = 18, scale = 0.825, dpi = 1000)
 
 #
 ##
