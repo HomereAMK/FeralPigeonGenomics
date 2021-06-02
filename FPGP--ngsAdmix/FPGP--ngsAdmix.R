@@ -15,17 +15,17 @@ pacman::p_load(optparse, ggplot2, plyr, RColorBrewer, extrafont, gtable, grid)
 
 loadfonts(device = "win", quiet = TRUE)
 
-# Reads data
+# Loads the data:
 
 samples <- read.table("GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives.popfile", stringsAsFactors = FALSE, sep = "\t")
 
-# Reads annotation file
+# Reads the annotation file:
 
 ids <- read.table("GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives.annot", stringsAsFactors = FALSE, sep = "\t", header = TRUE)
 
 # Reorganises the data:
 
-ids$Location <- factor(ids$Location, ordered = T, levels=c("SaltLakeCity","Denver","Virginia","Monterrey","MexicoCity","TlaxcalaDeXicohtencatl","SanCristobalDeLasCasas","Santiago","Salvador",
+ids$Location <- factor(ids$Location, ordered = T, levels = c("SaltLakeCity","Denver","Virginia","Monterrey","MexicoCity","TlaxcalaDeXicohtencatl","SanCristobalDeLasCasas","Santiago","Salvador",
                                                          "Tatui","FaroeIslands","Copenhagen","Cambridge","London","Berlin","Prague","Jihlava","Vernelle","Barcelona","Guimaraes","Lisbon","Sardinia","Crete",
                                                          "Nairobi","Johannesburg","Lahijan","Nowshahr","Tehran","Isfahan","Abadeh", "TelAviv","TelAvivColony","WadiHidan","Colombo",
                                                          "PigeonIsland","Trincomalee","Perth"))
@@ -39,17 +39,25 @@ target = "Location"
 
 data_for_plot <- data.frame()
 
-#c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25),
-#c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24),
-#c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23),
-#c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22),
-#c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21),
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20),
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19),
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18),
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17),
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16),
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15),
+#c(1,2,3,4,5,6,7,8,9,10,11,12,13,14),
+#c(1,2,3,4,5,6,7,8,9,10,11,12,13),
+#c(1,2,3,4,5,6,7,8,9,10,11,12),
+#c(1,2,3,4,5,6,7,8,9,10,11),
+#c(1,2,3,4,5,6,7,8,9,10),
+#c(1,2,3,4,5,6,7,8,9),
+#c(1,2,3,4,5,6,7,8),
+#c(1,2,3,4,5,6,7),
+#c(1,2,3,4,5,6),
+#c(1,2,3,4,5),
+#c(1,2,3,4),
+#c(1,2,3),
+#c(1,2))
 
 # Ask Sama 2:
 
@@ -89,7 +97,7 @@ for (j in 1:length(samples[,1])){
 
 x_lab <- (sampleid)
 
-# Creates ngsAmix plots:
+# Creates the plots:
 
 ngsAdmix <-
 ggplot(data_for_plot, aes(x = get(sampleid), y = value, fill = k)) + labs(x = x_lab) +
@@ -99,7 +107,6 @@ ggplot(data_for_plot, aes(x = get(sampleid), y = value, fill = k)) + labs(x = x_
   scale_y_continuous(expand = c(0, 0), breaks = NULL) +
   theme(panel.background = element_rect(fill = '#000000'),
         panel.grid.minor.x = element_blank(),
-        legend.position = "none",
         panel.grid.major = element_blank(),
         panel.spacing = unit(0.2, "lines"),
         plot.title = element_blank(),
@@ -109,7 +116,8 @@ ggplot(data_for_plot, aes(x = get(sampleid), y = value, fill = k)) + labs(x = x_
         axis.ticks = element_blank(),
         strip.background = element_rect(colour = "#000000", fill = '#FAFAFA', size = 0.05),
         strip.text.x = element_text(colour = "#000000", face = "bold", size = 7, angle = 270, margin = margin(0.1, 0, 0.1, 0, "cm")),
-        strip.text.y = element_text(colour = "#000000", face = "bold", size = 7, angle = 270, margin = margin(0, 0.1, 0, 0.1, "cm")))
+        strip.text.y = element_text(colour = "#000000", face = "bold", size = 7, angle = 270, margin = margin(0, 0.1, 0, 0.1, "cm")),
+        legend.position = "none")
 
 ngsAdmix_G <- ggplotGrob(ngsAdmix)
 
