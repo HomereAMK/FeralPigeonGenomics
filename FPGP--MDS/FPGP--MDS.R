@@ -105,7 +105,7 @@ data$Location <- factor(data$Location, ordered = T, levels = c("America", "SaltL
 
 # Creates MDS plots:
 
-#MDS_12 <-
+MDS_12 <-
 ggplot(data, aes_string(x = "D1_3.25448642972517", y = "D2_1.88108101324778", colour = "Location")) +
  geom_point(alpha = 1, size = 2.2, shape = data$Shape) +
   
@@ -149,7 +149,7 @@ ggplot(data, aes_string(x = "D1_3.25448642972517", y = "D2_1.88108101324778", co
   
 # Creates & Saves the final MDS Panel:
 
-ggsave("FPGP--MDS.pdf", device = cairo_pdf, height = 15, width = 18, scale = 0.825, dpi = 1000)
+ggsave(MDS_12, file = "FPGP--MDS.pdf", device = cairo_pdf, height = 15, width = 18, scale = 0.825, dpi = 1000)
 
 #
 ##

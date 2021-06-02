@@ -124,15 +124,13 @@ ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000
 ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000", fill = "#2b8cbe", size = .5, lwd = 0.25)), textGrob("South Asia",gp = gpar(cex = .75, fontface = 'bold', col = "black"))), t = 6, l = 71, b = 6, r = 75, name = c("a", "b"))
 ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000", fill = "#c51b8a", size = .5, lwd = 0.25)), textGrob("Oceania",gp = gpar(cex = .75, fontface = 'bold', col = "black"))), t = 6, l = 77, b = 6, r = 77, name = c("a", "b"))
 
-print(ngsAdmix_G)
-
 ngsAdmix_G <- gtable_add_rows(ngsAdmix_G, unit(2/10, "line"), 6)
 
 # Creates & Saves the final Map Panel:
 
 grid.newpage()
 grid.draw(ngsAdmix_G)
-ggsave(last_plot(), file = "FPGP--ngsAdmix.pdf", device = cairo_pdf, width = 40, height = 15, dpi = 1000)
+ggsave(ngsAdmix_G, file = "FPGP--ngsAdmix.pdf", device = cairo_pdf, width = 40, height = 15, dpi = 1000)
 
 #
 ##
