@@ -134,10 +134,13 @@ ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000
 
 ngsAdmix_G <- gtable_add_rows(ngsAdmix_G, unit(2/10, "line"), 6)
 
-# Creates & Saves the final Map Panel:
+# Creates the final plot:
 
 grid.newpage()
 grid.draw(ngsAdmix_G)
+
+# Saves the final plot:
+
 ggsave(ngsAdmix_G, file = "FPGP--ngsAdmix.pdf", device = cairo_pdf, width = 40, height = 15, dpi = 1000)
 
 #
