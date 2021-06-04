@@ -19,9 +19,9 @@ loadfonts(device = 'win', quiet = TRUE)
 
 Data <- read.table('GoodSamples_NoSrisoriaNoCpalumbus-DoSaf-WithWrapper-DoThetas-NoWrapper.PopGenSummary', sep = '\t', header = FALSE)
 
-# Adds 
+# Adds column names:
 
-colnames(Data) <- c('Population', 'NSites', 'Pi', 'tW', 'Td', 'BioStatus')
+colnames(Data) <- c('Population', 'NSites', 'Nucleotide Diversity', 'Watson's Theta', 'Tajima's D', 'BioStatus')
 
 # Reorganises the data:
 
@@ -32,23 +32,21 @@ Data$Population <- factor(Data$Population, ordered = T,
                               'San Cristobal de las Casas', 'Santiago', 'Salvador', 'Tatui', 'Johannesburg', 'Nairobi', 'Perth',
                               'Tel Aviv Colony'))
 
-EstimateUp <- c(Pi = 'Nucleotide Diversity', tW = 'Watson's Theta', Td = 'Tajima's D')
-
 # Prepares the data:
 
-Data_lg <- gather(Data, Estimate, Value, Pi, tW, Td)
+Data_lg <- gather(Data, Estimate, Value, 'Nucleotide Diversity', 'Watson's Theta', 'Tajima's D')
 
 # Creates the plots:
 
 ggplot(data = Data_lg, aes(x = get(Population))) +
   geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = 'black', shape = 21, size = 3.5, alpha = .9) +
-  facet_grid(vars(Estimate), labeller = labeller(Estimate = EstimateUp), scales = 'free') +
-  scale_fill_manual(values=c('#56B4E9', '#E69F00', '#44AA99', '#F0E442'), drop=FALSE) +
-  scale_colour_manual(values=c('#56B4E9', '#E69F00', '#44AA99', '#F0E442'), drop=FALSE) +
+  facet_grid(vars(Estimate), scales = 'free') +
+  scale_fill_manual(values = c('#56B4E9', '#E69F00', '#44AA99', '#F0E442'), drop = FALSE) +
+  scale_colour_manual(values = c('#56B4E9', '#E69F00', '#44AA99', '#F0E442'), drop = FALSE) +
   theme(panel.background = element_rect(fill = '#FAFAFA'),
         panel.grid.major.x = element_line(color = '#ededed', linetype = 'dashed', size = .00005),
         panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(),
+        panel.grid.minor = element_blank(), 
         panel.border = element_blank(),
         axis.line = element_line(colour = '#000000', size = .3),
         axis.title = element_blank(),

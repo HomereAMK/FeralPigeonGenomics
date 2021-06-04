@@ -67,8 +67,8 @@ ggplot() +
                    nudge_x = 0, nudge_y = 0, max.overlaps = Inf, fontface = "bold", colour = "black",
                    aes(x = Longitude, y = Latitude, label = LocationOnly,
                    fill = Class_Article, family = "Georgia"), alpha = 0.9, show.legend = FALSE) +
-  scale_fill_manual(values=c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), drop=FALSE) +
-  scale_colour_manual(values=c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), drop=FALSE) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), drop = FALSE) +
+  scale_colour_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), drop = FALSE) +
   scale_x_continuous(breaks = seq(-120, 120, by = 25)) +
   scale_y_continuous(breaks = seq(-20, 70, by = 25)) +
   annotation_north_arrow(location = "br", which_north = "false", style = north_arrow_fancy_orienteering,
