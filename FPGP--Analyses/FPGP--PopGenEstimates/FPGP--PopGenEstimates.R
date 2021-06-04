@@ -9,7 +9,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Loads required packages:
 
-pacman::p_load(ggplot2, scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse)
+pacman::p_load(ggplot2, scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse, stringr)
 
 # Imports extra fonts:
 
@@ -25,21 +25,39 @@ Hets <- read.table("FPGP--HetProportions.HetSummary", sep = "\t", header = FALSE
 colnames(PopGen) <- c("Population", "NSites", "Nucleotide Diversity", "Watson's Theta", "Tajima's D", "BioStatus")
 colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType")
 
+# Corrects the names of the localities:
+
+Hets$Population <- sub("SaltLakeCity", "Salt Lake City", Hets$Population)
+Hets$Population <- sub("TlaxcalaDeXicohténcatl", "Tlaxcala de Xicohténcatl", Hets$Population)
+Hets$Population <- sub("SanCristobalDeLasCasas", "San Cristobal de las Casas", Hets$Population)
+Hets$Population <- sub("MexicoCity", "Mexico City", Hets$Population)
+Hets$Population <- sub("Tatui", "Tatuí", Hets$Population)
+Hets$Population <- sub("Torshavn", "Tórshavn", Hets$Population)
+Hets$Population <- sub("Ejde", "Eiði", Hets$Population)
+Hets$Population <- sub("LjosAir", "Ljós Áir", Hets$Population)
+Hets$Population <- sub("Guimaraes", "Guimarães", Hets$Population)
+Hets$Population <- sub("TelAviv", "Tel Aviv", Hets$Population)
+Hets$Population <- sub("TelAvivColony", "Tel Aviv Colony", Hets$Population)
+Hets$Population <- sub("WadiHidan", "Wadi Hidan", Hets$Population)
+Hets$Population <- sub("PigeonIslands", "Pigeon Islands", Hets$Population)
+
+# Adds new column (BioStatus):
+
 Hets %>% mutate(BioStatus =
                   case_when(
-                    endsWith(Population, "Torshavn") ~ "Remote Localities Within Natural Range",
-                    endsWith(Population, "Ejde") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Tórshavn") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Eiði") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Sumba") ~ "Remote Localities Within Natural Range",
-                    endsWith(Population, "LjosAir") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Ljós Áir") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Kunoy") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Nolsoy") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Crete") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Sardinia") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Vernelle") ~ "Remote Localities Within Natural Range",
-                    endsWith(Population, "WadiHidan") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Wadi Hidan") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "PigeonIsland") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Trincomalee") ~ "Remote Localities Within Natural Range",
-                    endsWith(Population, "Guimaraes") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Guimarães") ~ "Urban Localities Within Natural Range",
                     endsWith(Population, "Lisbon") ~ "Urban Localities Within Natural Range",
                     endsWith(Population, "Barcelona") ~ "Urban Localities Within Natural Range",
                     endsWith(Population, "Berlin") ~ "Urban Localities Within Natural Range",
@@ -54,21 +72,21 @@ Hets %>% mutate(BioStatus =
                     endsWith(Population, "Lahijan") ~ "Urban Localities Within Natural Range",
                     endsWith(Population, "Nowshahr") ~ "Urban Localities Within Natural Range",
                     endsWith(Population, "Tehran") ~ "Urban Localities Within Natural Range",
-                    endsWith(Population, "TelAviv") ~ "Urban Localities Within Natural Range",
-                    endsWith(Population, "SaltLakeCity") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Tel Aviv") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Salt Lake City") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Denver") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Virginia") ~ "Localities Outside Natural Range",
-                    endsWith(Population, "TlaxcalaDeXicohtencatl") ~ "Localities Outside Natural Range",
-                    endsWith(Population, "MexicoCity") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Tlaxcala de Xicohténcatl") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Mexico City") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Monterrey") ~ "Localities Outside Natural Range",
-                    endsWith(Population, "SanCristobalDeLasCasas") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "San Cristobal de las Casas") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Santiago") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Salvador") ~ "Localities Outside Natural Range",
-                    endsWith(Population, "Tatui") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Tatuí") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Johannesburg") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Nairobi") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Perth") ~ "Localities Outside Natural Range",
-                    endsWith(Population, "TelAvivColony") ~ "Captive Populations",
+                    endsWith(Population, "Tel Aviv Colony") ~ "Captive Populations",
                     endsWith(Population, "Wattala") ~ "Captive Populations",
                     endsWith(Population, "Wellawatte") ~ "Captive Populations",
                     endsWith(Population, "Srisoria") ~ "Outgroup",
@@ -77,7 +95,7 @@ Hets %>% mutate(BioStatus =
 
 # Reorganises the data:
 
-Data$Population <- factor(Data$Population, ordered = T,
+PopGen$Population <- factor(PopGen$Population, ordered = T,
                    levels = c("Torshavn", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
                               "Lisbon", "Guimaraes", "Barcelona", "London", "Berlin", "Copenhagen", "Prague", "Tel Aviv", "Abadeh", "Tehran", "Lahijan", "Nowshahr", "Isfahan", "Colombo",
                               "Denver", "Salt Lake City", "Tlaxcala de Xicohtencatl", "Mexico City", "Monterrey",
@@ -86,11 +104,11 @@ Data$Population <- factor(Data$Population, ordered = T,
 
 # Prepares the data:
 
-Data_lg <- gather(Data, "Estimate", "Value", Nucleotide_Diversity, Watson's Theta, Tajima's D)
+PopGen_lg <- gather(PopGen, Estimate, Value, "Nucleotide Diversity", "Watson's Theta", "Tajima's D")
 
 # Creates the plots:
 
-ggplot(data = Data_lg, aes(x = get(Population))) +
+ggplot(data = PopGen_lg, aes(x = get(Population))) +
   geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
   facet_grid(vars(Estimate), scales = "free") +
   scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
@@ -107,8 +125,11 @@ ggplot(data = Data_lg, aes(x = get(Population))) +
         axis.ticks.x = element_line(color="#000000", size = .3),
         axis.ticks.y = element_line(color="#000000", size = .3),
         strip.background = element_rect(colour = "#000000", fill = "#d6d6d6", size = .05),
-        strip.text = element_text(colour="#000000", size = 14, face = "bold", family = "Georgia"),
-        legend.position = "right")
+        strip.text = element_text(colour="#000000", size = 12, face = "bold", family = "Georgia"),
+        legend.position = "top",
+        legend.title = element_blank(),
+        legend.background =element_blank(),
+        legend.key = element_rect(fill = NA))
 
 # Saves the final plot:
 
