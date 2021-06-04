@@ -17,11 +17,63 @@ loadfonts(device = "win", quiet = TRUE)
 
 # Loads the data
 
-Data <- read.table("MDS.PopGenSummary", sep = "\t", header = FALSE)
+PopGen <- read.table("FPGP--MDS.PopGenSummary", sep = "\t", header = FALSE)
+Hets <- read.table("FPGP--HetProportions.HetSummary", sep = "\t", header = FALSE)
 
 # Adds column names:
 
-colnames(Data) <- c("Population", "NSites", "Nucleotide Diversity", "Watson's Theta", "Tajima's D", "BioStatus")
+colnames(PopGen) <- c("Population", "NSites", "Nucleotide Diversity", "Watson's Theta", "Tajima's D", "BioStatus")
+colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType")
+
+Hets %>% mutate(BioStatus =
+                  case_when(
+                    endsWith(Population, "Torshavn") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Ejde") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Sumba") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "LjosAir") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Kunoy") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Nolsoy") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Crete") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Sardinia") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Vernelle") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "WadiHidan") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "PigeonIsland") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Trincomalee") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Guimaraes") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Lisbon") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Barcelona") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Berlin") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Cambridge") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Colombo") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Copenhagen") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "London") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Prague") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Jihlava") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Abadeh") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Isfahan") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Lahijan") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Nowshahr") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "Tehran") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "TelAviv") ~ "Urban Localities Within Natural Range",
+                    endsWith(Population, "SaltLakeCity") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Denver") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Virginia") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "TlaxcalaDeXicohtencatl") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "MexicoCity") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Monterrey") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "SanCristobalDeLasCasas") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Santiago") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Salvador") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Tatui") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Johannesburg") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Nairobi") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Perth") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "TelAvivColony") ~ "Captive Populations",
+                    endsWith(Population, "Wattala") ~ "Captive Populations",
+                    endsWith(Population, "Wellawatte") ~ "Captive Populations",
+                    endsWith(Population, "Srisoria") ~ "Outgroup",
+                    endsWith(Population, "Cpalumbus") ~ "Outgroup",
+                    endsWith(Population, "Crupestris") ~ "Outgroup"))
 
 # Reorganises the data:
 
