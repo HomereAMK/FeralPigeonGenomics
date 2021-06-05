@@ -9,7 +9,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Loads required packages:
 
-pacman::p_load(optparse, ggplot2, plyr, RColorBrewer, extrafont, gtable, grid)
+pacman::p_load(tidyverse, optparse, plyr, RColorBrewer, extrafont, gtable, grid)
 
 # Imports extra fonts:
 

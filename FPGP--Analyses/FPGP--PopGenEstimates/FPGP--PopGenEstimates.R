@@ -28,7 +28,7 @@ colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType")
 # Corrects the names of the localities:
 
 Hets$Population <- sub("SaltLakeCity", "Salt Lake City", Hets$Population)
-Hets$Population <- sub("TlaxcalaDeXicohténcatl", "Tlaxcala de Xicohténcatl", Hets$Population)
+Hets$Population <- sub("TlaxcalaDeXicohtencatl", "Tlaxcala de Xicohtencatl", Hets$Population)
 Hets$Population <- sub("SanCristobalDeLasCasas", "San Cristobal de las Casas", Hets$Population)
 Hets$Population <- sub("MexicoCity", "Mexico City", Hets$Population)
 Hets$Population <- sub("Tatui", "Tatuí", Hets$Population)
@@ -36,14 +36,14 @@ Hets$Population <- sub("Torshavn", "Tórshavn", Hets$Population)
 Hets$Population <- sub("Ejde", "Eiði", Hets$Population)
 Hets$Population <- sub("LjosAir", "Ljós Áir", Hets$Population)
 Hets$Population <- sub("Guimaraes", "Guimarães", Hets$Population)
-Hets$Population <- sub("TelAviv", "Tel Aviv", Hets$Population)
 Hets$Population <- sub("TelAvivColony", "Tel Aviv Colony", Hets$Population)
+Hets$Population <- sub("TelAviv", "Tel Aviv", Hets$Population)
 Hets$Population <- sub("WadiHidan", "Wadi Hidan", Hets$Population)
-Hets$Population <- sub("PigeonIslands", "Pigeon Islands", Hets$Population)
+Hets$Population <- sub("PigeonIsland", "Pigeon Island", Hets$Population)
 
 # Adds new column (BioStatus):
 
-Hets %>% mutate(BioStatus =
+HetsUp <- Hets %>% mutate(BioStatus =
                   case_when(
                     endsWith(Population, "Tórshavn") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Eiði") ~ "Remote Localities Within Natural Range",
@@ -55,7 +55,7 @@ Hets %>% mutate(BioStatus =
                     endsWith(Population, "Sardinia") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Vernelle") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Wadi Hidan") ~ "Remote Localities Within Natural Range",
-                    endsWith(Population, "PigeonIsland") ~ "Remote Localities Within Natural Range",
+                    endsWith(Population, "Pigeon Island") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Trincomalee") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Guimarães") ~ "Urban Localities Within Natural Range",
                     endsWith(Population, "Lisbon") ~ "Urban Localities Within Natural Range",
@@ -76,7 +76,7 @@ Hets %>% mutate(BioStatus =
                     endsWith(Population, "Salt Lake City") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Denver") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Virginia") ~ "Localities Outside Natural Range",
-                    endsWith(Population, "Tlaxcala de Xicohténcatl") ~ "Localities Outside Natural Range",
+                    endsWith(Population, "Tlaxcala de Xicohtencatl") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Mexico City") ~ "Localities Outside Natural Range",
                     endsWith(Population, "Monterrey") ~ "Localities Outside Natural Range",
                     endsWith(Population, "San Cristobal de las Casas") ~ "Localities Outside Natural Range",
@@ -93,18 +93,60 @@ Hets %>% mutate(BioStatus =
                     endsWith(Population, "Cpalumbus") ~ "Outgroup",
                     endsWith(Population, "Crupestris") ~ "Outgroup"))
 
+head(HetsUp, n = 400)
+
 # Reorganises the data:
 
 PopGen$Population <- factor(PopGen$Population, ordered = T,
-                   levels = c("Torshavn", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
+       levels = c("Torshavn", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
                               "Lisbon", "Guimaraes", "Barcelona", "London", "Berlin", "Copenhagen", "Prague", "Tel Aviv", "Abadeh", "Tehran", "Lahijan", "Nowshahr", "Isfahan", "Colombo",
                               "Denver", "Salt Lake City", "Tlaxcala de Xicohtencatl", "Mexico City", "Monterrey",
                               "San Cristobal de las Casas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
                               "Tel Aviv Colony"))
 
+HetsUp$Population <- factor(HetsUp$Population, ordered = T,
+       levels = c("Tórshavn", "Eiði", "Sumba", "Ljós Áir", "Kunoy", "Nolsoy", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
+             "Lisbon", "Guimarães", "Barcelona", "London", "Cambridge", "Berlin", "Copenhagen", "Prague", "Jihlava", "Tel Aviv", "Abadeh", "Tehran",
+             "Lahijan", "Nowshahr", "Isfahan", "Colombo",
+             "Denver", "Salt Lake City", "Virginia", "Tlaxcala de Xicohtencatl", "Mexico City", "Monterrey", "San Cristobal de las Casas", "Santiago", "Salvador", "Tatuí",
+             "Johannesburg", "Nairobi", "Perth", "Tel Aviv Colony", "Wellawatte", "Wattala", "Crupestris", "Cpalumbus", "Srisoria"))
+
+ggplot(HetsUp, aes(factor(Population), Het)) +
+  geom_boxplot(aes(fill = BioStatus), outlier.size = 1.5, width = 0.3) +
+  labs(x = HetsUp$Population, y = "Proportion of Heterozygous Sites") +
+  theme(panel.background = element_rect(fill = '#FAFAFA'),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "#000000", size = 0.3),
+        axis.title.x=element_blank(),
+        axis.title.y=element_text(size = 20, face = "bold", color = "#000000", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text.x = element_text(colour = "#000000", size = 16, angle = 90, vjust = 0.5, hjust = 1),
+        axis.text.y = element_text(color = "#000000", size = 16),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_line(color="#000000", size=0.3),
+        legend.position = "none")
+
+HetsUp[HetsUp$Population == c("Tatuí", "Copenhapen", "Berlin"), ]
+
+HetsUp %>% filter(Population == c("Tatuí", "Copenhagen", "Berlin"))
+
+
+HetsUp %>% filter(Population != "Wattala" | Population != "Wellawatte" | Population != "Srisoria")
+
+endsWith(Population, "Wattala") ~ "Captive Populations",
+endsWith(Population, "Wellawatte") ~ "Captive Populations",
+endsWith(Population, "Srisoria") ~ "Outgroup",
+endsWith(Population, "Cpalumbus") ~ "Outgroup",
+endsWith(Population, "Crupestris") ~ "Outgroup"))
+
 # Prepares the data:
 
-PopGen_lg <- gather(PopGen, Estimate, Value, "Nucleotide Diversity", "Watson's Theta", "Tajima's D")
+PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide Diversity", "Watson's Theta", "Tajima's D")
+
+head(PopGenUp)
+head(HetsUp)
+
+rbind(PopGenUp, HetsUp)
 
 # Creates the plots:
 
@@ -133,7 +175,7 @@ ggplot(data = PopGen_lg, aes(x = get(Population))) +
 
 # Saves the final plot:
 
-ggsave(file = "FPGP--PopGenEstimates.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
+ggsave(file = "FPGP--Het.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
 
 #
 ##

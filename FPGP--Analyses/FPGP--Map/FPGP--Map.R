@@ -9,7 +9,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Loads required packages:
 
-pacman::p_load(rnaturalearth, sf, ggspatial, ggplot2, ggrepel, extrafont, cowplot)
+pacman::p_load(rnaturalearth, rnaturalearthdata, rgeos, sf, ggspatial, tidyverse, ggrepel, extrafont, cowplot)
 
 # Imports extra fonts:
 
@@ -17,7 +17,7 @@ loadfonts(device = "win", quiet = TRUE)
 
 # Imports .shp files:
 
-Global <- ne_countries(scale='medium', returnclass = 'sf')
+Global <- ne_countries(scale = 'medium', returnclass = 'sf')
 FRO <- read_sf(dsn = ".", layer = "FRO_adm0")
 SLK <- read_sf(dsn = ".", layer = "LKA_adm0")
 NR <- read_sf(dsn = ".", layer = "Columba_livia")
