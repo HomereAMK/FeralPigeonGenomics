@@ -9,7 +9,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Loads required packages:
 
-pacman::p_load(ggplot2, scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse, stringr)
+pacman::p_load(scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse, stringr, reshape)
 
 # Imports extra fonts:
 
@@ -43,8 +43,8 @@ Hets$Population <- sub("PigeonIsland", "Pigeon Island", Hets$Population)
 
 # Adds new column (BioStatus):
 
-HetsUp <- Hets %>% mutate(BioStatus =
-                  case_when(
+HetsUp <- Hets %>% mutate(BiologicalStatus =
+                   case_when(
                     endsWith(Population, "Tórshavn") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Eiði") ~ "Remote Localities Within Natural Range",
                     endsWith(Population, "Sumba") ~ "Remote Localities Within Natural Range",
@@ -93,26 +93,42 @@ HetsUp <- Hets %>% mutate(BioStatus =
                     endsWith(Population, "Cpalumbus") ~ "Outgroup",
                     endsWith(Population, "Crupestris") ~ "Outgroup"))
 
-head(HetsUp, n = 400)
+# Removes unwanted populations:
+
+HetsUp <- subset(HetsUp, 
+                  HetsUp$Population != "Eiði" &
+                  HetsUp$Population != "Sumba" &
+                  HetsUp$Population != "Ljós Áir" &
+                  HetsUp$Population != "Kunoy" &
+                  HetsUp$Population != "Nolsoy" &
+                  HetsUp$Population != "Cambridge" &
+                  HetsUp$Population != "Jihlava" &
+                  HetsUp$Population != "Wattala" &
+                  HetsUp$Population != "Wellawatte" &
+                  HetsUp$Population != "Srisoria" &
+                  HetsUp$Population != "Cpalumbus" &
+                  HetsUp$Population != "Crupestris")
 
 # Reorganises the data:
 
 PopGen$Population <- factor(PopGen$Population, ordered = T,
-       levels = c("Torshavn", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
-                              "Lisbon", "Guimaraes", "Barcelona", "London", "Berlin", "Copenhagen", "Prague", "Tel Aviv", "Abadeh", "Tehran", "Lahijan", "Nowshahr", "Isfahan", "Colombo",
-                              "Denver", "Salt Lake City", "Tlaxcala de Xicohtencatl", "Mexico City", "Monterrey",
-                              "San Cristobal de las Casas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
-                              "Tel Aviv Colony"))
+                            levels = c("Torshavn", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
+                                       "Lisbon", "Guimaraes", "Barcelona", "London", "Berlin", "Copenhagen", "Prague", "Tel Aviv", "Abadeh", "Tehran", "Lahijan", "Nowshahr", "Isfahan", "Colombo",
+                                       "Denver", "Salt Lake City", "Tlaxcala de Xicohtencatl", "Mexico City", "Monterrey",
+                                       "San Cristobal de las Casas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
+                                       "Tel Aviv Colony"))
 
 HetsUp$Population <- factor(HetsUp$Population, ordered = T,
-       levels = c("Tórshavn", "Eiði", "Sumba", "Ljós Áir", "Kunoy", "Nolsoy", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
-             "Lisbon", "Guimarães", "Barcelona", "London", "Cambridge", "Berlin", "Copenhagen", "Prague", "Jihlava", "Tel Aviv", "Abadeh", "Tehran",
-             "Lahijan", "Nowshahr", "Isfahan", "Colombo",
-             "Denver", "Salt Lake City", "Virginia", "Tlaxcala de Xicohtencatl", "Mexico City", "Monterrey", "San Cristobal de las Casas", "Santiago", "Salvador", "Tatuí",
-             "Johannesburg", "Nairobi", "Perth", "Tel Aviv Colony", "Wellawatte", "Wattala", "Crupestris", "Cpalumbus", "Srisoria"))
+                            levels = c("Tórshavn", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
+                                       "Lisbon", "Guimarães", "Barcelona", "London", "Berlin", "Copenhagen", "Prague", "Tel Aviv", "Abadeh", "Tehran", "Lahijan", "Nowshahr", "Isfahan", "Colombo",
+                                       "Denver", "Salt Lake City", "Virginia", "Tlaxcala de Xicohtencatl", "Mexico City", "Monterrey", "San Cristobal de las Casas", "Santiago", "Salvador", "Tatuí",
+                                       "Johannesburg", "Nairobi", "Perth",
+                                       "Tel Aviv Colony"))
+
+# Creates the plot:
 
 ggplot(HetsUp, aes(factor(Population), Het)) +
-  geom_boxplot(aes(fill = BioStatus), outlier.size = 1.5, width = 0.3) +
+  geom_boxplot(aes(fill = BiologicalStatus), outlier.size = 1.5, width = 0.3) +
   labs(x = HetsUp$Population, y = "Proportion of Heterozygous Sites") +
   theme(panel.background = element_rect(fill = '#FAFAFA'),
         panel.grid.minor = element_blank(),
@@ -126,31 +142,57 @@ ggplot(HetsUp, aes(factor(Population), Het)) +
         axis.ticks.y = element_line(color="#000000", size=0.3),
         legend.position = "none")
 
-HetsUp[HetsUp$Population == c("Tatuí", "Copenhapen", "Berlin"), ]
-
-HetsUp %>% filter(Population == c("Tatuí", "Copenhagen", "Berlin"))
-
-
-HetsUp %>% filter(Population != "Wattala" | Population != "Wellawatte" | Population != "Srisoria")
-
-endsWith(Population, "Wattala") ~ "Captive Populations",
-endsWith(Population, "Wellawatte") ~ "Captive Populations",
-endsWith(Population, "Srisoria") ~ "Outgroup",
-endsWith(Population, "Cpalumbus") ~ "Outgroup",
-endsWith(Population, "Crupestris") ~ "Outgroup"))
-
 # Prepares the data:
 
 PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide Diversity", "Watson's Theta", "Tajima's D")
 
-head(PopGenUp)
-head(HetsUp)
+Layka <- merge(PopGenUp, HetsUp, by.x = c("Population"))
 
-rbind(PopGenUp, HetsUp)
+Layka
+
+Plot1 <- 
+  ggplot(data = Layka, aes(x = get(Population))) +
+   geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
+   facet_grid(vars(Estimate), scales = "free") +
+   scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
+   scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE)
+Plot2 <-
+ Plot1 + geom_step(subset("Het"))
+
+ggplot(data = Layka, aes(x = get(Population))) +
+  geom_boxplot(aes(x = Population, y = Het, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
+  facet_grid(Layka$Estimate) +
+  scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
+  scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE)
+
+Layka_2 <- rbind.data.frame(PopGenUp, HetsUp)
+
+Layka_3 <- merge(PopGenUp, HetsUp, by.y = "Population")
+
+Layka_3 <- merge(PopGenUp, HetsUp, by = intersect(names("Population")))
+  
+
+
+f2 <- f1 + geom_step(subset=.(variable=='Total.Members'))
+f3 <- f2+geom_step(subset=.(variable=='Active.Members'))
+f4 <- f3+geom_linerange(subset=.(variable=='Member.Joins'))
+f5 <- f4+geom_linerange(subset=.(variable=='RSVPs'))
+f5+geom_vline(xintercept=meetup$Dates, color='red',alpha=.3)+ylab('')
+
+ggplot(Layka, aes(mpg, disp)) + facet_wrap(~Population) + 
+  geom_point(Layka = subset(mtcars, cyl == 4)) +
+  geom_line(data = subset(mtcars, cyl == 6)) +
+  geom_text(data = subset(mtcars, cyl == 8), aes(label = gear))
+
+Layka_M <- melt(Layka)
+               
+               
+               
+               , by.y=c("CustomerId", "like"))
 
 # Creates the plots:
 
-ggplot(data = PopGen_lg, aes(x = get(Population))) +
+ggplot(data = PopGenUp, aes(x = get(Population))) +
   geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
   facet_grid(vars(Estimate), scales = "free") +
   scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
