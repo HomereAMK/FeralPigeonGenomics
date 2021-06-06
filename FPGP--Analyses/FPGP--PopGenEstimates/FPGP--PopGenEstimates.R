@@ -125,74 +125,14 @@ HetsUp$Population <- factor(HetsUp$Population, ordered = T,
                                        "Johannesburg", "Nairobi", "Perth",
                                        "Tel Aviv Colony"))
 
-# Creates the plot:
-
-ggplot(HetsUp, aes(factor(Population), Het)) +
-  geom_boxplot(aes(fill = BiologicalStatus), outlier.size = 1.5, width = 0.3) +
-  labs(x = HetsUp$Population, y = "Proportion of Heterozygous Sites") +
-  theme(panel.background = element_rect(fill = '#FAFAFA'),
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "#000000", size = 0.3),
-        axis.title.x=element_blank(),
-        axis.title.y=element_text(size = 20, face = "bold", color = "#000000", margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.text.x = element_text(colour = "#000000", size = 16, angle = 90, vjust = 0.5, hjust = 1),
-        axis.text.y = element_text(color = "#000000", size = 16),
-        axis.ticks.x = element_blank(),
-        axis.ticks.y = element_line(color="#000000", size=0.3),
-        legend.position = "none")
-
 # Prepares the data:
 
 PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide Diversity", "Watson's Theta", "Tajima's D")
 
-Layka <- merge(PopGenUp, HetsUp, by.x = c("Population"))
-
-Layka
-
-Plot1 <- 
-  ggplot(data = Layka, aes(x = get(Population))) +
-   geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
-   facet_grid(vars(Estimate), scales = "free") +
-   scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
-   scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE)
-Plot2 <-
- Plot1 + geom_step(subset("Het"))
-
-ggplot(data = Layka, aes(x = get(Population))) +
-  geom_boxplot(aes(x = Population, y = Het, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
-  facet_grid(Layka$Estimate) +
-  scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
-  scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE)
-
-Layka_2 <- rbind.data.frame(PopGenUp, HetsUp)
-
-Layka_3 <- merge(PopGenUp, HetsUp, by.y = "Population")
-
-Layka_3 <- merge(PopGenUp, HetsUp, by = intersect(names("Population")))
-  
-
-
-f2 <- f1 + geom_step(subset=.(variable=='Total.Members'))
-f3 <- f2+geom_step(subset=.(variable=='Active.Members'))
-f4 <- f3+geom_linerange(subset=.(variable=='Member.Joins'))
-f5 <- f4+geom_linerange(subset=.(variable=='RSVPs'))
-f5+geom_vline(xintercept=meetup$Dates, color='red',alpha=.3)+ylab('')
-
-ggplot(Layka, aes(mpg, disp)) + facet_wrap(~Population) + 
-  geom_point(Layka = subset(mtcars, cyl == 4)) +
-  geom_line(data = subset(mtcars, cyl == 6)) +
-  geom_text(data = subset(mtcars, cyl == 8), aes(label = gear))
-
-Layka_M <- melt(Layka)
-               
-               
-               
-               , by.y=c("CustomerId", "like"))
-
 # Creates the plots:
 
-ggplot(data = PopGenUp, aes(x = get(Population))) +
+PlotPopGen <-
+ ggplot(data = PopGenUp, aes(x = get(Population))) +
   geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
   facet_grid(vars(Estimate), scales = "free") +
   scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
@@ -215,9 +155,26 @@ ggplot(data = PopGenUp, aes(x = get(Population))) +
         legend.background =element_blank(),
         legend.key = element_rect(fill = NA))
 
-# Saves the final plot:
+PlotHets <-
+ ggplot(HetsUp, aes(factor(Population), Het)) +
+  geom_boxplot(aes(fill = BiologicalStatus), outlier.size = 1.5, width = 0.3) +
+  labs(x = HetsUp$Population, y = "Proportion of Heterozygous Sites") +
+  theme(panel.background = element_rect(fill = '#FAFAFA'),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "#000000", size = 0.3),
+        axis.title.x=element_blank(),
+        axis.title.y=element_text(size = 20, face = "bold", color = "#000000", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text.x = element_text(colour = "#000000", size = 16, angle = 90, vjust = 0.5, hjust = 1),
+        axis.text.y = element_text(color = "#000000", size = 16),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_line(color="#000000", size=0.3),
+        legend.position = "none")
 
-ggsave(file = "FPGP--Het.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
+# Saves the final plots:
+
+ggsave(PlotPopGen, file = "FPGP--PopGen.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
+ggsave(PlotHets, file = "FPGP--Hets.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
 
 #
 ##
