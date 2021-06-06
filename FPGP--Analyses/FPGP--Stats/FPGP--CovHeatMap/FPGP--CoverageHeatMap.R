@@ -20,32 +20,46 @@ Mikkel <- read.table("Mikkel_Loci_Merged.coverage.km.tsv", sep = "\t", header = 
 Mikkel_W <- read.table("Mikkel_Loci_Merged.coverage.km_weighted.tsv", sep = "\t", header = TRUE, check.names = FALSE)
 Weights <- read.delim("WeightsTest.txt", header = FALSE, check.names = FALSE)
 
-Weights <- read.table("WeightsTest.txt")
+Pigeon <- read.table("output_float16.km.tsv", sep = "\t", header = TRUE, check.names = FALSE)
+Pigeon_W <- read.table("output_float16.km_weighted.tsv", sep = "\t", header = TRUE, check.names = FALSE)
+Weights <- read.delim("WeightsTest.txt", header = FALSE, check.names = FALSE)
 
-head(Weights_C)
-
-Weights <- as.matrix(Weights)
-
-data_weighted <- Mikkel * sqrt(MyVector_2)
+data_weighted <- Mikkel * sqrt(MyVector_3)
 dist_weighted <- dist(t(data_weighted), method = "manhattan")
+
+str(Mikkel)
+
+MyVector <- as.matrix(MyVector)
+
+Pigeon <- as.numeric(Pigeon)
+
+data_weighted <- as.numeric(Pigeon) * sqrt(MyVector)
+dist_weighted <- dist(t(data_weighted), method = "manhattan")
+
+head(Pigeon)
 
 nc <- ncol(Mikkel)
 nr <- nrow(Mikkel)
 
+nc <- ncol(Pigeon)
+nr <- nrow(Pigeon)
 
-pheatmap(Mikkel_W, border_color="black",
+
+pheatmap(Mikkel, border_color="black",
          clustering_distance_cols = dist_weighted, clustering_distance_rows = "manhattan",
          cellwidth = 10, cellheight = 10,
          cutree_rows = max(5, floor(nr*20/1000)), cutree_cols = max(5, floor(nc*20/1000)),
          treeheight_row = max(10, floor(nr*0.5)), treeheight_col=max(10,floor(nc*0.5)),
-         filename = "TEST_PBGP_NEW_7.pdf")
+         filename = "TEST_PBGP_NEW_NEW.pdf")
 
+pheatmap(Mikkel, border_color="black",
+         clustering_distance_cols = dist_weighted, clustering_distance_rows = "manhattan",
+         cellwidth = 10, cellheight = 10,
+         cutree_rows = max(5, floor(nr*20/1000)), cutree_cols = max(5, floor(nc*20/1000)),
+         treeheight_row = max(10, floor(nr*0.5)), treeheight_col=max(10,floor(nc*0.5)),
+         filename = "TEST_PBGP_Pigeon.pdf")
 
-
-Plot
-
-
-MyVector <- rpois(n = 300, lambda = 10)
+MyVector_3 <- rpois(n = 300, lambda = 10)
 
 
 MyVector_2 <- c(8.60233,7,11.4891,5.19615,2.64575,10.8628,4.58258,7.68115,9.16515,4.79583,8.94427,4.12311,6.55744,7.81025,27.9106,10.3441,6.9282,8.3666,
@@ -64,6 +78,8 @@ MyVector_2 <- c(8.60233,7,11.4891,5.19615,2.64575,10.8628,4.58258,7.68115,9.1651
 17.4929,3.16228,3,4.47214,3.60555,3.87298,8.77496,5.65685,7.68115,12,4,5.19615,7,9.43398,5.2915,14.6287,3.4641,3.60555,2.82843,3.60555,3.31662,
 6.7082,3.87298,4.58258,5.56776,4.89898,10.0499,4.3589,6.7082,1,7.28011,8.66025,6.55744,2.64575,3.4641,5.38516,9.16515,2.64575,9.79796,6.85565,1.41421,
 16.0935,4,9.53939,10.8628,7.54983,5.83095,6.16441,5,4.69042,5.74456,3,5.19615,4.58258,8.66025,5.47723)
+
+MyVector
 
 
 
