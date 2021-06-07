@@ -183,10 +183,10 @@ setdiff(levels(HetsUp$BioStatus), levels(PopGen$BioStatus))
 ## Reorganises the data:
 PopGen$Population <- factor(PopGen$Population, ordered = T,
                             levels = c("Torshavn", "Crete", "Sardinia", "Vernelle", "WadiHidan", "PigeonIsland", "Trincomalee",
-                                       "Lisbon", "Guimaraes", "Barcelona", "London", "Berlin", "Copenhagen", "Prague", "TelAviv", "Abadeh", "Tehran", "Lahijan", "Nowshahr", "Isfahan", "Colombo",
-                                       "Denver", "SaltLakeCity", "TlaxcaladeXicohtencatl", "MexicoCity", "Monterrey",
-                                       "SanCristobalDeLasCasas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
-                                       "TelAvivColony"))
+                                       "Lisbon", "Guimaraes", "Barcelona", "London", "Berlin", "Copenhagen", "Prague", "TelAviv", 
+                                       "Abadeh", "Tehran", "Lahijan", "Nowshahr", "Isfahan", "Colombo", "Denver", "SaltLakeCity", 
+                                       "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey","SanCristobalDeLasCasas", "Santiago", 
+                                       "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth", "TelAvivColony"))
 
 HetsUp$Population <- factor(HetsUp$Population, ordered = T,
                             levels = c("Torshavn", "Crete", "Sardinia", "Vernelle", "WadiHidan", "PigeonIsland", "Trincomalee",
@@ -213,20 +213,71 @@ HetsUp$Population <- factor(HetsUp$Population, ordered = T,
 
 
 
+
+
+# Plotting
+#~~~~~~~~~~
+
 ## Convert DF from wide to long
-#PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide Diversity", "Watson's Theta", "Tajima's D")
 PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide_Diversity", "Watson_Theta", "Tajima_D")
 
 
+## Include data ID column
+PopGenUp$ID <- factor(paste("PopGen"))
+HetsUp$ID <- factor(paste("Hets"))
 
-# Creates the plots:
+setdiff(colnames(PopGenUp),colnames(HetsUp))
+setdiff(colnames(HetsUp),colnames(PopGenUp))
 
-PlotPopGen <-
- ggplot(data = PopGenUp, aes(x = get(Population))) +
-  geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
-  facet_grid(vars(Estimate), scales = "free") +
-  scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
-  scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"), drop = FALSE) +
+PopGenUp$Sample_ID <- NA
+PopGenUp$Het <- NA
+PopGenUp$DataType <- NA
+
+
+HetsUp$NSites <- NA
+HetsUp$Estimate <- NA
+HetsUp$Value <- NA
+
+
+## Reordering columns
+intersect(colnames(PopGenUp),colnames(HetsUp))
+
+PopGenUp <- PopGenUp[,c("Population","NSites","BioStatus","Estimate","Value","ID","Sample_ID","Het","DataType")]
+HetsUp <- HetsUp[,c("Population","NSites","BioStatus","Estimate","Value","ID","Sample_ID","Het","DataType")]
+
+
+## Bind the 2 DFs based on common columns (Population & BioStatus)
+fulldf <- rbind(PopGenUp,HetsUp)
+str(fulldf)
+
+
+fulldf <- subset(fulldf, Population != "Virginia") #Remove Virginia from DF
+fulldf$Population <- factor(fulldf$Population) #Remove empty factor level
+
+## Include label for empty factor level (related to Proportion of Heterozygose...)
+idx <- which(fulldf$ID=="Hets")
+fulldf[idx,"Estimate"] <- rep("PHS",length(idx))
+fulldf$Estimate <- factor(fulldf$Estimate) #Set to factor for plotting
+
+
+fulldf$Estimate <- factor(fulldf$Estimate, ordered = T,
+                            levels = c("PHS","Nucleotide_Diversity","Tajima_D","Watson_Theta"))
+
+
+## Creates the plots:
+ylable <- c("Nucleotide_Diversity"="Nucelotide Diversity", "Tajima_D"="Tajima's D", "Watson_Theta"="Watson's Theta","PHS"="Proportion of Heterozygous Sites")
+
+levels(fulldf$Population)[c(1,5,6,9,23,24,25,27, 34)] <- c("Tórshavn","Wadi Hidan", "Pigeon Island",
+                                                           "Guimarães","Salt Lake City", "Tlaxcala De Xicohtencatl", "Mexico City",
+                                                           "San Cristobal De Las Casas", "TelAvivColony")
+
+ggplot() + 
+  geom_point(data = subset(fulldf, ID =="PopGen"),aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
+  geom_boxplot(data=subset(fulldf, ID == "Hets"), aes(x=Population,y=Het,fill = BioStatus), outlier.size = 1.5, width = 0.3) +
+  facet_grid(Estimate ~. , scales="free", labeller = labeller(Estimate=ylable)) +
+  scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"),
+                    labels = gsub("_", " ", fulldf$BioStatus)) +
+  scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442")) +
   theme(panel.background = element_rect(fill = "#FAFAFA"),
         panel.grid.major.x = element_line(color = "#ededed", linetype = "dashed", size = .00005),
         panel.grid.major.y = element_blank(),
@@ -245,27 +296,109 @@ PlotPopGen <-
         legend.background =element_blank(),
         legend.key = element_rect(fill = NA))
 
-PlotHets <-
- ggplot(HetsUp, aes(factor(Population), Het)) +
-  #geom_boxplot(aes(fill = BiologicalStatus), outlier.size = 1.5, width = 0.3) +
-  geom_boxplot(aes(fill = BioStatus), outlier.size = 1.5, width = 0.3) +
-  labs(x = HetsUp$Population, y = "Proportion of Heterozygous Sites") +
-  theme(panel.background = element_rect(fill = '#FAFAFA'),
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "#000000", size = 0.3),
-        axis.title.x=element_blank(),
-        axis.title.y=element_text(size = 20, face = "bold", color = "#000000", margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.text.x = element_text(colour = "#000000", size = 16, angle = 90, vjust = 0.5, hjust = 1),
-        axis.text.y = element_text(color = "#000000", size = 16),
-        axis.ticks.x = element_blank(),
-        axis.ticks.y = element_line(color="#000000", size=0.3),
-        legend.position = "none")
 
-# Saves the final plots:
 
-ggsave(PlotPopGen, file = "FPGP--PopGen.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
-ggsave(PlotHets, file = "FPGP--Hets.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
+
+
+# HetsUp <- Hets %>% mutate(BiologicalStatus =
+#                    case_when(
+#                     endsWith(Population, "Tórshavn") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Eiði") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Sumba") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Ljós Áir") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Kunoy") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Nolsoy") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Crete") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Sardinia") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Vernelle") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Wadi Hidan") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Pigeon Island") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Trincomalee") ~ "Remote Localities Within Natural Range",
+#                     endsWith(Population, "Guimarães") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Lisbon") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Barcelona") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Berlin") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Cambridge") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Colombo") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Copenhagen") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "London") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Prague") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Jihlava") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Abadeh") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Isfahan") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Lahijan") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Nowshahr") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Tehran") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Tel Aviv") ~ "Urban Localities Within Natural Range",
+#                     endsWith(Population, "Salt Lake City") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Denver") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Virginia") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Tlaxcala de Xicohtencatl") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Mexico City") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Monterrey") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "San Cristobal de las Casas") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Santiago") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Salvador") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Tatuí") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Johannesburg") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Nairobi") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Perth") ~ "Localities Outside Natural Range",
+#                     endsWith(Population, "Tel Aviv Colony") ~ "Captive Populations",
+#                     endsWith(Population, "Wattala") ~ "Captive Populations",
+#                     endsWith(Population, "Wellawatte") ~ "Captive Populations",
+#                     endsWith(Population, "Srisoria") ~ "Outgroup",
+#                     endsWith(Population, "Cpalumbus") ~ "Outgroup",
+#                     endsWith(Population, "Crupestris") ~ "Outgroup"))
+
+
+
+
+
+# PlotPopGen <- ggplot(data = subset(fulldf, ID =="PopGen"), aes(x = get(Population))) +
+#   geom_point(aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
+#   facet_grid(vars(Estimate), scales = "free") +
+#   scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442")) +
+#   scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442")) +
+#   theme(panel.background = element_rect(fill = "#FAFAFA"),
+#         panel.grid.major.x = element_line(color = "#ededed", linetype = "dashed", size = .00005),
+#         panel.grid.major.y = element_blank(),
+#         panel.grid.minor = element_blank(), 
+#         panel.border = element_blank(),
+#         axis.line = element_line(colour = "#000000", size = .3),
+#         axis.title = element_blank(),
+#         axis.text.x = element_text(colour="#000000", size = 16, face = "bold", family = "Helvetica", angle = 90, vjust = .5, hjust = 1),
+#         axis.text.y = element_text(color="#000000", size = 16, family = "Helvetica"),
+#         axis.ticks.x = element_line(color="#000000", size = .3),
+#         axis.ticks.y = element_line(color="#000000", size = .3),
+#         strip.background = element_rect(colour = "#000000", fill = "#d6d6d6", size = .05),
+#         strip.text = element_text(colour="#000000", size = 12, face = "bold", family = "Georgia"),
+#         legend.position = "top",
+#         legend.title = element_blank(),
+#         legend.background =element_blank(),
+#         legend.key = element_rect(fill = NA))
+# 
+# 
+# PlotHets <- ggplot(data = subset(fulldf, ID == "Hets"), aes(factor(Population), Het)) +
+#   #geom_boxplot(aes(fill = BiologicalStatus), outlier.size = 1.5, width = 0.3) +
+#   geom_boxplot(aes(fill = BioStatus), outlier.size = 1.5, width = 0.3) +
+#   labs(x = HetsUp$Population, y = "Proportion of Heterozygous Sites") +
+#   theme(panel.background = element_rect(fill = '#FAFAFA'),
+#         panel.grid.minor = element_blank(),
+#         panel.border = element_blank(),
+#         axis.line = element_line(colour = "#000000", size = 0.3),
+#         axis.title.x=element_blank(),
+#         axis.title.y=element_text(size = 20, face = "bold", color = "#000000", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+#         axis.text.x = element_text(colour = "#000000", size = 16, angle = 90, vjust = 0.5, hjust = 1),
+#         axis.text.y = element_text(color = "#000000", size = 16),
+#         axis.ticks.x = element_blank(),
+#         axis.ticks.y = element_line(color="#000000", size=0.3),
+#         legend.position = "none")
+
+
+# # Saves the final plots:
+# ggsave(PlotPopGen, file = "FPGP--PopGen.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
+# ggsave(PlotHets, file = "FPGP--Hets.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
+
 
 #
 ##
