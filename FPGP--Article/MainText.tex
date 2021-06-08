@@ -149,7 +149,7 @@ In order to investigate the genomic patterns of current pigeon populations of di
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.35]{Plots-MainText/FPGP--Map.pdf}
+\includegraphics[scale=0.35]{../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf}
 \caption{Fitting of $r^2$ decay between called genotypes (CG) and genotype likelihoods (GL), across different simulated coverages (rows). The best-fitted curve (solid-line) and confidence interval (shaded area) was based on $250 bps$ bins but, for sake of clarity, data is represented as bins of $500 bps$ (points) and Y-axis us truncated at $0.5$. Confidence interval was based on 100 bootstraps.}
 \label{MainText:FPGP--Map}
 \end{figure}
@@ -182,29 +182,6 @@ In order to investigate the genomic patterns of current pigeon populations of di
 
 \subsection{\textit{Contribution of Pigeon Breeds to Current Non-domesticated Populations}}
 
- 
-\subsection{Auxiliary scripts}
-\subsubsection{LD prunning}
-Apart from \verb|ngsLD|, we also provide some auxiliary scripts to perform some common LD-related analyses. One of the most common is probably the pruning of linked SNPs (to obtain a set of independent SNPs). The script \verb|prune_graph.pl| represents the pattern of linked sites in the dataset as a network, with nodes as SNPs and edges as linkage between two SNPs (with LD level as a weight). The script finds the most connected (or linked) node and excludes all directly connected nodes; it proceeds iteratively until no other connected nodes are available. The script takes various options to reduce computation time and memory usage, such as maximum distance or minimum LD level between SNPs.\\
-
-\subsubsection{LD decay}
-Another common population genomic analysis is to infer LD strength and decay over physical (or genetic) distance. The script \verb|fit_LDdecay.R| fits a decay curve to a plot of LD strength versus physical (or genetic) distance between the involved SNPs. The expected value of $r^2$ under a drift-recombination equilibrium is \citep{Sved1971}:
-
-\vspace{5pt}
-\begin{equation}
-E[r^2] = \frac{1}{1 + C}
-\label{Eq:sved}
-\end{equation}
-\vspace{5pt}
-
-\noindent where $C = 4N_e\rho$, $N_e$ is the effective population size, and $\rho$ the recombination fraction between sites. Since equation \ref{Eq:sved} is a theoretical expectation rarely followed in natural populations, we chose no to implement it in its native form but rather two other formulations of it. The first formulation derived this expectation by adjusting for sample size and assuming a low level of mutation \citep{Hill1988}:
-
-
-
-
-
-\subsubsection{LD blocks}
-We also provide the \verb|LD_blocks.sh| script to plot LD blocks for a specific region. Given a specific region and coordinates, it plots $r^2$ using the R package \verb|LDheatmap| \citep{Shin2006}
 
 \bibliographystyle{natbib}
 \bibliography{library}
