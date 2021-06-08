@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex MainText"] 1623167253 "MainText.aux" "MainText.bbl" "MainText" 1623167253
-  "MainText.aux" 1623167251 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
+["bibtex MainText"] 1623167493 "MainText.aux" "MainText.bbl" "MainText" 1623167493
+  "MainText.aux" 1623167491 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
   "library.bib" 0 -1 0 ""
   "natbib.bst" 0 -1 0 ""
   (generated)
   "MainText.bbl"
   "MainText.blg"
-["pdflatex"] 1623167249 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/MainText.tex" "MainText.pdf" "MainText" 1623167253
-  "../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf" 1622900988 1457572 c36ae142e086b1f87e4d0b4281c54e07 ""
-  "MainText.aux" 1623167251 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
+["pdflatex"] 1623167489 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/MainText.tex" "MainText.pdf" "MainText" 1623167493
+  "../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf" 1623167487 1457572 c3c5c2fa6fd349cc4868d90901b1ff6a ""
+  "MainText.aux" 1623167491 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
   "MainText.bbl" 0 -1 0 "bibtex MainText"
   "MainText.tex" 1623167246 10135 1675ff8a461e51aff9bdcc7f9579bbb2 ""
   "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/MainText.tex" 1623167246 10135 1675ff8a461e51aff9bdcc7f9579bbb2 ""
@@ -101,5 +101,5 @@
   "c:/texlive/2021/texmf.cnf" 1623166116 713 e69b156964470283e0530f5060668171 ""
   (generated)
   "MainText.pdf"
-  "MainText.log"
   "MainText.aux"
+  "MainText.log"
