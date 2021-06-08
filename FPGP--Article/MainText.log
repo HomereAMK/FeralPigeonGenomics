@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.8)  8 JUN 2021 17:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.8)  8 JUN 2021 18:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -293,12 +293,12 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 <../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf, id=12, 1210.5225pt x 1210.5225pt>
 File: ../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf Graphic file (type pdf)
 <use ../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf>
-Package pdftex.def Info: ../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf  used on input line 152.
+Package pdftex.def Info: ../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf  used on input line 153.
 (pdftex.def)             Requested size: 423.68922pt x 423.68922pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 153.
+(Font)              <10> on input line 154.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 153.
+(Font)              <7> on input line 154.
 
 No file MainText.bbl.
 [2] [3 <../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf>] (./MainText.aux) ) 
@@ -311,7 +311,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  61i,7n,70p,1732b,1099s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrb0900.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb>
-Output written on MainText.pdf (3 pages, 1638956 bytes).
+Output written on MainText.pdf (3 pages, 1638955 bytes).
 PDF statistics:
  111 PDF objects out of 1000 (max. 8388607)
  71 compressed objects within 1 object stream

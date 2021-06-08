@@ -1,17 +1,17 @@
 # Fdb version 3
-["bibtex MainText"] 1623167493 "MainText.aux" "MainText.bbl" "MainText" 1623167493
-  "MainText.aux" 1623167491 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
+["bibtex MainText"] 1623169682 "MainText.aux" "MainText.bbl" "MainText" 1623169685
+  "MainText.aux" 1623169684 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
   "library.bib" 0 -1 0 ""
   "natbib.bst" 0 -1 0 ""
   (generated)
   "MainText.bbl"
   "MainText.blg"
-["pdflatex"] 1623167489 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/MainText.tex" "MainText.pdf" "MainText" 1623167493
+["pdflatex"] 1623169682 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/MainText.tex" "MainText.pdf" "MainText" 1623169685
   "../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf" 1623167487 1457572 c3c5c2fa6fd349cc4868d90901b1ff6a ""
-  "MainText.aux" 1623167491 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
+  "MainText.aux" 1623169684 2691 42f48b72fabc8b034ccca675cf2ae973 "pdflatex"
   "MainText.bbl" 0 -1 0 "bibtex MainText"
-  "MainText.tex" 1623167246 10135 1675ff8a461e51aff9bdcc7f9579bbb2 ""
-  "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/MainText.tex" 1623167246 10135 1675ff8a461e51aff9bdcc7f9579bbb2 ""
+  "MainText.tex" 1623169682 10115 f98cf5618801be65a4469393a7f5f55d ""
+  "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/MainText.tex" 1623169682 10115 f98cf5618801be65a4469393a7f5f55d ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1623160255 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1623163531 2375 baa924870cfb487815765f9094cf3728 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1623163531 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -100,6 +100,6 @@
   "c:/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1623166256 2811066 495580740d6efe1855606ac01d73490c ""
   "c:/texlive/2021/texmf.cnf" 1623166116 713 e69b156964470283e0530f5060668171 ""
   (generated)
+  "MainText.log"
   "MainText.pdf"
   "MainText.aux"
-  "MainText.log"
