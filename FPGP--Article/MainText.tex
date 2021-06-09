@@ -1,23 +1,34 @@
+%%% The BEGINNING ~~~~
+%%
+% ~ Writes FPGP--MainText | By Filipe G. VIEIRA & George PACHECO
+
+
+%% Preamble Settings %% 
+
+% Defines document class and paper size ~
 \documentclass[a4paper]{article}
 
-% Fix margins
-\usepackage[margin=1in]{geometry}
+% Fixes margins ~
+\usepackage[margin = 1in]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
 
-% Images
+% Loads packages for images ~
 \usepackage{graphicx}
 \usepackage{rotating}
 
-% Comments
+% Loads packages for comments ~
 \usepackage{verbatim}
 
-% Tables
+% Loads packages for tables ~
 \usepackage{float}
 \usepackage{multirow}
 \usepackage{lmodern}
-\usepackage[T1]{fontenc}
+%\usepackage[T2]{fontenc}
 \usepackage{textcomp}
 
-% Listing of source code
+% Listing of source code ~
 \usepackage{listings}
 \usepackage{color}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -40,57 +51,81 @@
   breakatwhitespace = true,
   tabsize = 3}
   
-% Change caption starting text
+% Changes caption starting text ~
 \renewcommand{\figurename}{Supplementary Figure}
 \renewcommand{\tablename}{Supplementary Table}
 
-% Bibliography
-%\usepackage[authoryear]{natbib}
+% Loads packages for typing ~
+\usepackage{lettrine}
+\usepackage{marvosym}
+\usepackage{caption}
 
+% Loads packages for bibliography ~
+\usepackage[
+backend = biber,
+style = nature,
+sorting = ynt
+]{biblatex}
+\addbibresource{MainText.bib}
+
+\usepackage{blindtext}
+\usepackage{multicol}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Pacheco et al. 2021}
+\lhead{Feral Pigeon Genomics}
+\rfoot{Page \thepage}
+
+%% Starts Document %%
+
+% Starts document ~
 \begin{document}
 
-% Title
+% Sets title ~
 \begin{center}
 \noindent \LARGE \bfseries \fontfamily{cmr} On the Origin and Spread of Feral Pigeons \\
 \end{center}
 
+\hfill\break
+
 \begin{lstlisting}
 \end{lstlisting}
 
-% Authorship
+% Sets authorship ~
 \fontfamily{cmr} \small \noindent 
-George Pacheco\,$^{1}$,
+George Pacheco\,$^{1}$\textsuperscript{\Letter},
 Filipe G. Vieira\,$^{1}$,
 Michael D. Martin\,$^{1}$,
-Morten Tange Olsen\,$^{1}$
-Pavel Hulva\,$^{1}$
-Tânia de Freitas Raso\,$^{1}$
-Peter Njoroge\,$^{1}$
-Concepción Salaberria\,$^{1}$
-Isabel López-Rull\,$^{1}$
-Carles Lalueza-Fox\,$^{1}$
-Oscar Ramírez\,$^{1}$
-María C. Ávila-Arcos\,$^{1}$
-Patricia Rosas Escobar\,$^{1}$
-Rui Faria\,$^{1}$
-Miguel Carneiro\,$^{1}$
-Graciela Sotelo\,$^{1}$
-Jóhannis Danielsen\,$^{1}$
-Nizar Haddad\,$^{1}$
-Fares Khoury\,$^{1}$
-Roi Dor\,$^{1}$
-Ali Halajian\,$^{1}$
-María Belén Arias\,$^{1}$
-Oliver Krone\,$^{1}$
-Susanne Auls\,$^{1}$
-Sampath S. Seneviratne\,$^{1}$
-Kajanka Mathiaparanam\,$^{1}$
-Michael Bunce\,$^{1}$
-Megan L. Coghlan\,$^{1}$
-Jon Fjeldså\,$^{1}$
-M. Thomas P. Gilbert\,$^{1}$
+Morten Tange Olsen\,$^{1}$,
+Pavel Hulva\,$^{1}$,
+Tânia de Freitas Raso\,$^{1}$,
+Peter Njoroge\,$^{1}$,
+Concepción Salaberria\,$^{1}$,
+Isabel López-Rull\,$^{1}$,
+Carles Lalueza-Fox\,$^{1}$,
+Oscar Ramírez\,$^{1}$,
+María C. Ávila-Arcos\,$^{1}$,
+Patricia Rosas Escobar\,$^{1}$,
+Rui Faria\,$^{1}$,
+Miguel Carneiro\,$^{1}$,
+Graciela Sotelo\,$^{1}$,
+Jóhannis Danielsen\,$^{1}$,
+Nizar Haddad\,$^{1}$,
+Fares Khoury\,$^{1}$,
+Roi Dor\,$^{1}$,
+Ali Halajian\,$^{1}$,
+María Belén Arias\,$^{1}$,
+Oliver Krone\,$^{1}$,
+Susanne Auls\,$^{1}$,
+Sampath S. Seneviratne\,$^{1}$,
+Kajanka Mathiaparanam\,$^{1}$,
+Michael Bunce\,$^{1}$,
+Megan L. Coghlan\,$^{1}$,
+Jon Fjeldså\,$^{1}$ \&
+M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\Letter}
 
-% Affiliations
+% Sets affiliations ~
 \begin{center}
 \begin{flushleft}
 $^1$Section for Evolutionary Genomics, The GLOBE Institute, Faculty of Health and Medical Sciences, University of Copenhagen, Copenhagen, Denmark. \\
@@ -119,73 +154,83 @@ $^1$Trace and Environmental DNA (TrEnD) Laboratory, Department of Environment an
 \end{flushleft}
 \end{center}
 
+% Sets lines around authorship & affiliations ~
 \begin{lstlisting}
 \end{lstlisting}
 
-% Abstract Title
+% Sets abstract title ~
 \begin{center}
-\noindent \bfseries \fontfamily{cmr} Abstract \\
+\noindent \bfseries \large \fontfamily{cmr} Abstract \\
 \end{center}
 
-% Abstract Text
-\fontfamily{cmr} \small
-The rock pigeon (\textit{Columba livia} Gmelin, 1789) is presumed native to the Mediterranean, Saharo-Arabian and Eastern Oriental regions, and is believed to have been domesticated in the Middle East in the early Neolithic. At some point during the domestication process, the first feral pigeons arose, whose populations subsequently undertook a remarkable expansion that has resulted in them being found today across almost the entire global urban landscapes. Indeed the spread of these feral birds has been so prolific, that it raises questions about whether any true wild rock pigeon colonies still exist, or whether they have been admixed with, or even fully replaced, by feral birds? While several studies have investigated the complex evolutionary history of pigeon breeds, none have yet addressed the question of pigeon feralisation, and how this evolutionary process might be jeopardizing the species’ status as a wild entity. In this study, we generated and analysed a genomic dataset produced using the Genotyping-by-Sequencing (GBS) method of 450 feral pigeons sampled across 41 worldwide localities. Our analyses reveal that the global feral pigeon population can be divided into four major groups, each exhibiting different levels of genetic diversity and contamination with domesticated genotypes. We also find signs of strong population structure, including very divergent clades of what seems to be relatively wild populations. Lastly, we find evidence of human-mediated dispersal through past colonial links. \
+% Sets abstract text ~
+\fontfamily{cmr} \small \noindent
+The rock pigeon (\textit{Columba livia} Gmelin, 1789) is presumed native to the Mediterranean, Saharo-Arabian and Eastern Oriental regions, and is believed to have been domesticated in the Middle East in the early Neolithic. At some point during the domestication process, the first feral pigeons arose, whose populations subsequently undertook a remarkable expansion that has resulted in them being found today across almost the entire global urban landscapes. Indeed the spread of these feral birds has been so prolific, that it raises questions about whether any true wild rock pigeon colonies still exist, or whether they have been admixed with, or even fully replaced, by feral birds? While several studies have investigated the complex evolutionary history of pigeon breeds, none have yet addressed the question of pigeon feralisation, and how this evolutionary process might be jeopardizing the species’ status as a wild entity. In this study, we generated and analysed a genomic dataset produced using the Genotyping-by-Sequencing (GBS) method of 450 feral pigeons sampled across 41 worldwide localities. Our analyses reveal that the global feral pigeon population can be divided into four major groups, each exhibiting different levels of genetic diversity and contamination with domesticated genotypes. We also find signs of strong population structure, including very divergent clades of what seems to be relatively wild populations. Lastly, we find evidence of human-mediated dispersal through past colonial links.\
 
 \newpage
 
 % Introduction %
 
-\section{Introduction}
-
-Archaeological evidence suggests that the rock pigeon (\textit{Columba livia} Gmelin, 1789), and in particular the (\textit{C. l. livia}) subspecies, was first domesticated during the Neolithic period in the Middle East, probably via a commensal pathway2. While it was initially exploited as a source of food and fertiliser, later on, the extent of its service to humankind spanned a wider variety of roles, including incorporation into religious rituals, a tool for communication, a source of medicine, and even as a navigation aid3. Furthermore, in addition to its practical functional roles, and in parallel with many other domestic animals such as dogs, chickens and cats, the eighteenth century witnessed an explosion of interest in the development of so-called fancy breeds. Such interest led to the establishment of numerous pigeon breeds, of which over 230 are currently recognised by the American National Pigeon Association (NPA; www.npausa.com). Artificial selection in modern breeds resulted in a truly fabulous amount of phenotypic diversity, which has long attracted the attention of scholars, and even formed a cornerstone of Darwin’s nascent thoughts on his famous theory concerning the evolutionary processes \cite{pacheco_darwins_2020}.\
+\begin{multicols}{2}
+\lettrine[findent=2pt]{\textbf{A}}{ }rchaeological evidence suggests that the rock pigeon (\textit{Columba livia} Gmelin, 1789), and in particular the (\textit{C. l. livia}) subspecies, was first domesticated during the Neolithic period in the Middle East, probably via a commensal pathway2. While it was initially exploited as a source of food and fertiliser, later on, the extent of its service to humankind spanned a wider variety of roles, including incorporation into religious rituals, a tool for communication, a source of medicine, and even as a navigation aid3. Furthermore, in addition to its practical functional roles, and in parallel with many other domestic animals such as dogs, chickens and cats, the eighteenth century witnessed an explosion of interest in the development of so-called fancy breeds. Such interest led to the establishment of numerous pigeon breeds, of which over 230 are currently recognised by the American National Pigeon Association. Artificial selection in modern breeds resulted in a truly fabulous amount of phenotypic diversity, which has long attracted the attention of scholars, and even formed a cornerstone of Darwin’s nascent thoughts on his famous theory concerning the evolutionary processes \cite{pacheco_darwins_2020}.\
+\end{multicols}
 
 
 % Results %
 
-\section{Results}
+\subsection*{Results}
 
-\subsection{\textit{Sampling Effort}}
+%\subsection*
 
-To investigate the genomic patterns of current pigeon populations of different evolutionary histories, we intentionally targeted our sampling to cover four distinct categories (Figure 1). Furthermore, to help root the evolutionary relationships between these groups, we also included a small number of individuals representing the Columba livia intermedia (Strickland, 1844) subspecies. Specifically in this regard, we sampled five populations from Sri Lanka, where two of them were from urban localities (Colombo and Trincomalee), one was from a Conservation National Park (Pigeon Island) and two others were captive populations maintained by local breeders (Wattala and Wellawatte) (Supplementary Fig. 1). To check for data reproducibility, we sequenced two of the samples twice (Tehran\textunderscore16-GBS and Perth\textunderscore02-GBS) to serve as replicates. Finally, to serve as external outgroups, we also generated data from five samples of (\textit{Columba palumbus Linnaeus}, 1758) captured in Copenhagen (Denmark), one captive sample of (\textit{Streptopelia risoria} Linnaeus, 1758), and additionally incorporated previously published whole genome resequence data from a Columba rupestris8. (we also included the WGS library to serve as another replicate) (Supplementary Spreadsheet).\
+\begin{multicols}{2}
+\noindent \textbf{Sampling effort.} To investigate the genomic patterns of current pigeon populations of different evolutionary histories, we intentionally targeted our sampling to cover four distinct categories (Figure 1). Furthermore, to help root the evolutionary relationships between these groups, we also included a small number of individuals representing the Columba livia intermedia (Strickland, 1844) subspecies. Specifically in this regard, we sampled five populations from Sri Lanka, where two of them were from urban localities (Colombo and Trincomalee), one was from a Conservation National Park (Pigeon Island) and two others were captive populations maintained by local breeders (Wattala and Wellawatte) (Supplementary Fig. 1). To check for data reproducibility, we sequenced two of the samples twice (Tehran\textunderscore16-GBS and Perth\textunderscore02-GBS) to serve as replicates. Finally, to serve as external outgroups, we also generated data from five samples of (\textit{Columba palumbus Linnaeus}, 1758) captured in Copenhagen (Denmark), one captive sample of (\textit{Streptopelia risoria} Linnaeus, 1758), and additionally incorporated previously published whole genome resequence data from a Columba rupestris8. (we also included the WGS library to serve as another replicate) (Supplementary Spreadsheet).\
+\end{multicols}
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.35]{../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf}
-\caption{Fitting of $r^2$ decay between called genotypes (CG) and genotype likelihoods (GL), across different simulated coverages (rows). The best-fitted curve (solid-line) and confidence interval (shaded area) was based on $250 bps$ bins but, for sake of clarity, data is represented as bins of $500 bps$ (points) and Y-axis us truncated at $0.5$. Confidence interval was based on 100 bootstraps.}
+\caption*{ \scriptsize \textbf{Fig. 1 Map of sampling effort.} This is a trial attempt.}
 \label{MainText:FPGP--Map}
 \end{figure}
 
-\subsection{\textit{Sequencing Data and Filtering}}
+\subsection*{\textit{Sequencing Data and Filtering}}
 
-\subsection{\textit{Population Genetics Statistics}}
+\subsection*{\textit{Population Genetics Statistics}}
 
-\subsection{\textit{Phylogenetic Relationships Among Feral Pigeon Populations}}
+\subsection*{\textit{Phylogenetic Relationships Among Feral Pigeon Populations}}
 
-\subsection{\textit{Population Structure Among Pigeon Populations}}
+\subsection*{\textit{Population Structure Among Pigeon Populations}}
 
-\subsection{\textit{Contribution of Pigeon Breeds to Current Non-domesticated Populations}}
+\subsection*{\textit{Contribution of Pigeon Breeds to Current Non-domesticated Populations}}
 
 % Discussion %
 
-\section{Discussion}
+\section*{Discussion}
 
 % Methods %
 
-\section{Methods}
+\section*{Methods}
 
-\subsection{\textit{Sequencing Data Generation and Processing}}
+\subsection*{\textit{Sequencing Data Generation and Processing}}
 
-\subsection{\textit{Data Analysis}}
+\subsection*{\textit{Data Analysis}}
 
-\subsection{\textit{Population Genetics Statistics}}
+\subsection*{\textit{Population Genetics Statistics}}
 
-\subsection{\textit{Phylogenetic Reconstruction}}
+\subsection*{\textit{Phylogenetic Reconstruction}}
 
-\subsection{\textit{Inference of Population Structure}}
+\subsection*{\textit{Inference of Population Structure}}
 
-\subsection{\textit{Contribution of Pigeon Breeds to Current Non-domesticated Populations}}
+\subsection*{\textit{Contribution of Pigeon Breeds to Current Non-domesticated Populations}}
 
+\newpage
 
-%\bibliographystyle{natbib}
-%\bibliography{FPGP--MainText}
+%\bibliographystyle{unsrtnat}
+%\bibliography{MainText}
+\printbibliography
+
 \end{document}
+
+% 
+%%
+%%% The END ~~~~
