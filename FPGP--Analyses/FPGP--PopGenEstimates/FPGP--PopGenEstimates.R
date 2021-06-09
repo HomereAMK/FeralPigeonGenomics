@@ -185,6 +185,36 @@ PopGennEstimates <-
         legend.background =element_blank(),
         legend.key = element_rect(fill = NA))
 
+ggplot() + 
+  geom_point(data = subset(fulldf, ID =="PopGen"),
+             aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
+  geom_boxplot(data = subset(fulldf, ID == "Hets"),
+               aes(x = Population, y = Het, fill = BioStatus), outlier.size = 1.5, width = 0.3) +
+  facet_grid(Estimate ~. , scales = "free", labeller = labeller(Estimate = ylable)) +
+  scale_colour_manual(values = c("#44AA99", "#E69F00", "#F0E442", "#56B4E9")) +
+  scale_fill_manual(values = c("#44AA99", "#E69F00", "#F0E442", "#56B4E9"),
+                    labels = c("Remote Localities Within Natural Range",
+                               "Urban Localities Within Natural Range",
+                               "Localities Outside Natural Range",
+                               "Captive Populations")) +
+  theme(panel.background = element_rect(fill = "#FAFAFA"),
+        panel.grid.major.x = element_line(color = "#ededed", linetype = "dashed", size = .00005),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor = element_blank(), 
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "#000000", size = .3),
+        axis.title = element_blank(),
+        axis.text.x = element_text(colour="#000000", size = 16, face = "bold", family = "Helvetica", angle = 90, vjust = .5, hjust = 1),
+        axis.text.y = element_text(color="#000000", size = 16, family = "Helvetica"),
+        axis.ticks.x = element_line(color="#000000", size = .3),
+        axis.ticks.y = element_line(color="#000000", size = .3),
+        strip.background.y = element_rect(colour = "#000000", fill = "#d6d6d6", size = 0.3),
+        strip.text = element_text(colour = "#000000", size = 12, face = "bold", family = "Georgia"),
+        legend.position = "top",
+        legend.title = element_blank(),
+        legend.background =element_blank(),
+        legend.key = element_rect(fill = NA))
+
 
 # Saves the panel ~
 ggsave(PopGennEstimates, file = "FPGP--PopGenEstimates.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)

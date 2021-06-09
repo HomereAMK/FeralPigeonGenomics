@@ -59,6 +59,17 @@
 \usepackage{lettrine}
 \usepackage{marvosym}
 \usepackage{caption}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{mycolor}{HTML}{F7F8E0}
+\definecolor{myorange}{RGB}{245,156,74}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=-myorange}
+\usepackage{fontawesome}
+%\usepackage{academicons}
+
+%\newcommand{\orcid}[1]{\href{https://orcid.org/#1}{\textcolor[HTML]{A6CE39}{\aiOrcid}}}
 
 % Loads packages for bibliography ~
 \usepackage[
@@ -66,7 +77,7 @@ backend = biber,
 style = nature,
 sorting = ynt
 ]{biblatex}
-\addbibresource{MainText.bib}
+\addbibresource{FPGP--MainText.bib}
 
 \usepackage{blindtext}
 \usepackage{multicol}
@@ -92,9 +103,12 @@ sorting = ynt
 \begin{lstlisting}
 \end{lstlisting}
 
+%\aiOrcid
+%\textsuperscript{\Letter} ~ Another option for letter icon.
+
 % Sets authorship ~
 \fontfamily{cmr} \small \noindent 
-George Pacheco\,$^{1}$\textsuperscript{\Letter},
+George Pacheco\,$^{1}$\textsuperscript{\faEnvelopeO} %\orcid{0000-0002-9367-6813},
 Filipe G. Vieira\,$^{1}$,
 Michael D. Martin\,$^{1}$,
 Morten Tange Olsen\,$^{1}$,
@@ -123,7 +137,7 @@ Kajanka Mathiaparanam\,$^{1}$,
 Michael Bunce\,$^{1}$,
 Megan L. Coghlan\,$^{1}$,
 Jon Fjeldså\,$^{1}$ \&
-M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\Letter}
+M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO}
 
 % Sets affiliations ~
 \begin{center}
@@ -172,7 +186,7 @@ The rock pigeon (\textit{Columba livia} Gmelin, 1789) is presumed native to the 
 % Introduction %
 
 \begin{multicols}{2}
-\lettrine[findent=2pt]{\textbf{A}}{ }rchaeological evidence suggests that the rock pigeon (\textit{Columba livia} Gmelin, 1789), and in particular the (\textit{C. l. livia}) subspecies, was first domesticated during the Neolithic period in the Middle East, probably via a commensal pathway2. While it was initially exploited as a source of food and fertiliser, later on, the extent of its service to humankind spanned a wider variety of roles, including incorporation into religious rituals, a tool for communication, a source of medicine, and even as a navigation aid3. Furthermore, in addition to its practical functional roles, and in parallel with many other domestic animals such as dogs, chickens and cats, the eighteenth century witnessed an explosion of interest in the development of so-called fancy breeds. Such interest led to the establishment of numerous pigeon breeds, of which over 230 are currently recognised by the American National Pigeon Association. Artificial selection in modern breeds resulted in a truly fabulous amount of phenotypic diversity, which has long attracted the attention of scholars, and even formed a cornerstone of Darwin’s nascent thoughts on his famous theory concerning the evolutionary processes \cite{pacheco_darwins_2020}.\
+\lettrine[findent=2pt]{\textbf{A}}{ }rchaeological evidence suggests that the rock pigeon (\textit{Columba livia} Gmelin, 1789), and in particular the (\textit{C. l. livia}) subspecies, was first domesticated during the Neolithic period in the Middle East, probably via a commensal pathway2. While it was initially exploited as a source of food and fertiliser, later on, the extent of its service to humankind spanned a wider variety of roles, including incorporation into religious rituals, a tool for communication, a source of medicine, and even as a navigation aid3. Furthermore, in addition to its practical functional roles, and in parallel with many other domestic animals such as dogs, chickens and cats, the eighteenth century witnessed an explosion of interest in the development of so-called fancy breeds. Such interest led to the establishment of numerous pigeon breeds, of which over 230 are currently recognised by the \textit{American National Pigeon Association} (NPA; \url{www.npausa.com}). Artificial selection in modern breeds resulted in a truly fabulous amount of phenotypic diversity, which has long attracted the attention of scholars, and even formed a cornerstone of Darwin’s nascent thoughts on his famous theory concerning the evolutionary processes \cite{pacheco_darwins_2020}.\
 \end{multicols}
 
 

@@ -44,10 +44,10 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>MainText.bcf</file>
+      <file>FPGP--MainText.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>MainText.bbl</file>
+      <file>FPGP--MainText.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -67,22 +67,22 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>MainText</infile>
+      <infile>FPGP--MainText</infile>
     </cmdline>
     <input>
-      <file>MainText.bcf</file>
+      <file>FPGP--MainText.bcf</file>
     </input>
     <output>
-      <file>MainText.bbl</file>
+      <file>FPGP--MainText.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>MainText.bbl</file>
+      <file>FPGP--MainText.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>MainText.bcf</file>
+      <file>FPGP--MainText.bcf</file>
     </requires>
     <requires type="editable">
-      <file>MainText.bib</file>
+      <file>FPGP--MainText.bib</file>
     </requires>
   </external>
 </requests>
