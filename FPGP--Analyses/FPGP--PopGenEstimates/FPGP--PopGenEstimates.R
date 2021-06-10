@@ -2,8 +2,6 @@
 ##
 # ~ Plots FPGP--PopGenEstimates | By Marie-Christine RUFENER & George PACHECO
 
-# Last update: June 2021
-
 #################################
 
 # There are two main data files: PopGen and Hets
@@ -12,7 +10,6 @@
 # 1) Seeting wd, loading packages, fonts, datafiles & helper functions
 # 2) Data wrangling
 # 3) Plotting
-
 
 
 rm(list=ls())
@@ -72,8 +69,7 @@ Hets$BioStatus <- ifelse(Hets$Population %in% c("Torshavn","Ejde","Sumba","LjosA
                                        ifelse(Hets$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", "Outgroups"))))
 
 
-## Sets BioStatus from character -> factor (better for data manipulation & necessary for plotting)     
-#class(Hets$BioStatus)
+## Sets BioStatus from character -> factor (better for data manipulation & necessary for plotting)
 Hets$BioStatus <- as.factor(Hets$BioStatus)
 
 
@@ -84,21 +80,9 @@ UnwantedPops <- c("Virginia", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy", "Ca
 Hets <- filter(Hets, !Population %in% UnwantedPops)
 
 
-
-## Checkpoint I ~
-#setdiff(colnames(PopGen), colnames(Hets))
-#nlevels(PopGen$Population); nlevels(Hets$Population)
-#setdiff(levels(Hets$Population), levels(PopGen$Population))
-#setdiff(levels(PopGen$Population), levels(Hets$Population))
-
 ## Corrects population names in Hets ~ ¡It is very disturbing that this needs to be done here -- please consider modifying the original .sh script!
 levels(PopGen$Population)[c(23, 30)] <- c("SanCristobalDeLasCasas",
                                           "TlaxcalaDeXicohtencatl")
-
-
-## Checkpoint II ~ 
-#nlevels(PopGen$BioStatus); nlevels(Hets$BioStatus)
-#setdiff(levels(Hets$BioStatus), levels(PopGen$BioStatus))
 
 
 ## Converts DF from wide into long (necessary for ggplot)~
@@ -111,14 +95,8 @@ PopGenUp$ID <- factor(paste("PopGen"))
 Hets$ID <- factor(paste("Hets"))
 
 
-## Checkpoint III ~
-#setdiff(colnames(PopGenUp),colnames(Hets))
-#setdiff(colnames(Hets),colnames(PopGenUp))
-
-
-
 ## Bind the 2 DFs based on common columns (Population | BioStatus) ~
-# Note: Function recognizes automatically columns that are in common between the 2 DFs and those that aren't.
+# Note: Function recognizes automatically columns that are in common between the 2 DFs and those that ar not.
 # For diverging columns, NAs are pulled in the according rows.
 # Ex.: "Estimate" & "Sample_ID" columns
 # head(fulldf); tail(fulldf)
@@ -217,7 +195,7 @@ ggplot() +
 
 
 # Saves the panel ~
-ggsave(PopGennEstimates, file = "FPGP--PopGenEstimates.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 1000)
+ggsave(PopGennEstimates, file = "FPGP--PopGenEstimates.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 600)
 
 
 #
