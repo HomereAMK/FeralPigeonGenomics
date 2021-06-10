@@ -2,6 +2,9 @@
 ##
 # ~ Plots FPGP--PopGenEstimates | By Marie-Christine RUFENER & George PACHECO
 
+# Last update: June 2021
+
+#################################
 
 # Sets working directory ~
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -43,7 +46,8 @@ Hets$BioStatus <- ifelse(Hets$Population %in% c("Torshavn","Ejde","Sumba","LjosA
                                        ifelse(Hets$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", "Outgroups"))))
 
 
-# NOT SURE WHAT TO SAY HERE ~                  
+## Sets BioStatus from character -> factor (better for data manipulation & necessary for plotting)     
+#class(Hets$BioStatus)
 Hets$BioStatus <- as.factor(Hets$BioStatus)
 
 
@@ -77,7 +81,7 @@ levels(PopGen$Population)[c(23, 30)] <- c("SanCristobalDeLasCasas",
 #setdiff(levels(HetsUp$BioStatus), levels(PopGen$BioStatus))
 
 
-# Converts DF from wide into long ~
+# Converts DF from wide into long (necessary for ggplot)~
 PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide_Diversity", "Watson_Theta", "Tajima_D")
 
 
