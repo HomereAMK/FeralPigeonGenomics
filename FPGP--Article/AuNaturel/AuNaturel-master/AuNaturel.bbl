@@ -1,0 +1,37 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\selectlanguage}[1]{\relax}
+\providecommand{\bibAnnoteFile}[1]{%
+  \IfFileExists{#1}{\begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ \input{#1}\end{quotation}}{}}
+\providecommand{\bibAnnote}[2]{%
+  \begin{quotation}\noindent\textsc{Key:} #1\\
+  \textsc{Annotation:}\ #2\end{quotation}}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem{Schulman-phys-rev}
+\textsc{L.~Schulman}.
+\newblock A path integral for
+  spin\href{http://dx.doi.org/10.1103/PhysRev.176.1558}{.
+\newblock \emph{Phys. Rev.} \textbf{176} no.~5, pp. 1558--1569 (1968)}.
+\bibAnnoteFile{Schulman-phys-rev}
+
+\bibitem{Schulman}
+\textsc{L.~S. Schulman}.
+\newblock \emph{Techniques and applications of path integration} (Dover, New
+  York, 2005), pp. 190--196.
+\bibAnnoteFile{Schulman}
+
+\bibitem{TomScott}
+\textsc{T.~Scott}.
+\newblock \href{https://www.youtube.com/watch?v=ldT2g2qDQNQ}{Crash Blossoms and
+  Being Drunk: Ambiguity}.
+\newblock YouTube (2015).
+\bibAnnoteFile{TomScott}
+
+\end{thebibliography}
