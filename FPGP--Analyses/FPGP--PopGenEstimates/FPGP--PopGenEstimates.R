@@ -6,6 +6,9 @@
 
 #################################
 
+rm(list=ls())
+
+
 # Sets working directory ~
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -16,6 +19,10 @@ pacman::p_load(scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyvers
 
 # Imports extra fonts ~
 loadfonts(device = "win", quiet = TRUE)
+
+
+# Load helper functions (to be used along the script)
+source("utilities.R")
 
 
 # Loads the data ~
@@ -61,9 +68,6 @@ UnwantedPops <- c("Virginia", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy", "Ca
 HetsUp <- filter(HetsUp, !Population %in% UnwantedPops)
 
 
-# NOT SURE WHAT TO SAY HERE ~
-HetsUp$Population <- factor(HetsUp$Population)
-
 
 # Checkpoint I ~
 #setdiff(colnames(PopGen), colnames(HetsUp))
@@ -86,6 +90,7 @@ PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide_Diversity", "Watson_Thet
 
 
 # Adds data ID column to each DF ~
+# (Mandatory for the plotting!)
 PopGenUp$ID <- factor(paste("PopGen"))
 HetsUp$ID <- factor(paste("Hets"))
 
@@ -95,26 +100,9 @@ HetsUp$ID <- factor(paste("Hets"))
 #setdiff(colnames(HetsUp),colnames(PopGenUp))
 
 
-# NOT SURE WHAT TO SAY HERE ~
-PopGenUp$Sample_ID <- NA
-PopGenUp$Het <- NA
-PopGenUp$DataType <- NA
-HetsUp$NSites <- NA
-HetsUp$Estimate <- NA
-HetsUp$Value <- NA
-
-
-# Intersects the 2 DFs ~
-intersect(colnames(PopGenUp), colnames(HetsUp))
-
-
-# Reorders columns within each DF ~
-PopGenUp <- PopGenUp[,c("Population", "NSites", "BioStatus", "Estimate", "Value","ID", "Sample_ID", "Het", "DataType")]
-HetsUp <- HetsUp[,c("Population", "NSites", "BioStatus", "Estimate", "Value", "ID", "Sample_ID", "Het", "DataType")]
-
 
 # Bind the 2 DFs based on common columns (Population | BioStatus) ~
-fulldf <- rbind(PopGenUp, HetsUp)
+fulldf <- mybind(PopGenUp, HetsUp)
 
 
 # Includes label for empty factor level (related to PHS) ~
