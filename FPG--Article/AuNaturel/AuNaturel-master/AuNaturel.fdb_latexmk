@@ -1,17 +1,17 @@
 # Fdb version 3
-["bibtex AuNaturel"] 1623289482 "AuNaturel.aux" "AuNaturel.bbl" "AuNaturel" 1623289488
+["bibtex AuNaturel"] 1623289482 "AuNaturel.aux" "AuNaturel.bbl" "AuNaturel" 1623361292
   "./arthur.bst" 1525257347 34344 f25d240d1376df34ac2f3301206da970 ""
-  "AuNaturel.aux" 1623289487 1806 dedaee8dacd2f694294ad7b57f74f424 "pdflatex"
+  "AuNaturel.aux" 1623361291 1806 dedaee8dacd2f694294ad7b57f74f424 "pdflatex"
   "references.bib" 1525257347 645 48517b3c250d7ca11699d30ab196401e ""
   (generated)
   "AuNaturel.bbl"
   "AuNaturel.blg"
-["pdflatex"] 1623289483 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/AuNaturel/AuNaturel-master/AuNaturel.tex" "AuNaturel.pdf" "AuNaturel" 1623289488
-  "AuNaturel.aux" 1623289487 1806 dedaee8dacd2f694294ad7b57f74f424 "pdflatex"
+["pdflatex"] 1623361288 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/AuNaturel/AuNaturel-master/AuNaturel.tex" "AuNaturel.pdf" "AuNaturel" 1623361292
+  "AuNaturel.aux" 1623361291 1806 dedaee8dacd2f694294ad7b57f74f424 "pdflatex"
   "AuNaturel.bbl" 1623289483 1296 b932156b5d46be655de46cfd276ecac0 "bibtex AuNaturel"
-  "AuNaturel.out" 1623289487 477 468a359181bd7bf92bea9957b119bc06 "pdflatex"
+  "AuNaturel.out" 1623361291 477 468a359181bd7bf92bea9957b119bc06 "pdflatex"
   "AuNaturel.tex" 1623289474 10916 9a544d7e418b41c1323b8a322188db13 ""
-  "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/AuNaturel/AuNaturel-master/AuNaturel.tex" 1623289474 10916 9a544d7e418b41c1323b8a322188db13 ""
+  "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/AuNaturel/AuNaturel-master/AuNaturel.tex" 1623289474 10916 9a544d7e418b41c1323b8a322188db13 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc" 1623162854 2027 f8708480c25b8150843bb94b8b39c93f ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc" 1623164263 2083 60e36f8eac802fcaf19eabe2633b406e ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec-sc.enc" 1623165410 2881 8e2aef9e38084b946e7656b60672fedb ""
@@ -253,6 +253,6 @@
   "c:/texlive/2021/texmf.cnf" 1623166116 713 e69b156964470283e0530f5060668171 ""
   (generated)
   "AuNaturel.out"
+  "AuNaturel.log"
   "AuNaturel.aux"
   "AuNaturel.pdf"
-  "AuNaturel.log"

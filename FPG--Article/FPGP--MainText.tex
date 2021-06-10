@@ -24,10 +24,9 @@
 \renewcommand{\headrule}{}
 \renewcommand{\footrule}{}
 
-
 \pagestyle{fancy}
-\fancyhead[L]{Layka}
-\fancyhead[R]{Pacheco}
+\fancyhead[L]{Feral Pigeon Genomics}
+\fancyhead[R]{Pacheco et al. 2021}
 \fancypagestyle{firstpage}{%
 \fancyhf{}
 \lhead{}
@@ -40,6 +39,7 @@
 
 % Loads packages for comments ~
 \usepackage{verbatim}
+\usepackage[hang, flushmargin]{footmisc}
 
 % Loads packages for tables ~
 \usepackage{float}
@@ -80,8 +80,9 @@
 \pdfmapfile{=montserrat.map} 
 \renewcommand{\LettrineFont}{
   \fontfamily{iwonal}\fontsize{30}{30}\selectfont
-  \color[rgb]{0,0.25,0.8}}
+  \color[rgb]{0.25,0.25,0.25}}
 \usepackage{marvosym}
+
 % Figure captions
 \usepackage{caption}
 \DeclareCaptionFont{cfs}{\fontsize{8.5}{10.25}\selectfont}
@@ -100,9 +101,13 @@
   colorlinks=true,
   urlcolor=-myorange}
 \usepackage{fontawesome}
-%\usepackage{academicons}
 
-%\newcommand{\orcid}[1]{\href{https://orcid.org/#1}{\textcolor[HTML]{A6CE39}{\aiOrcid}}}
+\usepackage{lipsum}
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup}
 
 % Loads packages for bibliography ~
 \usepackage[
@@ -118,24 +123,17 @@ sorting = ynt
 %% Starts Document %%
 
 % Starts document ~
-\begin{document}
+\begin{document}\thispagestyle{empty}
 
 % Sets title ~
-\begin{center}
-\noindent \LARGE \bfseries \fontfamily{cmr} On the Origin and Spread of Feral Pigeons \\
-\end{center}
-
-\hfill\break
+\LARGE{\bfseries{\fontfamily{cmr}\color[rgb]{0.25,0.25,0.25}\noindent{On the Origin and Spread of Feral Pigeons}}} \\
 
 \begin{lstlisting}
 \end{lstlisting}
 
-%\aiOrcid
-%\textsuperscript{\Letter} ~ Another option for letter icon.
-
 % Sets authorship ~
 \fontfamily{cmr} \small \noindent 
-George Pacheco\,$^{1}$\textsuperscript{\faEnvelopeO} %\orcid{0000-0002-9367-6813},
+George Pacheco\,$^{1}$\textsuperscript{\faEnvelopeO},
 Filipe G. Vieira\,$^{1}$,
 Michael D. Martin\,$^{1}$,
 Morten Tange Olsen\,$^{1}$,
@@ -166,38 +164,22 @@ Megan L. Coghlan\,$^{1}$,
 Jon Fjeldså\,$^{1}$ \&
 M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO}
 
+\hfill\break
+\hfill\break
+\hfill\break
+
 % Sets affiliations ~
-\begin{center}
-\begin{flushleft}
-$^1$Section for Evolutionary Genomics, The GLOBE Institute, Faculty of Health and Medical Sciences, University of Copenhagen, Copenhagen, Denmark. \\
-$^1$Natural History Museum of Denmark, University of Copenhagen, Øster Voldgade 5–7, 1350 Copenhagen, Denmark. \\
-$^1$NTNU University Museum, Norwegian University of Science and Technology, Trondheim, Norway. \\
-$^1$Department of Zoology, Charles University, Prague, Czech Republic. \\
-$^1$Departamento de Patologia, Faculdade de Medicina Veterinária e Zootecnia, Universidade de São Paulo, São Paulo, Brazil. \\
-$^1$Ornithology Section, Department of Zoology, National Museums of Kenya, Nairobi, Kenya. \\
-$^1$Centro de Investigación en Ecosistemas, Universidad Nacional Autonoma de Mexico, Michoacan, Mexico. \\
-$^1$Departamento de Ecología Evolutiva, Museo Nacional de Ciencias Naturales, Madrid, Spain. \\
-$^1$Avian Evolution Node, Department of Zoology and Environment Sciences, University of Colombo, Colombo, Sri Lanka. \\
-$^1$Institute of Evolutionary Biology, Universitat Pompeu Fabra, Barcelona, Spain. \\
-$^1$Department of Animal and Plant Sciences, University of Sheffield, Sheffield, UK. \\
-$^1$Centro de Investigação em Biodiversidade e Recursos Genéticos, Universidade do Porto, Vairão, Portugal. \\
-$^1$Institute of Evolutionary Biology, Department of Experimental and Health Sciences, University, Pompeu Fabra, Spain. \\
-$^1$Departamento de Biologia, Faculdade de Ciências, Universidade do Porto, Porto, Portugal. \\
-$^1$University of the Faroe Islands, Tórshavn, Faroe Islands. \\
-$^1$National Center for Agricultural Research and Extension, Al-Baqah, Jordan. \\
-$^1$Department of Biology and Biotechnology, American University of Madaba, Madaba, Jordan. \\
-$^1$Department of Zoology, Tel Aviv University, Tel Aviv, Israel. \\
-$^1$Natural History Museum, Imperial College of London, London, United Kingdom. \\
-$^1$Department of Biodiversity, Turfloop Campus, University of Limpopo, Polokwane, South Africa. \\
-$^1$Department of Wildlife Diseases, Leibniz Institute for Zoo and Wildlife Research, Berlin, Germany. \\
-$^1$Vetgenomics SL, Edifici Eureka, Campus UAB, Barcelona, Spain. \\
-$^1$Trace and Environmental DNA (TrEnD) Laboratory, Department of Environment and Agriculture, Curtin University, Perth, Australia.
-\end{flushleft}
-\end{center}
+\blfootnote{\scriptsize{\fontfamily{cmr}$^1$Section for Evolutionary Genomics, The GLOBE Institute, Faculty of Health and Medical Sciences, University of Copenhagen, Copenhagen, Denmark. $^1$Natural History Museum of Denmark, University of Copenhagen, Øster Voldgade 5–7, 1350 Copenhagen, Denmark. $^1$NTNU University Museum, Norwegian University of Science and Technology, Trondheim, Norway $^1$Department of Zoology, Charles University, Prague, Czech Republic. $^1$Departamento de Patologia, Faculdade de Medicina Veterinária e Zootecnia, Universidade de São Paulo, São Paulo, Brazil. $^1$Ornithology Section, Department of Zoology, National Museums of Kenya, Nairobi, Kenya. $^1$Centro de Investigación en Ecosistemas, Universidad Nacional Autonoma de Mexico, Michoacan, Mexico. $^1$Departamento de Ecología Evolutiva, Museo Nacional de Ciencias Naturales, Madrid, Spain. $^1$Avian Evolution Node, Department of Zoology and Environment Sciences, University of Colombo, Colombo, Sri Lanka. $^1$Institute of Evolutionary Biology, Universitat Pompeu Fabra, Barcelona, Spain. $^1$Department of Animal and Plant Sciences, University of Sheffield, Sheffield, UK. $^1$Centro de Investigação em Biodiversidade e Recursos Genéticos, Universidade do Porto, Vairão, Portugal. $^1$Institute of Evolutionary Biology, Department of Experimental and Health Sciences, University, Pompeu Fabra, Spain. $^1$Departamento de Biologia, Faculdade de Ciências, Universidade do Porto, Porto, Portugal. $^1$University of the Faroe Islands, Tórshavn, Faroe Islands. $^1$National Center for Agricultural Research and Extension, Al-Baqah, Jordan. $^1$Department of Biology and Biotechnology, American University of Madaba, Madaba, Jordan. $^1$Department of Zoology, Tel Aviv University, Tel Aviv, Israel. $^1$Natural History Museum, Imperial College of London, London, United Kingdom. $^1$Department of Biodiversity, Turfloop Campus, University of Limpopo, Polokwane, South Africa. $^1$Department of Wildlife Diseases, Leibniz Institute for Zoo and Wildlife Research, Berlin, Germany. $^1$Vetgenomics SL, Edifici Eureka, Campus UAB, Barcelona, Spain. $^1$Trace and Environmental DNA (TrEnD) Laboratory, Department of Environment and Agriculture, Curtin University, Perth, Australia.\\ \textsuperscript{\faEnvelopeO}Correspondence should be addressed to \href{mailto:ganpa@aqua.dtu.dk}{ganpa@aqua.dtu.dk} (G.P.) \& \href{mailto:tgilbert@sund.ku.dk}{tgilbert@sund.ku.dk} (M.T.P.G.)}}
+
+%Some text\blfootnote{A footnote without marker} and some more text\footnote{A standard footnote}
 
 % Sets lines around authorship & affiliations ~
-\begin{lstlisting}
-\end{lstlisting}
+%\begin{lstlisting}
+%\end{lstlisting}
+
+\hfill\break
+\hfill\break
+\hfill\break
 
 % Sets abstract title ~
 \begin{center}
@@ -224,25 +206,15 @@ The rock pigeon (\textit{Columba livia} Gmelin, 1789) is presumed native to the 
 %\subsection*
 
 \begin{multicols}{2}
-\noindent \textbf{Sampling effort.} To investigate the genomic patterns of current pigeon populations of different evolutionary histories, we intentionally targeted our sampling to cover four distinct categories (Figure 1). Furthermore, to help root the evolutionary relationships between these groups, we also included a small number of individuals representing the Columba livia intermedia (Strickland, 1844) subspecies. Specifically in this regard, we sampled five populations from Sri Lanka, where two of them were from urban localities (Colombo and Trincomalee), one was from a Conservation National Park (Pigeon Island) and two others were captive populations maintained by local breeders (Wattala and Wellawatte) (Supplementary Fig. 1). To check for data reproducibility, we sequenced two of the samples twice (Tehran\textunderscore16-GBS and Perth\textunderscore02-GBS) to serve as replicates. Finally, to serve as external outgroups, we also generated data from five samples of (\textit{Columba palumbus Linnaeus}, 1758) captured in Copenhagen (Denmark), one captive sample of (\textit{Streptopelia risoria} Linnaeus, 1758), and additionally incorporated previously published whole genome resequence data from a Columba rupestris8. (we also included the WGS library to serve as another replicate) (Supplementary Spreadsheet).\
+\noindent \textbf{Sampling effort.} To investigate the genomic patterns of current pigeon populations of different evolutionary histories, we intentionally targeted our sampling to cover four distinct categories (Figure 1). Furthermore, to help root the evolutionary relationships between these groups, we also included a small number of individuals representing the Columba livia intermedia (Strickland, 1844) subspecies. Specifically in this regard, we sampled five populations from Sri Lanka, where two of them were from urban localities (Colombo and Trincomalee), one was from a Conservation National Park (Pigeon Island) and two others were captive populations maintained by local breeders (Wattala and Wellawatte) (Supplementary Fig. 1). To check for data reproducibility, we sequenced two of the samples twice (Tehran\textunderscore16-GBS and Perth\textunderscore02-GBS) to serve as replicates. Finally, to serve as external outgroups, we also generated data from five samples of (\textit{Columba palumbus Linnaeus}, 1758) captured in Copenhagen (Denmark), one captive sample of (\textit{Streptopelia risoria} Linnaeus, 1758), and additionally incorporated previously published whole genome resequence data from a Columba rupestris8. (we also included the WGS library to serve as another replicate) (Supplementary Spreadsheet).
+
+\noindent \textbf{Sequencing data and filtering.}\\
+\noindent \textbf{Population genetics statistics.}\\
+\noindent \textbf{Phylogenetic relationships among feral pigeon populations.}\\
+\noindent \textbf{Population structure among pigeon populations.}\\
+\noindent \textbf{Contribution of pigeon breeds to current non-domesticated populations.}\\
 \end{multicols}
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.35]{../FPGP--Analyses/FPGP--Map/FPGP--Map.pdf}
-\caption*{ \scriptsize \textbf{Fig. 1 Map of sampling effort.} This is a trial attempt.}
-\label{MainText:FPGP--Map}
-\end{figure}
-
-\subsection*{\textit{Sequencing Data and Filtering}}
-
-\subsection*{\textit{Population Genetics Statistics}}
-
-\subsection*{\textit{Phylogenetic Relationships Among Feral Pigeon Populations}}
-
-\subsection*{\textit{Population Structure Among Pigeon Populations}}
-
-\subsection*{\textit{Contribution of Pigeon Breeds to Current Non-domesticated Populations}}
 
 % Discussion %
 
@@ -252,22 +224,45 @@ The rock pigeon (\textit{Columba livia} Gmelin, 1789) is presumed native to the 
 
 \section*{Methods}
 
-\subsection*{\textit{Sequencing Data Generation and Processing}}
+\begin{multicols}{2}
+\noindent \textbf{Sequencing data generation and processing.}\\
+\noindent \textbf{Data analysis.}\\
+\noindent \textbf{Population genetics statistics.}\\
+\noindent \textbf{Phylogenetic reconstruction.}\\
+\noindent \textbf{Inference of Population Structure.}\\
+\noindent \textbf{Contribution of pigeon breeds to current non-domesticated populations.}\\
+\end{multicols}
 
-\subsection*{\textit{Data Analysis}}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{../FPG--Plots/FPG--Map/FPG--Map.pdf}
+\caption*{ \scriptsize \textbf{Fig. 1 Map of sampling effort.} This is a trial attempt.}
+\label{MainText:FPGP--Map}
+\end{figure}
 
-\subsection*{\textit{Population Genetics Statistics}}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
+\caption*{ \scriptsize \textbf{Fig. 2 Map of sampling effort.} This is a trial attempt.}
+\label{MainText:FPGP--PopGenEstimates}
+\end{figure}
 
-\subsection*{\textit{Phylogenetic Reconstruction}}
+\begin{figure}
+\centering
+\includegraphics[scale=0.17]{../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf}
+\caption*{ \scriptsize \textbf{Fig. 3 Map of sampling effort.} This is a trial attempt.}
+\label{MainText:FPG--ngsAdmix}
+\end{figure}
 
-\subsection*{\textit{Inference of Population Structure}}
-
-\subsection*{\textit{Contribution of Pigeon Breeds to Current Non-domesticated Populations}}
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{../FPG--Plots/FPG--MDS/FPG--MDS.pdf}
+\caption*{ \scriptsize \textbf{Fig. 4 Map of sampling effort.} This is a trial attempt.}
+\label{MainText:FPG--MDS}
+\end{figure}
 
 \newpage
 
-%\bibliographystyle{unsrtnat}
-%\bibliography{MainText}
 \printbibliography
 
 \end{document}

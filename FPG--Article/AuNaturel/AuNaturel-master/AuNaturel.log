@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.8)  10 JUN 2021 03:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.8)  10 JUN 2021 23:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/AuNaturel/AuNaturel-master/AuNaturel.tex"
-(c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPGP -- FINISHING/FPGP--GitHub/FeralPigeonGenomicsProject/FPGP--Article/AuNaturel/AuNaturel-master/AuNaturel.tex
+**"c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/AuNaturel/AuNaturel-master/AuNaturel.tex"
+(c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/AuNaturel/AuNaturel-master/AuNaturel.tex
 LaTeX2e <2021-06-01>
 L3 programming layer <2021-06-01> (c:/texlive/2021/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
@@ -911,12 +911,12 @@ Package rerunfilecheck Info: File `AuNaturel.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  29614 strings out of 478536
- 545850 string characters out of 5854227
- 1091662 words of memory out of 5000000
+ 545778 string characters out of 5854227
+ 1091663 words of memory out of 5000000
  47010 multiletter control sequences out of 15000+600000
  520512 words of font info for 165 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,12n,83p,884b,792s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 83i,12n,83p,860b,792s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec-sc.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newtx/NewTXMI7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/nowacki/iwona/iwonal.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/tex-gyre/qhvb.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/tex-gyre/qhvr.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newtx/txexs.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newtx/txsys.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newtx/ztmb.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/newtx/ztmr.pfb>
 Output written on AuNaturel.pdf (3 pages, 278715 bytes).
 PDF statistics:
