@@ -2,19 +2,20 @@
 ##
 # Creates FPGP--CoverageHeatMap | By George PACHECO
 
-# Sets working directory:
+
+# Sets working directory ~
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# Loads required packages:
+# Loads required packages ~
 
 pacman::p_load(pheatmap, tidyverse, ggrepel, extrafont, cowplot)
 
-# Imports extra fonts:
+# Imports extra fonts ~
 
 loadfonts(device = "win", quiet = TRUE)
 
-# Loads data:
+# Loads data ~
 
 KMs_float16 <- read.table("FPGP--Loci_Merged.coverage_float16.km.tsv", sep = "\t", row.names = 1, header = TRUE, check.names = FALSE)
 Weights_float16 <- na.omit(as.matrix(read.table("FPGP--Loci_Merged.coverage_float16.km_weights.txt", sep = ","))[1, ])
