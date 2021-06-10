@@ -2,6 +2,8 @@
 
 # Function for binding two data frames with different columns
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Original code extracted from: https://github.com/mcruf/LGNB/blob/master/R/utilities.R
+
 mybind <- function(x, y) {
   i <- intersect(names(x), names(y))
   ix <- setdiff(names(x), names(y))
