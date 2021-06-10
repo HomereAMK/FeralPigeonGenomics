@@ -155,18 +155,26 @@ fulldf$Population <- factor(fulldf$Population, ordered = T,
                                        "Tlaxcala de Xicohténcatl", "Mexico City", "Monterrey","San Cristóbal de las Casas", "Santiago", 
                                        "Salvador", "Tatuí", "Johannesburg", "Nairobi", "Perth", "Tel Aviv Colony"))
 
+# Reorders BioStatus ~
+fulldf$BioStatus <- factor(fulldf$BioStatus, ordered = T,
+                            levels = c("Remote_Localities_Within_Natural_Range",
+                                       "Urban_Localities_Within_Natural_Range",
+                                       "Localities_Outside_Natural_Range",
+                                       "Captive_Populations",
+                                       "Outgroups"))
+
 
 # Creates the panel ~
 PopGennEstimates <- 
-  ggplot() + 
+ggplot() +
+  geom_boxplot(data = subset(fulldf, ID == "Hets"),
+               aes(x = Population, y = Het, fill = BioStatus), show.legend = FALSE, outlier.colour = "black", outlier.shape = 21, outlier.size = 1.85, width = .3, lwd = .3) +
   geom_point(data = subset(fulldf, ID =="PopGen"),
              aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
-  geom_boxplot(data = subset(fulldf, ID == "Hets"),
-               aes(x = Population, y = Het, fill = BioStatus), outlier.size = 1.5, width = 0.3) +
   facet_grid(Estimate ~. , scales = "free", labeller = labeller(Estimate = ylable)) +
-  scale_fill_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442"),
-                    labels = gsub("_", " ", fulldf$BioStatus)) +
-  scale_colour_manual(values = c("#56B4E9", "#E69F00", "#44AA99", "#F0E442")) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"),
+                    labels = gsub("_", " ", levels(fulldf$BioStatus))) +
+  scale_colour_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9")) +
   theme(panel.background = element_rect(fill = "#FAFAFA"),
         panel.grid.major.x = element_line(color = "#ededed", linetype = "dashed", size = .00005),
         panel.grid.major.y = element_blank(),
@@ -181,39 +189,11 @@ PopGennEstimates <-
         strip.background.y = element_rect(colour = "#000000", fill = "#d6d6d6", size = 0.3),
         strip.text = element_text(colour = "#000000", size = 12, face = "bold", family = "Georgia"),
         legend.position = "top",
-        legend.title = element_blank(),
-        legend.background =element_blank(),
-        legend.key = element_rect(fill = NA))
-
-ggplot() + 
-  geom_point(data = subset(fulldf, ID =="PopGen"),
-             aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
-  geom_boxplot(data = subset(fulldf, ID == "Hets"),
-               aes(x = Population, y = Het, fill = BioStatus), outlier.size = 1.5, width = 0.3) +
-  facet_grid(Estimate ~. , scales = "free", labeller = labeller(Estimate = ylable)) +
-  scale_colour_manual(values = c("#44AA99", "#E69F00", "#F0E442", "#56B4E9")) +
-  scale_fill_manual(values = c("#44AA99", "#E69F00", "#F0E442", "#56B4E9"),
-                    labels = c("Remote Localities Within Natural Range",
-                               "Urban Localities Within Natural Range",
-                               "Localities Outside Natural Range",
-                               "Captive Populations")) +
-  theme(panel.background = element_rect(fill = "#FAFAFA"),
-        panel.grid.major.x = element_line(color = "#ededed", linetype = "dashed", size = .00005),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(), 
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "#000000", size = .3),
-        axis.title = element_blank(),
-        axis.text.x = element_text(colour="#000000", size = 16, face = "bold", family = "Helvetica", angle = 90, vjust = .5, hjust = 1),
-        axis.text.y = element_text(color="#000000", size = 16, family = "Helvetica"),
-        axis.ticks.x = element_line(color="#000000", size = .3),
-        axis.ticks.y = element_line(color="#000000", size = .3),
-        strip.background.y = element_rect(colour = "#000000", fill = "#d6d6d6", size = 0.3),
-        strip.text = element_text(colour = "#000000", size = 12, face = "bold", family = "Georgia"),
-        legend.position = "top",
-        legend.title = element_blank(),
-        legend.background =element_blank(),
-        legend.key = element_rect(fill = NA))
+        legend.key = element_rect(fill = NA),
+        legend.background =element_blank()) +
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 13, face = "bold", family = "Helvetica"),
+                             label.theme = element_text(size = 12.25, family = "Helvetica"),
+                             override.aes = list(size = 4, alpha = .9)), colour = "none")
 
 
 # Saves the panel ~

@@ -6,13 +6,33 @@
 %% Preamble Settings %% 
 
 % Defines document class and paper size ~
-\documentclass[a4paper]{article}
+\documentclass[twoside, british, a4paper]{article}
 
 % Fixes margins ~
-\usepackage[margin = 1in]{geometry}
+\usepackage{geometry}
+\geometry{reset,ignoreall,
+  textheight = 253mm,
+  textwidth = 175mm,
+  bottom = 21mm,
+  inner = 17.5mm,
+  footskip = 8mm,
+  headsep = 5mm,
+  headheight = 10pt}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
+\renewcommand{\headrule}{}
+\renewcommand{\footrule}{}
+
+
+\pagestyle{fancy}
+\fancyhead[L]{Layka}
+\fancyhead[R]{Pacheco}
+\fancypagestyle{firstpage}{%
+\fancyhf{}
+\lhead{}
+\rhead{}}
+
 
 % Loads packages for images ~
 \usepackage{graphicx}
@@ -25,7 +45,7 @@
 \usepackage{float}
 \usepackage{multirow}
 \usepackage{lmodern}
-%\usepackage[T2]{fontenc}
+\usepackage[T1]{fontenc}
 \usepackage{textcomp}
 
 % Listing of source code ~
@@ -57,8 +77,21 @@
 
 % Loads packages for typing ~
 \usepackage{lettrine}
+\pdfmapfile{=montserrat.map} 
+\renewcommand{\LettrineFont}{
+  \fontfamily{iwonal}\fontsize{30}{30}\selectfont
+  \color[rgb]{0,0.25,0.8}}
 \usepackage{marvosym}
+% Figure captions
 \usepackage{caption}
+\DeclareCaptionFont{cfs}{\fontsize{8.5}{10.25}\selectfont}
+\DeclareCaptionLabelSeparator{vline}{\;|\;}
+\captionsetup{
+ labelsep=vline, 
+ font={sf,cfs}, 
+ labelfont={cfs,bf},
+ belowskip=-12pt}
+\newcommand{\figurecaption}[2]{\caption[#1]{\textbf{#1.} #2}}
 \usepackage{hyperref}
 \usepackage[dvipsnames]{xcolor}
 \definecolor{mycolor}{HTML}{F7F8E0}
@@ -81,12 +114,6 @@ sorting = ynt
 
 \usepackage{blindtext}
 \usepackage{multicol}
-
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{Pacheco et al. 2021}
-\lhead{Feral Pigeon Genomics}
-\rfoot{Page \thepage}
 
 %% Starts Document %%
 

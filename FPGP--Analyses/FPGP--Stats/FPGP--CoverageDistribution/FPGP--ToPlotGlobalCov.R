@@ -1,7 +1,21 @@
-setwd("/Users/hintze/Desktop/PhD\ Action\ Plan/Core\ Projects/Finishing/FPGP--FINAL/Analyses/FPGP--Stats/CoverageDistribution")
+### The BEGINNING ~~~~
+##
+# ~ Creates FPGP--CoverageHeatMap | By George PACHECO
 
-library(ggplot2)
-library(scales)
+
+# Sets working directory ~
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+# Loads required packages ~
+
+pacman::p_load(scales, tidyverse)
+
+# Imports extra fonts ~
+
+loadfonts(device = "win", quiet = TRUE)
+
+# Loads data ~
 
 a0 <- read.table("FPGP--GoodSamples_IntersectedWithMerged--Article--Ultra.mean")
 colnames(a0) <- c("Loci","Coverage")
