@@ -77,22 +77,19 @@ Hets$BioStatus <- ifelse(Hets$Population %in% c("Torshavn","Ejde","Sumba","LjosA
 Hets$BioStatus <- as.factor(Hets$BioStatus)
 
 
-## Gives the expanded Hets another name ~ 
-HetsUp <- Hets
-
 
 ## Removes unwanted populations ~
 UnwantedPops <- c("Virginia", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy", "Cambridge", "Jihlava",
                   "Wattala", "Wellawatte", "Srisoria", "Cpalumbus", "Crupestris")
-HetsUp <- filter(HetsUp, !Population %in% UnwantedPops)
+Hets <- filter(Hets, !Population %in% UnwantedPops)
 
 
 
 ## Checkpoint I ~
-#setdiff(colnames(PopGen), colnames(HetsUp))
-#nlevels(PopGen$Population); nlevels(HetsUp$Population)
-#setdiff(levels(HetsUp$Population), levels(PopGen$Population))
-#setdiff(levels(PopGen$Population), levels(HetsUp$Population))
+#setdiff(colnames(PopGen), colnames(Hets))
+#nlevels(PopGen$Population); nlevels(Hets$Population)
+#setdiff(levels(Hets$Population), levels(PopGen$Population))
+#setdiff(levels(PopGen$Population), levels(Hets$Population))
 
 ## Corrects population names in Hets ~ ¡It is very disturbing that this needs to be done here -- please consider modifying the original .sh script!
 levels(PopGen$Population)[c(23, 30)] <- c("SanCristobalDeLasCasas",
@@ -100,8 +97,8 @@ levels(PopGen$Population)[c(23, 30)] <- c("SanCristobalDeLasCasas",
 
 
 ## Checkpoint II ~ 
-#nlevels(PopGen$BioStatus); nlevels(HetsUp$BioStatus)
-#setdiff(levels(HetsUp$BioStatus), levels(PopGen$BioStatus))
+#nlevels(PopGen$BioStatus); nlevels(Hets$BioStatus)
+#setdiff(levels(Hets$BioStatus), levels(PopGen$BioStatus))
 
 
 ## Converts DF from wide into long (necessary for ggplot)~
@@ -111,12 +108,12 @@ PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide_Diversity", "Watson_Thet
 ## Adds data ID column to each DF ~
 #(Mandatory for the plotting!)
 PopGenUp$ID <- factor(paste("PopGen"))
-HetsUp$ID <- factor(paste("Hets"))
+Hets$ID <- factor(paste("Hets"))
 
 
 ## Checkpoint III ~
-#setdiff(colnames(PopGenUp),colnames(HetsUp))
-#setdiff(colnames(HetsUp),colnames(PopGenUp))
+#setdiff(colnames(PopGenUp),colnames(Hets))
+#setdiff(colnames(Hets),colnames(PopGenUp))
 
 
 
@@ -126,7 +123,7 @@ HetsUp$ID <- factor(paste("Hets"))
 # Ex.: "Estimate" & "Sample_ID" columns
 # head(fulldf); tail(fulldf)
 
-fulldf <- mybind(PopGenUp, HetsUp)
+fulldf <- mybind(PopGenUp, Hets)
 
 
 
