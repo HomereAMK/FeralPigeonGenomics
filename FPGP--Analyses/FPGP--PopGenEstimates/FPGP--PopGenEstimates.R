@@ -6,6 +6,15 @@
 
 #################################
 
+# There are two main data files: PopGen and Hets
+# To plot the results, both datasets have to be set into a single data frame.
+# The R script is thus organized as follows:
+# 1) Seeting wd, loading packages, fonts, datafiles & helper functions
+# 2) Data wrangling
+# 3) Plotting
+
+
+
 rm(list=ls())
 
 
