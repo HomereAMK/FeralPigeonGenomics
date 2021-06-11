@@ -948,12 +948,6 @@ INPUT ./FPGP--MainText.bbl
 INPUT FPGP--MainText.bbl
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr17.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm
-INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr9.tfm
-INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
-INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
-INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
-INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
-INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmtt9.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecrm0900.tfm
 INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
 INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
@@ -988,6 +982,7 @@ INPUT c:/texlive/2021/texmf-dist/tex/latex/fontawesome/ufontawesometwo.fd
 INPUT c:/texlive/2021/texmf-dist/tex/latex/fontawesome/ufontawesometwo.fd
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/fontawesome/FontAwesome--fontawesometwo.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr6.tfm
+INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr9.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr8.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/rm-lmr8.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/lmmi8.tfm
@@ -999,8 +994,6 @@ INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/lmsy7.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecrm0500.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/fontawesome/FontAwesome--fontawesometwo.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecrb0900.tfm
-INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecrb1200.tfm
-INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecti0900.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/eccc0900.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm
 INPUT c:/texlive/2021/texmf-dist/tex/latex/iwona/t1iwonal.fd
@@ -1009,6 +1002,12 @@ INPUT c:/texlive/2021/texmf-dist/tex/latex/iwona/t1iwonal.fd
 INPUT c:/texlive/2021/texmf-dist/tex/latex/iwona/t1iwonal.fd
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonal.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonam.tfm
+INPUT c:/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecti0900.tfm
+INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
+INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
+INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
+INPUT c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
+INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmtt9.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr12.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmbx12.tfm
 INPUT c:/texlive/2021/texmf-dist/fonts/tfm/public/lm/ec-lmr12.tfm
@@ -1054,9 +1053,9 @@ INPUT ./FPGP--MainText.out
 INPUT FPGP--MainText.run.xml
 OUTPUT FPGP--MainText.run.xml
 INPUT c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc
+INPUT c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT c:/texlive/2021/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc
-INPUT c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT c:/texlive/2021/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc
 INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/fontawesome/FontAwesome.pfb
 INPUT c:/texlive/2021/texmf-dist/fonts/type1/nowacki/iwona/iwonam.pfb
@@ -1073,6 +1072,5 @@ INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb
 INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
 INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt9.pfb
 INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrb0900.pfb
-INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrb1200.pfb
 INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb
 INPUT c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb

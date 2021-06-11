@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.8)  11 JUN 2021 02:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.8)  11 JUN 2021 13:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -388,7 +388,7 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
  (c:/texlive/2021/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 ))
-Package hyperref Info: Option `colorlinks' set `true' on input line 102.
+Package hyperref Info: Option `colorlinks' set `true' on input line 113.
  (c:/texlive/2021/texmf-dist/tex/latex/fontawesome/fontawesome.sty
 Package: fontawesome 2016/05/15 v4.6.3.1 font awesome icons
  (c:/texlive/2021/texmf-dist/tex/generic/iftex/ifxetex.sty
@@ -737,24 +737,24 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (./FPGP--MainText.aux)
 \openout1 = `FPGP--MainText.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 137.
+LaTeX Font Info:    ... okay on input line 137.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -780,7 +780,7 @@ LaTeX Font Info:    ... okay on input line 126.
 * \marginparwidth=111.0pt
 * \marginparsep=11.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=21.0pt plus 5.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -813,7 +813,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 126.
+Package hyperref Info: Link coloring ON on input line 137.
  (c:/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (c:/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -823,9 +823,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count458
 )
-LaTeX Info: Redefining \ref on input line 126.
-LaTeX Info: Redefining \pageref on input line 126.
-LaTeX Info: Redefining \nameref on input line 126.
+LaTeX Info: Redefining \ref on input line 137.
+LaTeX Info: Redefining \pageref on input line 137.
+LaTeX Info: Redefining \nameref on input line 137.
  (./FPGP--MainText.out) (./FPGP--MainText.out)
 \@outlinefile=\write4
 \openout4 = `FPGP--MainText.out'.
@@ -860,129 +860,118 @@ Package: blx-case-expl3 2020/12/31 v3.16 expl3 case changing code for biblatex
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'FPGP--MainText.bbl' found.
  (./FPGP--MainText.bbl)
-Package biblatex Info: Reference section=0 on input line 126.
-Package biblatex Info: Reference segment=0 on input line 126.
+Package biblatex Info: Reference section=0 on input line 137.
+Package biblatex Info: Reference segment=0 on input line 137.
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
 
  []
 
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 131.
-(c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 136.
- (c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 147.
+(c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 136.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 147.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 136.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 147.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 136.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 147.
  (c:/texlive/2021/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 136.
+(Font)              <9> on input line 147.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 136.
+(Font)              <6> on input line 147.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 136.
-LaTeX Font Info:    Trying to load font information for U+fontawesometwo on input line 136.
+(Font)              <5> on input line 147.
+LaTeX Font Info:    Trying to load font information for U+fontawesometwo on input line 147.
  (c:/texlive/2021/texmf-dist/tex/latex/fontawesome/ufontawesometwo.fd
 File: ufontawesometwo.fd 2016/05/22 Font definitions for U/fontawesometwo.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 167--170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 167--170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 167--170
-
- []
-
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 172.
+(Font)              <8> on input line 180.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 172.
-
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
-
- []
+(Font)              <7> on input line 180.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
+LaTeX Font Warning: Font shape `T1/cmr/b/it' undefined
+(Font)              using `T1/cmr/b/n' instead on input line 183.
 
- []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
+Underfull \hbox (badness 10000) in paragraph at lines 185--186
 
  []
 
-[1
-
-]
 
 LaTeX Font Warning: Font shape `T1/cmr/m/n' in size <15.4017> not available
-(Font)              size <14.4> substituted on input line 198.
+(Font)              size <14.4> substituted on input line 190.
 
-LaTeX Font Info:    Trying to load font information for T1+iwonal on input line 198.
+LaTeX Font Info:    Trying to load font information for T1+iwonal on input line 190.
 (c:/texlive/2021/texmf-dist/tex/latex/iwona/t1iwonal.fd
 File: t1iwonal.fd 2008/07/22 v0.995 font definition file for T1/iwonal (MW)
 )
 Package lettrine.sty Info: Targeted height = 15.4017pt
 (lettrine.sty)             (for loversize=0, accent excluded),
 (lettrine.sty)             Lettrine height = 20.99998pt (\textbf {A});
-(lettrine.sty)             reported on input line 198.
+(lettrine.sty)             reported on input line 190.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 190.
+ (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 
-Underfull \hbox (badness 10000) in paragraph at lines 211--216
+Package multicol Warning: I moved some lines to the next page.
+(multicol)                Footnotes on page 1 might be wrong on input line 195.
+
+[1
+
+]
+Underfull \hbox (badness 6592) in paragraph at lines 196--197
+[]\T1/cmr/m/n/9 In this study, we em-ployed the Genotyping-by-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--234
+Underfull \hbox (badness 10000) in paragraph at lines 229--235
 
  []
 
-<../FPG--Plots/FPG--Map/FPG--Map.pdf, id=24, 1210.5225pt x 1210.5225pt>
+<../FPG--Plots/FPG--Map/FPG--Map.pdf, id=26, 1210.5225pt x 1210.5225pt>
 File: ../FPG--Plots/FPG--Map/FPG--Map.pdf Graphic file (type pdf)
 <use ../FPG--Plots/FPG--Map/FPG--Map.pdf>
-Package pdftex.def Info: ../FPG--Plots/FPG--Map/FPG--Map.pdf  used on input line 238.
+Package pdftex.def Info: ../FPG--Plots/FPG--Map/FPG--Map.pdf  used on input line 239.
 (pdftex.def)             Requested size: 484.20042pt x 484.20042pt.
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 239.
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 240.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf, id=25, 1300.86pt x 867.24pt>
+<../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf, id=27, 1300.86pt x 867.24pt>
 File: ../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf Graphic file (type pdf)
 <use ../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf>
-Package pdftex.def Info: ../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf  used on input line 245.
+Package pdftex.def Info: ../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf  used on input line 246.
 (pdftex.def)             Requested size: 520.3348pt x 346.88986pt.
 
-Overfull \hbox (22.41158pt too wide) in paragraph at lines 245--246
+Overfull \hbox (22.41158pt too wide) in paragraph at lines 246--247
  [][] 
  []
 
-<../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf, id=26, 2890.8pt x 1084.05pt>
+<../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf, id=28, 2890.8pt x 1084.05pt>
 File: ../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf Graphic file (type pdf)
 <use ../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf>
-Package pdftex.def Info: ../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf  used on input line 252.
+Package pdftex.def Info: ../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf  used on input line 253.
 (pdftex.def)             Requested size: 491.4295pt x 184.28606pt.
-<../FPG--Plots/FPG--MDS/FPG--MDS.pdf, id=27, 1073.00874pt x 894.34125pt>
+<../FPG--Plots/FPG--MDS/FPG--MDS.pdf, id=29, 1073.00874pt x 894.34125pt>
 File: ../FPG--Plots/FPG--MDS/FPG--MDS.pdf Graphic file (type pdf)
 <use ../FPG--Plots/FPG--MDS/FPG--MDS.pdf>
-Package pdftex.def Info: ../FPG--Plots/FPG--MDS/FPG--MDS.pdf  used on input line 259.
+Package pdftex.def Info: ../FPG--Plots/FPG--MDS/FPG--MDS.pdf  used on input line 260.
 (pdftex.def)             Requested size: 429.19589pt x 357.73016pt.
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -1020,7 +1009,7 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 
 [5 <../FPG--Plots/FPG--MDS/FPG--MDS.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 267.
+(Font)              <10> on input line 268.
 
 
 Package fancyhdr Warning: \headheight is too small (10.0pt): 
@@ -1036,6 +1025,9 @@ Package fancyhdr Warning: \headheight is too small (10.0pt):
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.00171pt have occurred.
 
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 Package rerunfilecheck Info: File `FPGP--MainText.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 Package logreq Info: Writing requests to 'FPGP--MainText.run.xml'.
@@ -1043,18 +1035,18 @@ Package logreq Info: Writing requests to 'FPGP--MainText.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 23690 strings out of 478536
- 389039 string characters out of 5854227
- 1260209 words of memory out of 5000000
- 41255 multiletter control sequences out of 15000+600000
- 492854 words of font info for 78 fonts, out of 8000000 for 9000
+ 23377 strings out of 478536
+ 386571 string characters out of 5854227
+ 1271208 words of memory out of 5000000
+ 40939 multiletter control sequences out of 15000+600000
+ 492077 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,11n,67p,2659b,2235s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/fontawesome/FontAwesome.pfb><c:/texlive/2021/texmf-dist/fonts/type1/nowacki/iwona/iwonam.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr5.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt9.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrb0900.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrb1200.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb>
-Output written on FPGP--MainText.pdf (6 pages, 2311625 bytes).
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/fontawesome/FontAwesome.pfb><c:/texlive/2021/texmf-dist/fonts/type1/nowacki/iwona/iwonam.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr5.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmss8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmtt9.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrb0900.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb>
+Output written on FPGP--MainText.pdf (6 pages, 2316093 bytes).
 PDF statistics:
- 244 PDF objects out of 1000 (max. 8388607)
- 166 compressed objects within 2 object streams
- 18 named destinations out of 1000 (max. 500000)
+ 246 PDF objects out of 1000 (max. 8388607)
+ 170 compressed objects within 2 object streams
+ 22 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
