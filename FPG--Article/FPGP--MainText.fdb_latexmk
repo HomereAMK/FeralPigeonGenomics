@@ -1,21 +1,21 @@
 # Fdb version 3
-["biber FPGP--MainText"] 1623367768 "FPGP--MainText.bcf" "FPGP--MainText.bbl" "FPGP--MainText" 1623368721
-  "FPGP--MainText.bcf" 1623367936 107150 7b36d570b7dda60a8ff5863d65cb6764 "pdflatex"
+["biber FPGP--MainText"] 1623367768 "FPGP--MainText.bcf" "FPGP--MainText.bbl" "FPGP--MainText" 1623372124
+  "FPGP--MainText.bcf" 1623371955 107150 7b36d570b7dda60a8ff5863d65cb6764 "pdflatex"
   "FPGP--MainText.bib" 1623173381 2452 404f7707ccef9cfb5b2492d29b8fd76e ""
   (generated)
-  "FPGP--MainText.blg"
   "FPGP--MainText.bbl"
-["pdflatex"] 1623367933 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/FPGP--MainText.tex" "FPGP--MainText.pdf" "FPGP--MainText" 1623368721
+  "FPGP--MainText.blg"
+["pdflatex"] 1623371952 "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/FPGP--MainText.tex" "FPGP--MainText.pdf" "FPGP--MainText" 1623372124
   "../FPG--Plots/FPG--MDS/FPG--MDS.pdf" 1622592501 52460 467d27b98b94d5c722a446ea496855d5 ""
   "../FPG--Plots/FPG--Map/FPG--Map.pdf" 1623167487 1457572 c3c5c2fa6fd349cc4868d90901b1ff6a ""
   "../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf" 1623346267 60950 5bcdd1bffe87edfb31b68d7bf194af4e ""
   "../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf" 1622898054 372990 fdf4835297f0637925bae04d1a4c3d46 ""
-  "FPGP--MainText.aux" 1623367936 2004 699d74cc4f0952df77549bb5db6821d9 "pdflatex"
+  "FPGP--MainText.aux" 1623371955 2004 699d74cc4f0952df77549bb5db6821d9 "pdflatex"
   "FPGP--MainText.bbl" 1623367770 5568 45e7c6f595a4da5f599ddcc7631790b3 "biber FPGP--MainText"
-  "FPGP--MainText.out" 1623367936 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "FPGP--MainText.run.xml" 1623367936 2511 5c9bd9f0452f29046a5aae69ac083d3e "pdflatex"
-  "FPGP--MainText.tex" 1623368720 12970 9ea9c7834ac3ec68b8490f9dd4a8fc48 ""
-  "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/FPGP--MainText.tex" 1623368720 12970 9ea9c7834ac3ec68b8490f9dd4a8fc48 ""
+  "FPGP--MainText.out" 1623371955 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "FPGP--MainText.run.xml" 1623371955 2511 5c9bd9f0452f29046a5aae69ac083d3e "pdflatex"
+  "FPGP--MainText.tex" 1623372122 13001 54ed7508f04b0796ea935473ba884407 ""
+  "c:/Users/ganpa/OneDrive - Danmarks Tekniske Universitet/Skrivebord/DTU-Aqua--Postdoc/Past/Core/FPG--FINISHING/FeralPigeonGenomics/FPG--Article/FPGP--MainText.tex" 1623372122 13001 54ed7508f04b0796ea935473ba884407 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1623160255 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/fontawesome/fontawesometwo.enc" 1623161821 2679 32dd8ae231bf4a0752b98f62dc097183 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc" 1623162854 2027 f8708480c25b8150843bb94b8b39c93f ""
@@ -205,9 +205,9 @@
   "c:/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1623166256 2811066 495580740d6efe1855606ac01d73490c ""
   "c:/texlive/2021/texmf.cnf" 1623166116 713 e69b156964470283e0530f5060668171 ""
   (generated)
-  "FPGP--MainText.pdf"
-  "FPGP--MainText.log"
-  "FPGP--MainText.bcf"
   "FPGP--MainText.run.xml"
-  "FPGP--MainText.out"
   "FPGP--MainText.aux"
+  "FPGP--MainText.out"
+  "FPGP--MainText.bcf"
+  "FPGP--MainText.log"
+  "FPGP--MainText.pdf"
