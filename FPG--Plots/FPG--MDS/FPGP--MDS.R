@@ -9,7 +9,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Loads required packages:
 
-pacman::p_load(optparse, ggplot2, plyr, RColorBrewer, extrafont)
+pacman::p_load(optparse, tidyverse, plyr, RColorBrewer, extrafont, cowplot, patchwork, ggforce)
 
 # Imports extra fonts:
 
@@ -28,10 +28,10 @@ option_list <- list(make_option(c('-i','--in_file'), action = 'store', type = 'c
 # Defines parameters:
 
 opt <- parse_args(OptionParser(option_list = option_list))
-opt$in_file = "FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.mds"
-opt$annot = "FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives--Article--Ultra.annot"
+opt$in_file = "FPG_MDS.mds"
+opt$annot = "FPG_MDS.annot"
 opt$id_column = 1
-opt$in_maj_labels = "Location"
+opt$in_maj_labels = "Population"
 
 # Reads data
 
@@ -42,6 +42,7 @@ n <- ncol(data)
 
 if(!is.null(opt$annot)){
 annot <- read.table(opt$annot, sep = "\t", header = TRUE, stringsAsFactors=FALSE)
+colnames(annot) <- c("Sample_ID", "Population")
 data <- merge(data, annot, by.x = 0, by.y = opt$id_column)
   
 # Gets rownames back into place:
@@ -95,36 +96,196 @@ n = n - 1
 data_mean <- ddply(data, opt$in_maj_labels, function(x){colMeans(x[, 1:n], na.rm = TRUE)})
 colors <- as.character(opt$in_maj_labels)}
 
+
+# Expands the data by adding BioStatus ~
+data$BioStatus <- ifelse(data$Population %in% c("Torshavn","Ejde","Sumba","LjosAir","Kunoy","Nolsoy", "Crete", "Sardinia","Vernelle","WadiHidan","PigeonIsland","Trincomalee"), "Remote_Localities_Within_Natural_Range",
+                  ifelse(data$Population %in% c("Guimaraes","Lisbon","Barcelona","Berlin","Cambridge",
+                                               "Colombo","Copenhagen","London","Prague","Jihlava","Abadeh",
+                                               "Isfahan","Lahijan","Nowshahr","Tehran","TelAviv"), "Urban_Localities_Within_Natural_Range",
+                  ifelse(data$Population %in% c("SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl",
+                                               "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
+                                               "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
+                  ifelse(data$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", NA))))
+
+
+
+# Expands the data by Shape ~
+data$Locality <- # Remote Localities Within Natural Range
+                  ifelse(data$Population %in% c("Torshavn"), 0,
+                  ifelse(data$Population %in% c("Ejde"), 1,
+                  ifelse(data$Population %in% c("Sumba"), 2,
+                  ifelse(data$Population %in% c("LjosAir"), 3,
+                  ifelse(data$Population %in% c("Kunoy"), 4,
+                  ifelse(data$Population %in% c("Nolsoy"), 5,
+                  ifelse(data$Population %in% c("Crete"), 6,
+                  ifelse(data$Population %in% c("Sardinia"), 7,
+                  ifelse(data$Population %in% c("Vernelle"), 8,
+                  ifelse(data$Population %in% c("WadiHidan"), 9,
+                  ifelse(data$Population %in% c("PigeonIsland"), 10,
+                  ifelse(data$Population %in% c("Trincomalee"), 11,
+                  
+                  # Urban Localities Within Natural Range
+                  ifelse(data$Population %in% c("Guimaraes"), 0,
+                  ifelse(data$Population %in% c("Lisbon"), 1,
+                  ifelse(data$Population %in% c("Barcelona"), 2,
+                  ifelse(data$Population %in% c("Berlin"), 3,
+                  ifelse(data$Population %in% c("Cambridge"), 4,
+                  ifelse(data$Population %in% c("Colombo"), 5,
+                  ifelse(data$Population %in% c("Copenhagen"), 6,
+                  ifelse(data$Population %in% c("London"), 7,
+                  ifelse(data$Population %in% c("Prague"), 8,
+                  ifelse(data$Population %in% c("Jihlava"), 9,
+                  ifelse(data$Population %in% c("Abadeh"), 10,
+                  ifelse(data$Population %in% c("Isfahan"), 11,
+                  ifelse(data$Population %in% c("Lahijan"), 12,
+                  ifelse(data$Population %in% c("Nowshahr"), 13,
+                  ifelse(data$Population %in% c("Tehran"), 14,
+                  ifelse(data$Population %in% c("TelAviv"), 15,
+                  
+                  # Localities Outside Natural Range
+                  ifelse(data$Population %in% c("SaltLakeCity"), 0,
+                  ifelse(data$Population %in% c("Denver"), 1,
+                  ifelse(data$Population %in% c("FeralVA"), 2,
+                  ifelse(data$Population %in% c("FeralUT"), 3,
+                  ifelse(data$Population %in% c("MexicoCity"), 4,
+                  ifelse(data$Population %in% c("Monterrey"), 5,
+                  ifelse(data$Population %in% c("SanCristobalDeLasCasas"), 6,
+                  ifelse(data$Population %in% c("TlaxcalaDeXicohtencatl"), 7,
+                  ifelse(data$Population %in% c("Santiago"), 8,
+                  ifelse(data$Population %in% c("Salvador"), 9,
+                  ifelse(data$Population %in% c("Tatui"), 10,
+                  ifelse(data$Population %in% c("Johannesburg"), 11,
+                  ifelse(data$Population %in% c("Nairobi"), 12,  
+                  ifelse(data$Population %in% c("Perth"), 13,
+                  
+                  # Captive Populations
+                  ifelse(data$Population %in% c("TelAvivColony"), 0,
+                  ifelse(data$Population %in% c("Wellawatte"), 1,
+                  ifelse(data$Population %in% c("Wattala"), 2, NA)))))))))))))))))))))))))))))))))))))))))))))
+
+
 # Reorganises the data:
+data$Population <- factor(data$Population, ordered = T, levels = c("Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy", "Crete", "Sardinia", "Vernelle", "WadiHidan",
+                                                                   "PigeonIsland","Trincomalee", "Guimaraes", "Lisbon", "Barcelona", "Berlin", "Cambridge", "Colombo",
+                                                                   "Copenhagen", "London", "Prague", "Jihlava", "Abadeh", "Isfahan", "Lahijan", "Nowshahr", "Tehran",
+                                                                   "TelAviv", "SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl", "MexicoCity",
+                                                                   "Monterrey", "SanCristobalDeLasCasas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
+                                                                   "TelAvivColony","Wattala", "Wellawatte"))
+# Creates temporary Population column ~
+data$Population_2 <- data$Population
 
-data$Location <- factor(data$Location, ordered = T, levels = c("America", "SaltLakeCity", "Denver", "Virginia", "Monterrey", "MexicoCity", "TlaxcalaDeXicohtencatl", "SanCristobalDeLasCasas", "Santiago", "Salvador", "Tatui","",
-                                                           "Europe","FaroeIslands", "Copenhagen", "Cambridge","London","Berlin","Prague", "Jihlava","Vernelle","Barcelona","Guimaraes","Lisbon","Sardinia","Crete", " ",
-                                                           "Africa","Nairobi","Johannesburg","  ",
-                                                           "Asia","Lahijan","Nowshahr","Tehran","Isfahan","Abadeh", "TelAviv","TelAvivColony","WadiHidan","Colombo", "PigeonIsland","Trincomalee", "   ",
-                                                           "Oceania","Perth"))
+# Combines all populations from the Faroe Islands ~
+levels(data$Population_2 <- sub("Torshavn", "FaroeIslands", data$Population_2))
+levels(data$Population_2 <- sub("Ejde", "FaroeIslands", data$Population_2))
+levels(data$Population_2 <- sub("Sumba", "FaroeIslands", data$Population_2))
+levels(data$Population_2 <- sub("LjosAir", "FaroeIslands", data$Population_2))
+levels(data$Population_2 <- sub("Kunoy", "FaroeIslands", data$Population_2))
+levels(data$Population_2 <- sub("Nolsoy", "FaroeIslands", data$Population_2))
+                          
+                          
+## Reorders BioStatus ~
+data$BioStatus <- factor(data$BioStatus, ordered = T,
+                           levels = c("Remote_Localities_Within_Natural_Range",
+                                      "Urban_Localities_Within_Natural_Range",
+                                      "Localities_Outside_Natural_Range",
+                                      "Captive_Populations"))
 
-# Creates MDS plots:
+
+# Creates MDS plots ~
+MDS_12 <-
+ggplot(data, aes_string(x = "D1_3.22314862567792", y = "D2_1.95080884235087")) +
+  geom_point(aes(fill = BioStatus), alpha = .9, size = 2.8, shape = 21) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#d01c8b"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population_2, filter = Population_2 == "FaroeIslands", label = "Faroe Islands"),
+                    label.buffer = unit(8, 'mm'), con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population_2, filter = Population_2 == "PigeonIsland", label = "Pigeon Island"),
+                    label.buffer = unit(32, 'mm'), con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population_2, filter = Population_2 == "Trincomalee", label = "Trincomalee"),
+                    label.buffer = unit(15, 'mm'), con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  scale_x_continuous("Dimension 1 (3.22%)",
+                     breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
+                     labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
+                     expand = c(0,0),
+                     limits = c(-0.077, 0.0285)) +
+  scale_y_continuous("Dimension 2 (1.95%)",
+                     breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
+                     expand = c(0,0),
+                     labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
+                     limits = c(-0.060, 0.052)) +
+  theme(panel.background = element_rect(fill = "#ffffff"),
+        panel.border = element_blank(),
+        panel.grid.minor = element_blank(), 
+        panel.grid.major = element_blank(),
+        #plot.margin = unit(c(0, 0, 0, 0), "cm"),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        legend.position = "top",
+        legend.title = element_text(color = "#000000", size = 13),
+        legend.text = element_text(size = 11),
+        axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        axis.title.y = element_text(size = 18, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text = element_text(color = "#000000", size = 13),
+        axis.ticks = element_line(color = "#000000", size = 0.3),
+        axis.line = element_line(colour = "#000000", size = 0.3)) +
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                             label.theme = element_text(size = 14, family = "Helvetica"),
+                             override.aes = list(size = 5, shape = 21, alpha = .9)))
+
+
+# Creates & Saves the final MDS Panel:
+ggsave(MDS_12, file = "FPG--MDS_12.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+
+
+#
+##
+### The END ~~~~
+
+
+
+
+
+
+
+
+
+
+Shapes <- as.vector(c(# Remote Localities Within Natural Range
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+  # Urban Localities Within Natural Range
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+  # Localities Outside Natural Range
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+  # Captive Populations
+  0, 1, 2))
+
+TEST <- as.vector(c(# Remote Localities Within Natural Range
+  "\u25A0", "\u25A1", "\u25A2", "\u25A3", "\u25A4", "\u25A5", "\u25A6", "\u25B0", "\u25B1", "\u25B2", "\u25B3",
+  # Urban Localities Within Natural Range
+  "\u25B4", "\u25B5", "\u25C6", "\u25C0", "\u25C1", "\u25C2", "\u25C3", "\u25C4", "\u25C5", "\u25C6", "\u25D0", "\u25D1", "\u25D2", "\u25D3", "\u25D4", "\u25D5",
+  # Localities Outside Natural Range
+  "\u25D6", "\u25E0", "\u25E1", "\u25E2", "\u25E3", "\u25E4", "\u25E5", "\u25E6", "\u25F0", "\u25F1", "\u25F2", "\u25F3", "\u25F4", "\u25F5", "\u25F6",
+  # Captive Populations
+  "\u25F6", "\u25F7", "\u25F8"))
+
+
+
+
 
 MDS_12 <-
-ggplot(data, aes_string(x = "D1_3.25448642972517", y = "D2_1.88108101324778", colour = "Location")) +
- geom_point(alpha = 1, size = 2.2, shape = data$Shape) +
-  
-  scale_fill_manual(values = c("#F3F3F3", "#1b9e77", "#d95f02", "#7570b3", "#1b9e77", "#ff7f00", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#F3F3F3", "#F3F3F3",
-                             "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#F3F3F3","#F3F3F3",
-                             "#1b9e77", "#a6761d", "#F3F3F3","#F3F3F3", "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "##ff7f00", "#e7298a", "#66a61e", "#e6ab02",
-                             "#F3F3F3","#F3F3F3", "#7570b3"), drop = FALSE) +
-  
-  scale_colour_manual(values = c("#F3F3F3", "#1b9e77", "#d95f02", "#7570b3", "#1b9e77", "#ff7f00", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#F3F3F3", "#F3F3F3",
-                               "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#F3F3F3","#F3F3F3",
-                               "#1b9e77", "#a6761d", "#F3F3F3","#F3F3F3", "#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#ff7f00", "#e7298a", "#66a61e", "#e6ab02",
-                               "#F3F3F3","#F3F3F3", "#7570b3"), drop = FALSE) +
-  
-  scale_x_continuous("Dimension 1 (3.25%)",
+  ggplot(data, aes_string(x = "D1_3.22314862567792", y = "D2_1.95080884235087")) +
+  geom_point(aes(shape = Population, color = BioStatus), alpha = 1, size = 2.2) +
+  scale_colour_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_shape_manual(values = Shapes) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
+                    con.colour = "#44AA99", label.fontface = "bold", label.buffer = unit(20, 'mm'), con.type = "straight", con.cap = 0, label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
+                    con.colour = "#44AA99", label.fontface = c("bold", "bold"), position = "identity", label.buffer = unit(30, 'mm'), con.type = "straight", con.cap = 0, label.fill = NA, show.legend = FALSE) +
+  scale_x_continuous("Dimension 1 (3.22%)",
                      breaks = c(-0.050, -0.025, 0, 0.025, 0.050),
                      labels = c("-0.050", "-0.025", "0", "0.025", "0.050"),
                      expand = c(0,0),
                      limits = c(-0.077, 0.052)) +
-  scale_y_continuous("Dimension 2 (1.88%)",
+  scale_y_continuous("Dimension 2 (1.95%)",
                      breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
                      expand = c(0,0),
                      labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
@@ -133,24 +294,20 @@ ggplot(data, aes_string(x = "D1_3.25448642972517", y = "D2_1.88108101324778", co
         panel.border = element_blank(),
         panel.grid.minor = element_blank(), 
         panel.grid.major = element_blank(),
-        legend.background = element_rect(fill="#FAFAFA", colour = "#000000", size = 0.3),
+        plot.margin = unit(c(0, 0, 0, 0), "cm"),
+        legend.background = element_blank(),
         legend.key = element_blank(),
-        legend.position = c(.935, 0.5),
-        legend.title = element_blank(),
+        legend.position = "right",
+        legend.title = element_text(color = "#000000", size = 13),
         legend.text = element_text(size = 11),
         axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
         axis.title.y = element_text(size = 18, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
         axis.text = element_text(color = "#000000", size = 13),
         axis.ticks = element_line(color = "#000000", size = 0.3),
         axis.line = element_line(colour = "#000000", size = 0.3)) +
-  guides(colour = guide_legend(override.aes = list(alpha = 1, size = 3,
-         shape = c(NA, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, NA, NA, 1, 1, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 10, NA, NA, 2, 2, NA, NA,
-        0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 12, NA, NA, 14)), ncol = 1))
-  
-# Creates & Saves the final MDS Panel:
-
-ggsave(MDS_12, file = "FPGP--MDS.pdf", device = cairo_pdf, height = 15, width = 18, scale = 0.825, dpi = 1000)
-
-#
-##
-### The END ~~~~
+  guides(colour = guide_legend(title = "Biological Status", order = 1, title.theme = element_text(size = 13, face = "bold", family = "Helvetica"),
+                               label.theme = element_text(size = 12, family = "Helvetica"),
+                               override.aes = list(size = 3, alpha = .9), ncol = 1),
+         shape = guide_legend(title = "Locality", order = 2, title.theme = element_text(size = 13, face = "bold", family = "Helvetica"),
+                              label.theme = element_text(size = 12, family = "Helvetica"),
+                              override.aes = list(size = 3, alpha = .9), ncol = 2))

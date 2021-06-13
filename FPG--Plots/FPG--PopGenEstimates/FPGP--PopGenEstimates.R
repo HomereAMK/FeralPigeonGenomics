@@ -174,7 +174,7 @@ ggplot() +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"),
                     labels = gsub("_", " ", levels(fulldf$BioStatus))) +
   scale_colour_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9")) +
-  theme(panel.background = element_rect(fill = "#FAFAFA"),
+  theme(panel.background = element_rect(fill = "#ffffff"),
         panel.grid.major.x = element_line(color = "#ededed", linetype = "dashed", size = .00005),
         panel.grid.major.y = element_blank(),
         panel.grid.minor = element_blank(), 
@@ -190,13 +190,13 @@ ggplot() +
         legend.position = "top",
         legend.key = element_rect(fill = NA),
         legend.background =element_blank()) +
-  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 13, face = "bold", family = "Helvetica"),
-                             label.theme = element_text(size = 12.25, family = "Helvetica"),
-                             override.aes = list(size = 4, alpha = .9)), colour = "none")
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                             label.theme = element_text(size = 14, family = "Helvetica"),
+                             override.aes = list(size = 5, alpha = .9)), colour = "none")
 
 
 # Saves the panel ~
-ggsave(PopGennEstimates, file = "FPGP--PopGenEstimates.pdf", device = cairo_pdf, height = 8, width = 12, scale = 1.5, dpi = 600)
+ggsave(PopGennEstimates, file = "FPG--PopGenEstimates.pdf", device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
 
 
 #
