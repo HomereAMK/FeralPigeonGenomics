@@ -3,60 +3,40 @@
 # > Plots FPGP--ngsAdmix | By George PACHECO
 
 
-# Cleans the environment ~ 
-rm(list=ls())
+# Sets working directory:
 
-
-# Sets working directory ~
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
+# Loads required packages:
 
-# Loads required packages ~
 pacman::p_load(tidyverse, optparse, plyr, RColorBrewer, extrafont, gtable, grid)
 
+# Imports extra fonts:
 
-# Imports extra fonts ~
 loadfonts(device = "win", quiet = TRUE)
 
+# Loads the data:
 
-# Loads the data ~
-samples <- read.table("FPG.popfile", stringsAsFactors = FALSE, sep = "\t")
+samples <- read.table("GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives.popfile", stringsAsFactors = FALSE, sep = "\t")
 
+# Reads the annotation file:
 
-# Reads the annotation file ~
-ids <- read.table("FPG.annot", stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+ids <- read.table("GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicatesNoCaptives.annot", stringsAsFactors = FALSE, sep = "\t", header = TRUE)
 
+# Reorganises the data:
 
-# Adds column ids names ~
-colnames(ids) <- c("Sample_ID", "Population")
+ids$Location <- factor(ids$Location, ordered = T, levels = c("SaltLakeCity","Denver","Virginia","Monterrey","MexicoCity","TlaxcalaDeXicohtencatl","SanCristobalDeLasCasas","Santiago","Salvador",
+                                                         "Tatui","FaroeIslands","Copenhagen","Cambridge","London","Berlin","Prague","Jihlava","Vernelle","Barcelona","Guimaraes","Lisbon","Sardinia","Crete",
+                                                         "Nairobi","Johannesburg","Lahijan","Nowshahr","Tehran","Isfahan","Abadeh", "TelAviv","TelAvivColony","WadiHidan","Colombo",
+                                                         "PigeonIsland","Trincomalee","Perth"))
 
+# Defines parameters:
 
-# Creates alternative Population column ~
-ids$Population_cbind <- ids$Population
-
-
-# Combines all populations from the Faroe Islands ~
-levels(ids$Population_cbind <- sub("Torshavn", "FaroeIslands", ids$Population_cbind))
-levels(ids$Population_cbind <- sub("Ejde", "FaroeIslands", ids$Population_cbind))
-levels(ids$Population_cbind <- sub("Sumba", "FaroeIslands", ids$Population_cbind))
-levels(ids$Population_cbind <- sub("LjosAir", "FaroeIslands", ids$Population_cbind))
-levels(ids$Population_cbind <- sub("Kunoy", "FaroeIslands", ids$Population_cbind))
-levels(ids$Population_cbind <- sub("Nolsoy", "FaroeIslands", ids$Population_cbind))
-
-
-# Reorganises the data ~
-ids$Population_cbind <- factor(ids$Population_cbind, ordered = T, levels = c("FaroeIslands", "Crete", "Sardinia", "Vernelle", "WadiHidan", "PigeonIsland", "Trincomalee",
-                                                      "Guimaraes", "Lisbon", "Barcelona", "Berlin", "Cambridge", "Colombo", "Copenhagen", "London", "Prague", "Jihlava", "Abadeh", "Isfahan", "Lahijan", "Nowshahr", "Tehran", "TelAviv",
-                                                      "SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
-                                                      "TelAvivColony","Wattala", "Wellawatte"))
-
-
-# Defines parameters ~
 sampleid = "Sample_ID"
-target = "Population_cbind"
+target = "Location"
 
+# Ask Sama:
 
-# Ask Sama ~
 data_for_plot <- data.frame()
 
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20),
@@ -79,8 +59,8 @@ data_for_plot <- data.frame()
 #c(1,2,3),
 #c(1,2))
 
+# Ask Sama 2:
 
-# Ask Sama 2 ~
 x <- list(c(16,14,7,3,2,12,6,11,19,15,8,9,17,5,4,18,13,20,10,1),
           c(9,5,14,4,19,16,15,11,3,10,6,8,12,17,2,13,18,7,1),
           c(7,2,11,15,10,16,13,3,5,4,6,14,18,12,8,1,9,17),
@@ -101,8 +81,8 @@ x <- list(c(16,14,7,3,2,12,6,11,19,15,8,9,17,5,4,18,13,20,10,1),
           c(2,1,3),
           c(1,2))
 
+# Ask Sama 3:
 
-# Ask Sama 3 ~
 for (j in 1:length(samples[,1])){
   data <- read.table(samples[j,1])[,x[[j]]]
   for (i in 1:dim(data)[2]) { 
@@ -113,19 +93,19 @@ for (j in 1:length(samples[,1])){
     temp <- merge(ids, temp)
     data_for_plot <- rbind(data_for_plot, temp)}}
 
+# Ask Sama 4:
 
-# Ask Sama 4 ~
 x_lab <- (sampleid)
 
+# Creates the plots:
 
-# Creates the plots ~
 ngsAdmix <-
- ggplot(data_for_plot, aes(x = get(sampleid), y = value, fill = k)) + labs(x = x_lab) +
-  geom_bar(stat = "identity", width = 0.85) +
-   facet_grid(k_value ~ get(target), space = "free_x", scales = "free_x") +
-    scale_x_discrete(expand = c(0, 0)) + 
-    scale_y_continuous(expand = c(0, 0), breaks = NULL) +
-     theme(panel.background = element_rect(fill = '#000000'),
+ggplot(data_for_plot, aes(x = get(sampleid), y = value, fill = k)) + labs(x = x_lab) +
+ geom_bar(stat = "identity", width = 0.85) +
+  facet_grid(k_value ~ get(target), space = "free_x", scales = "free_x") +
+  scale_x_discrete(expand = c(0, 0)) + 
+  scale_y_continuous(expand = c(0, 0), breaks = NULL) +
+  theme(panel.background = element_rect(fill = '#000000'),
         panel.grid.minor.x = element_blank(),
         panel.grid.major = element_blank(),
         panel.spacing = unit(0.2, "lines"),
@@ -139,13 +119,12 @@ ngsAdmix <-
         strip.text.y = element_text(colour = "#000000", face = "bold", size = 7, angle = 270, margin = margin(0, 0.1, 0, 0.1, "cm")),
         legend.position = "none")
 
-
 ngsAdmix_G <- ggplotGrob(ngsAdmix)
-
 
 ngsAdmix_G <- gtable_add_rows(ngsAdmix_G, unit(1, "cm"), pos = 5)
 
-# Adds top strips ~
+# Adds top strips:
+
 ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000", fill = "#df65b0", size = .75, lwd = 0.25)), textGrob("America", gp = gpar(cex = .75, fontface = 'bold', col = "black"))), t = 6, l = 4, b = 6, r = 23, name = c("a", "b"))
 ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000", fill = "#045a8d", size = .75, lwd = 0.25)), textGrob("Europe",gp = gpar(cex = .75, fontface = 'bold', col = "black"))), t = 6, l = 25, b = 6, r = 49, name = c("a", "b"))
 ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000", fill = "#d0d1e6", size = .5, lwd = 0.25)), textGrob("Africa",gp = gpar(cex = .75, fontface = 'bold', col = "black"))), t = 6, l = 51, b = 6, r = 53, name = c("a", "b"))
@@ -153,19 +132,16 @@ ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000
 ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000", fill = "#2b8cbe", size = .5, lwd = 0.25)), textGrob("South Asia",gp = gpar(cex = .75, fontface = 'bold', col = "black"))), t = 6, l = 71, b = 6, r = 75, name = c("a", "b"))
 ngsAdmix_G <- gtable_add_grob(ngsAdmix_G, list(rectGrob(gp = gpar(col = "#000000", fill = "#c51b8a", size = .5, lwd = 0.25)), textGrob("Oceania",gp = gpar(cex = .75, fontface = 'bold', col = "black"))), t = 6, l = 77, b = 6, r = 77, name = c("a", "b"))
 
-
 ngsAdmix_G <- gtable_add_rows(ngsAdmix_G, unit(2/10, "line"), 6)
 
+# Creates the final plot:
 
-# Creates the final plot ~
 grid.newpage()
 grid.draw(ngsAdmix_G)
 
+# Saves the final plot:
 
-# Saves the final plot ~
-ggsave(ngsAdmix_G, file = "FGP.pdf", device = cairo_pdf, width = 40, height = 15, dpi = 1000)
-
-
+ggsave(ngsAdmix_G, file = "FPGP--ngsAdmix.pdf", device = cairo_pdf, width = 40, height = 15, dpi = 1000)
 
 #
 ##

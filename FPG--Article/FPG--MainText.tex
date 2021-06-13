@@ -2,6 +2,8 @@
 %%
 % ~ Writes FPGP--MainText | By Filipe G. VIEIRA & George PACHECO
 
+
+
 %% Preamble Settings %%
 
 % Defines document class and paper size ~
@@ -17,7 +19,7 @@
 \usepackage{subfig}
 \usepackage{siunitx}
 \usepackage{balance}
-\usepackage{academicons}
+\usepackage{float}
 
 % Fixes margins ~
 \usepackage{geometry}
@@ -212,8 +214,27 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \myheaders{Results} \\
 \mysubheaders{Sampling effort.} \mytext{To investigate the genomic patterns of current pigeon populations of different evolutionary histories, we intentionally targeted our sampling to cover four distinct categories (Figure 1). Furthermore, to help root the evolutionary relationships between these groups, we also included a small number of individuals representing the Columba livia intermedia (Strickland, 1844) subspecies. Specifically in this regard, we sampled five populations from Sri Lanka, where two of them were from urban localities (Colombo and Trincomalee), one was from a Conservation National Park (Pigeon Island) and two others were captive populations maintained by local breeders (Wattala and Wellawatte) (Supplementary Fig. 1). To check for data reproducibility, we sequenced two of the samples twice (Tehran\textunderscore16-GBS and Perth\textunderscore02-GBS) to serve as replicates. Finally, to serve as external outgroups, we also generated data from five samples of (\textit{Columba palumbus Linnaeus}, 1758) captured in Copenhagen (Denmark), one captive sample of (\textit{Streptopelia risoria} Linnaeus, 1758), and additionally incorporated previously published whole genome resequence data from a Columba rupestris8. (we also included the WGS library to serve as another replicate) (Supplementary Spreadsheet).}
 
-\mysubheaders{Sequencing data and filtering.}\\
-\mysubheaders{Population genetics statistics.}\\
+\mysubheaders{Sequencing data and filtering.} \mytext{We generated 1,062,089,639 reads using the (GBS) method11 from all 488 samples. The percentage of GBS chimeric reads removed ranged from 0.034\% to 4.65\% (mean of 0.69\%) per sample. Based on the presence/absence heatmap, we excluded 10 samples alongside the 6 blanks from downstream analyses (Supplementary Fig. 2). The sequencing depths across the regions of interest ranged from 0.069X to 19.97X (mean of 2.32X) (Supplementary Spreadsheet), with 68.86\% of the predicted cut-sites yielding no data for any sample. This pattern is not unexpected with GBS data and derives from differences in sequencing effectiveness at different sites in the genome, and has also been observed in other GBS data from pigeons9. Moreover, based on the Global Depth (GD) results (Supplementary Fig. 3), we elected to run subsequent downstream analyses on only sites that have GD of at least 150X.} \\
+
+\mysubheaders{Population genetics statistics.} \mytext{Hybridisation between domestic lineages and their respective wild ancestors is an issue of conservation importance as the genomic integrity of wild lineages can be disturbed by contamination with domestic genotypes, either through direct admixture with purebred lineages or through indirect contact with feral stocks5,12. To shed light on the levels of potential domestic contamination, as well as isolation among the sampled populations, we calculated several population genetics estimates for the different pigeon populations as well as Fst levels between them. First, we calculated the observed levels of heterozygosity (Ho) for each sample present in Dataset 1 (all samples). Among the free-living pigeon individuals, the Ho ranged from 0.1157\% to 0.2747\% (average of 0.2231\%) (Supplementary Spreadsheet), with considerable variation within each population and the occurrence of several outliers (Supplementary Fig. 5). On the other hand, the Ho ranged from 0.1818\% to 0.2389\% (average of 0.2176\%) among the five C. palumbus samples.} \\
+\indent \mytext{Moreover, we calculated the nucleotide diversity ($\pi$), Watterson's $\Theta$ ($\Theta$w), and Tajima’s D across the pigeon genome for the 35 populations that had five or more individuals (the Crete population was also included due to its relevance), as these genetic estimates only apply for population data (for the 2 replicate samples only the ones with higher coverage were used) (Supplementary Fig. 6). $\Pi$ ranged from 0.001764 to 0.003080 (average: 0.002584; C. palumbus: 0.002427); $\Theta$w ranged from 0.001507 to 0.003168 (average: 0.002483; C. palumbus: 0.002644) and the Tajima’s D  ranged from -0.643739 to 0.854540 (average: 0.248505; C. palumbus: -0.413195). Interestingly, the values calculated for the five C. palumbus individuals in our study were lower than expected for a wild species, but we believe that the fact we analysed synanthropic individuals might have prevented us from accessing the true values for this species (Supplementary Spreadsheet.} \\
+\indent \mytext{We next elected to calculate the pairwise Fst between populations to provide preliminary insights into the relationships between the different populations. A heatmap plotted using this data, after excluding the populations of Tel Aviv Colony and C. palumbus that showed extremely high levels of divergence (Supplementary Fig. 7), clearly shows that three clusters are recovered. The first contains populations from relatively isolated regions within the natural range  (Pigeon Island, Trincomalee, Torshavn, Crete, Sardinia, Vernelle, Wadi Hidan, Abadeh and Tehran). The second contains populations from mostly Europe and former colonies (Tel Aviv, Barcelona, Guimaraes, Lisbon, Berlin, Prague, Denver, London, Perth, Salvador, Copenhagen, Johannesburg and Salt Lake City). The third contains populations from Mexico (Santiago, San Cristobal de las Casas, Monterey, Tlaxcala de Xicohtencatl and Mexico City).} \\
+\indent \mytext{Overall, we see a wide range of genetic diversity levels among the sampled populations, similar to both domesticated (e.g. duck breeds: 0.0020 to 0.0028) and wild species (e.g. mallard: 0.0040)13. Tajima’s D values show a general pattern of positive values, indicating population contractions, except for the populations from Tehran, Abadeh, Wadi Hidan, and Sardinia. Taken together, these results seem to group the current pigeon diversity into four groups, depending on the levels of genetic diversity (high, intermediate, or low), while the group with high levels of genetic diversity can be further subdivided depending on Tajima’s D values (positive or negative). These groupings are further supported by the Fst distances, which clearly form groups around the populations with both intermediate and high genetic diversity.} \\
+
+\mytext{Even though the levels of genetic diversity can give initial valuable insights regarding the past history of a given population, it is also important to infer the evolutionary relationships among the current pigeon populations. For that, we conducted the first phylogenetic reconstruction for non-domestic pigeon populations. Specifically, we first performed a Neighbour-joining (NJ) phylogenetic analyses based on Dataset 1 to confirm the appropriateness of the outgroups available (Supplementary Fig. 8). Having confirmed that Columba rupestris is the most appropriate outgroup, we proceeded with a Maximum-likelihood (ML) phylogenetic analysis based on Dataset 2 (excluding S. risoria and C. palumbus). Overall, the ML phylogeny reconstructed reveals a strong phylogenetic structure across the different pigeon populations studied (Fig. 1). Despite the low bootstrap values (BS) recovered for the internal nodes (probably because the evolution of pigeons is not a truly bifurcating process), we delineated six main groups on our phylogeny based on geographical distribution and biological assumptions; Group A: The Pigeon Island and Trincomalee C. l. intermedia populations; Group B: Abadeh, Tehran, Crete, Sardinia, Vernelle and the Faroe Islands; Group C: Tel Aviv, Tel Aviv Colony and Wadi Hidan populations; Group D: Nairobi, Colombo, Lahijan, Nowshahr, Wellawatte and Isfahan populations; Group E: Guimaraes, Barcelona, Lisbon, Salvador, Tatui, Denver, Santiago, Tlaxcala de Xicohtencatl, Mexico City, Monterrey and San Cristobal de Las Casas populations; Group F: Jihlava, Prague, Berlin, Salt Lake City, Johannesburg, London, Cambridge, Perth and Copenhagen. Interestingly, the four individuals belonging to the Wattala population do not form a monophyletic group and are found scattered across the phylogeny.} \\
+\mytext{It is noteworthy that Group A, as well as both the Faroe Islands and the Tel Aviv Colony populations, have 100\% of BS, with the former also having a very elongated branch length. Moreover, all the three replicates (namely, Crupestris_01, Tehran_16 and Perth_02) behave as expected, all clustering with 100\% of BS. Furthermore, although both the eight Wattala and Wellawatte captive populations were located within the Colombo region, these populations do not form a distinct clade together with the Colombo population with some Wattala individuals sitting on a rather different region of the phylogeny. As for the three captive populations included in our study, all 6 individuals belonging to the Tel Aviv Colony population form a clade with 100\% of BS and phylogenetic affinity with the Tel Aviv and the Hadi Hidan populations. The branch of this cluster is the longest across the entire phylogeny, in agreement with the fact that this colony has been maintained inbread for several generations.} \\
+
+\end{multicols}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Map/FPG--Map.pdf}
+\caption*{ \scriptsize \textbf{Fig. 1 Map of sampling effort.} This is a trial attempt.}
+\label{MainText:FPGP--Map}
+\end{figure}
+
+\begin{multicols}{2}
+
 \mysubheaders{Phylogenetic relationships among feral pigeon populations.}\\
 \mysubheaders{Population structure among pigeon populations.}\\
 \mysubheaders{Contribution of pigeon breeds to current non-domesticated populations.}\\
@@ -233,13 +254,6 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \mysubheaders{Inference of Population Structure.} \\
 \mysubheaders{Contribution of pigeon breeds to current non-domesticated populations.} \\
 \end{multicols}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Map/FPG--Map.pdf}
-\caption*{ \scriptsize \textbf{Fig. 1 Map of sampling effort.} This is a trial attempt.}
-\label{MainText:FPGP--Map}
-\end{figure}
 
 \begin{figure}[!ht]
 \centering
