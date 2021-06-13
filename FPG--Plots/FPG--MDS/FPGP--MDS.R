@@ -3,13 +3,17 @@
 # > Plots FPGP--MDS | By George PACHECO
 
 
+# Cleans the environment ~ 
+rm(list=ls())
+
+
 # Sets working directory:
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # Loads required packages:
 
-pacman::p_load(optparse, tidyverse, plyr, RColorBrewer, extrafont, cowplot, patchwork, ggforce)
+pacman::p_load(optparse, tidyverse, plyr, RColorBrewer, extrafont, ggforce)
 
 # Imports extra fonts:
 
@@ -108,79 +112,27 @@ data$BioStatus <- ifelse(data$Population %in% c("Torshavn","Ejde","Sumba","LjosA
                   ifelse(data$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", NA))))
 
 
+# Expands the data by adding Groups ~
+data$Groups <- # Remote Localities Within Natural Range
+                 ifelse(data$Population %in% c("PigeonIsland", "Trincomalee"), "Group A",
+                 ifelse(data$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group B",
+                 ifelse(data$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group C",
+                 ifelse(data$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group D",
+                 ifelse(data$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group E",
+                 ifelse(data$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group F", "Not Grouped"))))))
+                                                                          
 
-# Expands the data by Shape ~
-data$Locality <- # Remote Localities Within Natural Range
-                  ifelse(data$Population %in% c("Torshavn"), 0,
-                  ifelse(data$Population %in% c("Ejde"), 1,
-                  ifelse(data$Population %in% c("Sumba"), 2,
-                  ifelse(data$Population %in% c("LjosAir"), 3,
-                  ifelse(data$Population %in% c("Kunoy"), 4,
-                  ifelse(data$Population %in% c("Nolsoy"), 5,
-                  ifelse(data$Population %in% c("Crete"), 6,
-                  ifelse(data$Population %in% c("Sardinia"), 7,
-                  ifelse(data$Population %in% c("Vernelle"), 8,
-                  ifelse(data$Population %in% c("WadiHidan"), 9,
-                  ifelse(data$Population %in% c("PigeonIsland"), 10,
-                  ifelse(data$Population %in% c("Trincomalee"), 11,
-                  
-                  # Urban Localities Within Natural Range
-                  ifelse(data$Population %in% c("Guimaraes"), 0,
-                  ifelse(data$Population %in% c("Lisbon"), 1,
-                  ifelse(data$Population %in% c("Barcelona"), 2,
-                  ifelse(data$Population %in% c("Berlin"), 3,
-                  ifelse(data$Population %in% c("Cambridge"), 4,
-                  ifelse(data$Population %in% c("Colombo"), 5,
-                  ifelse(data$Population %in% c("Copenhagen"), 6,
-                  ifelse(data$Population %in% c("London"), 7,
-                  ifelse(data$Population %in% c("Prague"), 8,
-                  ifelse(data$Population %in% c("Jihlava"), 9,
-                  ifelse(data$Population %in% c("Abadeh"), 10,
-                  ifelse(data$Population %in% c("Isfahan"), 11,
-                  ifelse(data$Population %in% c("Lahijan"), 12,
-                  ifelse(data$Population %in% c("Nowshahr"), 13,
-                  ifelse(data$Population %in% c("Tehran"), 14,
-                  ifelse(data$Population %in% c("TelAviv"), 15,
-                  
-                  # Localities Outside Natural Range
-                  ifelse(data$Population %in% c("SaltLakeCity"), 0,
-                  ifelse(data$Population %in% c("Denver"), 1,
-                  ifelse(data$Population %in% c("FeralVA"), 2,
-                  ifelse(data$Population %in% c("FeralUT"), 3,
-                  ifelse(data$Population %in% c("MexicoCity"), 4,
-                  ifelse(data$Population %in% c("Monterrey"), 5,
-                  ifelse(data$Population %in% c("SanCristobalDeLasCasas"), 6,
-                  ifelse(data$Population %in% c("TlaxcalaDeXicohtencatl"), 7,
-                  ifelse(data$Population %in% c("Santiago"), 8,
-                  ifelse(data$Population %in% c("Salvador"), 9,
-                  ifelse(data$Population %in% c("Tatui"), 10,
-                  ifelse(data$Population %in% c("Johannesburg"), 11,
-                  ifelse(data$Population %in% c("Nairobi"), 12,  
-                  ifelse(data$Population %in% c("Perth"), 13,
-                  
-                  # Captive Populations
-                  ifelse(data$Population %in% c("TelAvivColony"), 0,
-                  ifelse(data$Population %in% c("Wellawatte"), 1,
-                  ifelse(data$Population %in% c("Wattala"), 2, NA)))))))))))))))))))))))))))))))))))))))))))))
-
-
-# Reorganises the data:
-data$Population <- factor(data$Population, ordered = T, levels = c("Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy", "Crete", "Sardinia", "Vernelle", "WadiHidan",
-                                                                   "PigeonIsland","Trincomalee", "Guimaraes", "Lisbon", "Barcelona", "Berlin", "Cambridge", "Colombo",
-                                                                   "Copenhagen", "London", "Prague", "Jihlava", "Abadeh", "Isfahan", "Lahijan", "Nowshahr", "Tehran",
-                                                                   "TelAviv", "SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl", "MexicoCity",
-                                                                   "Monterrey", "SanCristobalDeLasCasas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
-                                                                   "TelAvivColony","Wattala", "Wellawatte"))
 # Creates temporary Population column ~
-data$Population_2 <- data$Population
+data$Population_cbind <- data$Population
+
 
 # Combines all populations from the Faroe Islands ~
-levels(data$Population_2 <- sub("Torshavn", "FaroeIslands", data$Population_2))
-levels(data$Population_2 <- sub("Ejde", "FaroeIslands", data$Population_2))
-levels(data$Population_2 <- sub("Sumba", "FaroeIslands", data$Population_2))
-levels(data$Population_2 <- sub("LjosAir", "FaroeIslands", data$Population_2))
-levels(data$Population_2 <- sub("Kunoy", "FaroeIslands", data$Population_2))
-levels(data$Population_2 <- sub("Nolsoy", "FaroeIslands", data$Population_2))
+levels(data$Population_cbind <- sub("Torshavn", "FaroeIslands", data$Population_cbind))
+levels(data$Population_cbind <- sub("Ejde", "FaroeIslands", data$Population_cbind))
+levels(data$Population_cbind <- sub("Sumba", "FaroeIslands", data$Population_cbind))
+levels(data$Population_cbind <- sub("LjosAir", "FaroeIslands", data$Population_cbind))
+levels(data$Population_cbind <- sub("Kunoy", "FaroeIslands", data$Population_cbind))
+levels(data$Population_cbind <- sub("Nolsoy", "FaroeIslands", data$Population_cbind))
                           
                           
 ## Reorders BioStatus ~
@@ -191,22 +143,52 @@ data$BioStatus <- factor(data$BioStatus, ordered = T,
                                       "Captive_Populations"))
 
 
+# Defines the shapes to be used for each Group ~
+Shapes <- as.vector(c(# Group A
+                      8, 
+                      # Group B
+                      21,
+                      # Group C
+                      22,
+                      # Group D
+                      23,
+                      # Group E
+                      24,
+                      # Group F
+                      25,
+                      # Not Grouped
+                      9))
+
+
+# Creates the subset Colour_Pops ~
+Colour_Pops <- data %>%
+ filter(Population == "PigeonIsland" | Population == "Trincomalee" | Population == "Wattala")
+
+
+# Creates the subset Fill_Pops ~
+PopsOut <- c("PigeonIsland", "Trincomalee", "Wattala")
+Fill_Pops <- filter(data, !Population %in% PopsOut)
+
+
 # Creates MDS plots ~
 MDS_12 <-
 ggplot(data, aes_string(x = "D1_3.22314862567792", y = "D2_1.95080884235087")) +
-  geom_point(aes(fill = BioStatus), alpha = .9, size = 2.8, shape = 21) +
+  geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
+  geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
+  scale_colour_manual(values = c("#44AA99", "#d01c8b"), labels = gsub("_", " ", levels(data$BioStatus))) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#d01c8b"), labels = gsub("_", " ", levels(data$BioStatus))) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population_2, filter = Population_2 == "FaroeIslands", label = "Faroe Islands"),
-                    label.buffer = unit(8, 'mm'), con.type = "straight", label.fill = NA, show.legend = FALSE) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population_2, filter = Population_2 == "PigeonIsland", label = "Pigeon Island"),
-                    label.buffer = unit(32, 'mm'), con.type = "straight", label.fill = NA, show.legend = FALSE) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population_2, filter = Population_2 == "Trincomalee", label = "Trincomalee"),
-                    label.buffer = unit(15, 'mm'), con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
+                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
+                    label.buffer = unit(35, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
+                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  scale_shape_manual(values = Shapes) +
   scale_x_continuous("Dimension 1 (3.22%)",
                      breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
                      labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
                      expand = c(0,0),
-                     limits = c(-0.077, 0.0285)) +
+                     limits = c(-0.077, 0.03)) +
   scale_y_continuous("Dimension 2 (1.95%)",
                      breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
                      expand = c(0,0),
@@ -216,10 +198,9 @@ ggplot(data, aes_string(x = "D1_3.22314862567792", y = "D2_1.95080884235087")) +
         panel.border = element_blank(),
         panel.grid.minor = element_blank(), 
         panel.grid.major = element_blank(),
-        #plot.margin = unit(c(0, 0, 0, 0), "cm"),
         legend.background = element_blank(),
         legend.key = element_blank(),
-        legend.position = "top",
+        legend.position = "right",
         legend.title = element_text(color = "#000000", size = 13),
         legend.text = element_text(size = 11),
         axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
@@ -228,12 +209,16 @@ ggplot(data, aes_string(x = "D1_3.22314862567792", y = "D2_1.95080884235087")) +
         axis.ticks = element_line(color = "#000000", size = 0.3),
         axis.line = element_line(colour = "#000000", size = 0.3)) +
   guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                             label.theme = element_text(size = 14, family = "Helvetica"),
-                             override.aes = list(size = 5, shape = 21, alpha = .9)))
+                               label.theme = element_text(size = 14, family = "Helvetica"),
+                               override.aes = list(size = 4.5, shape = 21, alpha = .9), order = 1),
+         shape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                              label.theme = element_text(size = 14, family = "Helvetica"),
+                              override.aes = list(size = 4.5, alpha = .9), order = 2), colour = "none")
 
 
 # Creates & Saves the final MDS Panel:
 ggsave(MDS_12, file = "FPG--MDS_12.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+
 
 
 #
@@ -243,6 +228,72 @@ ggsave(MDS_12, file = "FPG--MDS_12.pdf", device = cairo_pdf, scale = 1.5, width 
 
 
 
+
+
+
+
+# Reorganises the data:
+data$Population <- factor(data$Population, ordered = T, levels = c("Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy", "Crete", "Sardinia", "Vernelle", "WadiHidan",
+                                                                   "PigeonIsland","Trincomalee", "Guimaraes", "Lisbon", "Barcelona", "Berlin", "Cambridge", "Colombo",
+                                                                   "Copenhagen", "London", "Prague", "Jihlava", "Abadeh", "Isfahan", "Lahijan", "Nowshahr", "Tehran",
+                                                                   "TelAviv", "SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl", "MexicoCity",
+                                                                   "Monterrey", "SanCristobalDeLasCasas", "Santiago", "Salvador", "Tatui", "Johannesburg", "Nairobi", "Perth",
+                                                                   "TelAvivColony","Wattala", "Wellawatte"))
+
+
+# Expands the data by adding Shape ~
+data$Locality <- # Remote Localities Within Natural Range
+  ifelse(data$Population %in% c("Torshavn"), 0,
+  ifelse(data$Population %in% c("Ejde"), 1,
+  ifelse(data$Population %in% c("Sumba"), 2,
+  ifelse(data$Population %in% c("LjosAir"), 3,
+  ifelse(data$Population %in% c("Kunoy"), 4,
+  ifelse(data$Population %in% c("Nolsoy"), 5,
+  ifelse(data$Population %in% c("Crete"), 6,
+  ifelse(data$Population %in% c("Sardinia"), 7,
+  ifelse(data$Population %in% c("Vernelle"), 8,
+  ifelse(data$Population %in% c("WadiHidan"), 9,
+  ifelse(data$Population %in% c("PigeonIsland"), 10,
+  ifelse(data$Population %in% c("Trincomalee"), 11,
+          
+  # Urban Localities Within Natural Range
+  ifelse(data$Population %in% c("Guimaraes"), 0,
+  ifelse(data$Population %in% c("Lisbon"), 1,
+  ifelse(data$Population %in% c("Barcelona"), 2,
+                                                                                                           ifelse(data$Population %in% c("Berlin"), 3,
+                                                                                                                  ifelse(data$Population %in% c("Cambridge"), 4,
+                                                                                                                         ifelse(data$Population %in% c("Colombo"), 5,
+                                                                                                                                ifelse(data$Population %in% c("Copenhagen"), 6,
+                                                                                                                                       ifelse(data$Population %in% c("London"), 7,
+                                                                                                                                              ifelse(data$Population %in% c("Prague"), 8,
+                                                                                                                                                     ifelse(data$Population %in% c("Jihlava"), 9,
+                                                                                                                                                            ifelse(data$Population %in% c("Abadeh"), 10,
+                                                                                                                                                                   ifelse(data$Population %in% c("Isfahan"), 11,
+                                                                                                                                                                          ifelse(data$Population %in% c("Lahijan"), 12,
+                                                                                                                                                                                 ifelse(data$Population %in% c("Nowshahr"), 13,
+                                                                                                                                                                                        ifelse(data$Population %in% c("Tehran"), 14,
+                                                                                                                                                                                               ifelse(data$Population %in% c("TelAviv"), 15,
+                                                                                                                                                                                                      
+                                                                                                                                                                                                      # Localities Outside Natural Range
+                                                                                                                                                                                                      ifelse(data$Population %in% c("SaltLakeCity"), 0,
+                                                                                                                                                                                                             ifelse(data$Population %in% c("Denver"), 1,
+                                                                                                                                                                                                                    ifelse(data$Population %in% c("FeralVA"), 2,
+                                                                                                                                                                                                                           ifelse(data$Population %in% c("FeralUT"), 3,
+                                                                                                                                                                                                                                  ifelse(data$Population %in% c("MexicoCity"), 4,
+                                                                                                                                                                                                                                         ifelse(data$Population %in% c("Monterrey"), 5,
+                                                                                                                                                                                                                                                ifelse(data$Population %in% c("SanCristobalDeLasCasas"), 6,
+                                                                                                                                                                                                                                                       ifelse(data$Population %in% c("TlaxcalaDeXicohtencatl"), 7,
+                                                                                                                                                                                                                                                              ifelse(data$Population %in% c("Santiago"), 8,
+                                                                                                                                                                                                                                                                     ifelse(data$Population %in% c("Salvador"), 9,
+                                                                                                                                                                                                                                                                            ifelse(data$Population %in% c("Tatui"), 10,
+                                                                                                                                                                                                                                                                                   ifelse(data$Population %in% c("Johannesburg"), 11,
+                                                                                                                                                                                                                                                                                          ifelse(data$Population %in% c("Nairobi"), 12,  
+                                                                                                                                                                                                                                                                                                 ifelse(data$Population %in% c("Perth"), 13,
+                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                        # Captive Populations
+                                                                                                                                                                                                                                                                                                        ifelse(data$Population %in% c("TelAvivColony"), 0,
+                                                                                                                                                                                                                                                                                                               ifelse(data$Population %in% c("Wellawatte"), 1,
+                                                                                                                                                                                                                                                                                                                      ifelse(data$Population %in% c("Wattala"), 2, NA)))))))))))))))))))))))))))))))))))))))))))))
 
 
 
