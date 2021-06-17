@@ -169,8 +169,8 @@ MDS_12 <-
 ggplot(data, aes_string(x = "D1_3.22314862567792", y = "D2_1.95080884235087")) +
   geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
   geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
-  scale_colour_manual(values = c("#44AA99", "#d01c8b"), labels = gsub("_", " ", levels(data$BioStatus))) +
-  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#d01c8b"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
                     label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
@@ -214,13 +214,9 @@ ggplot(data, aes_string(x = "D1_3.22314862567792", y = "D2_1.95080884235087")) +
 ggsave(MDS_12, file = "FPG--MDS_12.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
 
 
-
 #
 ##
 ### The END ~~~~
-
-
-
 
 
 
