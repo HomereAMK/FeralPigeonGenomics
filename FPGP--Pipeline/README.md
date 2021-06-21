@@ -342,7 +342,7 @@ fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match
 
 ##### We locally plot these results using the Rscript below:
 
-[`FPG--MDS.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
+[`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
 #  
 
 ### 12) Initial Phylogenetic Recinstruction | **Dataset I**
