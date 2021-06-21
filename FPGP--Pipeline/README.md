@@ -2,6 +2,8 @@
 ### Re-Sequencing + GBS Data Pipeline — by **Filipe G. Vieira** [![Foo](../FPGP--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George Pacheco** [![Foo](../FPGP--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
 
 **Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline.  Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
+#  
+#  
 
 ### 1) Acess to Raw Data & Local Storage | [ERDA](https://www.erda.dk/)
 
@@ -126,6 +128,7 @@ Here we create some auxiliary files.
 ```
 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
 ```
+#  
 
 ### 8) Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
 
@@ -252,7 +255,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSris
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.beagle.gz | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/call_geno.pl --skip 3 | cut -f 4- | awk '{ for(i=1;i<=NF; i++){ if($i==-1)x[i]++} } END{ for(i=1;i<=NF; i++) print i"\t"x[i] }' | paste ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.labels - | awk '{print $1"\t"$3"\t"$3*100/20659}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/MissingDataCalc/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.GL-Missing.txt
 ```
-
+#  
 
 ### 9) Global Coverage Distribution | **Dataset I**
 
@@ -271,6 +274,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 #### We locally plot this `.mean` file using the R Script below and we deliberate on a maximum GLOBAL DEPTH cutoff:
 
 _ToPlotGlobalCov_ReSeq.R_
+#  
 
 ### 10) Sites Info | **Dataset I**
 
@@ -299,6 +303,7 @@ awk '{if ($3!=0) print;}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous
 ##### We locally plot these results using the Rscript below:
 
 _FPGP--ToPlot_ScaffoldLength-NumberOfSites.R_
+#  
 
 ### 11) Heterozygosity Calculation | **Dataset I**
 
@@ -338,6 +343,7 @@ fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match
 ##### We locally plot these results using the Rscript below:
 
 _FPGP--ToPlotProportionOfHeterozygousSites.R_
+#  
 
 ### 12) Initial Phylogenetic Recinstruction | **Dataset I**
 
@@ -412,6 +418,7 @@ raxml-ng-mpi --threads XXX --bootstrap --model GTR+G --bs-trees 100 --site-repea
 ```
 raxml-ng --threads XXX --support --tree ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.raxml.bestTree --bs-trees ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.BOOT.tree --prefix ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.FINAL
 ```
+#  
 
 ### 13) Population Genetics Statistics | ANGSD--v0.925
 
@@ -551,7 +558,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
 #  
 
-### 14) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix)
+### 15) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix)
 
 Here we perform an analyse of estimation of individual ancestries:
 
