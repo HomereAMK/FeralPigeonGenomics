@@ -219,10 +219,10 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 ##### ANGSD Run:
 
 ```
-xsbatch -c 10 --mem-per-cpu 20000 -J FPG_SNPs --time 3-00:00:00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 10 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((465*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.004 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((465*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates
+xsbatch -c 10 --mem-per-cpu 20000 -J FPG_SNPs --time 3-00:00:00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 10 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((465*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.004 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((465*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -out ~/data/Pigeons/FPG/FPGP--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates
 ```
 
-_Number of SNPs_: **22,434**
+Number of SNPs: **22,434**
 
 ##### Real Coverage Calculation:
 
@@ -250,7 +250,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 64 --mem-per-cpu 7800 -J FPGP_SNPs --time 12:00:00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 64 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((458*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.005 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((458*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -doVcf 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra
 ```
 
-_Number of SNPs_: **20,705**
+Number of SNPs: **20,705**
 
 ##### Real Coverage Calculation:
 
@@ -279,9 +279,9 @@ xsbatch -c 20 --mem-per-cpu 6400 -J pptFPGP --time 10-00 --force -- /groups/holo
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.depth.pos.gz | awk 'NR>1 {print $1"\t"$2-1"\t"$2"\t"$3}' | bedtools intersect -a - -b ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged.bed -wb | bedtools groupby -g 8 -c 4 -o mean > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_IntersectedWithMerged--Article--Ultra.mean
 ```
 
-#### We locally plot this `.mean` file using the R Script below and we deliberate on a maximum GLOBAL DEPTH cutoff:
+#### These `.mean` file was plotted using the RScript below, and based on this distribution we deliberated on a maximum GLOBAL DEPTH cutoff:
 
-_ToPlotGlobalCov_ReSeq.R_
+[`FPG--CoverageDistribution.R`](../FPG--Plots/FPG--Stats/FPG--CoverageDistribution/FPG--CoverageDistribution.R)
 #  
 
 ### 10) Sites Info | **Dataset I**
@@ -292,7 +292,7 @@ _ToPlotGlobalCov_ReSeq.R_
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.mafs.gz | tail -n +2 | sort -u -k 1,1 | wc -l
 ```
 
-_FPGP--GoodSamples--Article--Ultra_: **302 scaffolds**
+FPGP--GoodSamples--Article--Ultra: **302 scaffolds**
 
 ##### We here calculate the SITES density using ordinary scripts based on the relevant files below:
 
@@ -308,9 +308,9 @@ awk 'BEGIN{OFS="\t"} NR==FNR{x[$1]=$2} NR!=FNR && $2>1000{if(!x[$1])x[$1]=0; pri
 awk '{if ($3!=0) print;}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/SitesInfo/FPGP--GoodSamples--Article--Ultra.ScaffoldInfo.txt > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/SitesInfo/FPGP--GoodSamples--Article--Ultra.ScaffoldInfo_OnlyWithSites.txt
 ```
 
-##### We locally plot these results using the Rscript below:
+##### We plotted these results using the Rscript below:
 
-_FPGP--ToPlot_ScaffoldLength-NumberOfSites.R_
+[`FPG--ScaffoldLengthVsNumberOfSites.R`](../FPG--Plots/FPG--Stats/FPG--SitesInfo/FPG--ScaffoldLengthVsNumberOfSites.R.R)
 #  
 
 ### 11) Heterozygosity Calculation | **Dataset I**
@@ -348,7 +348,7 @@ Finally, we calculate the percentage of heterozygous sites:
 fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match($1,/(GBS|WGS|WGS\-GBS)/,lol);print $1"\t"$2"\t"lol[1]}' | sort -k 1,1gr | awk '{split($0,a,"_"); print $1"\t"a[1]"\t"$2"\t"$3'} > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/FPGP--GoodSamples--Article--Ultra.Heterozygosity.txt
 ```
 
-##### We locally plot these results using the Rscript below:
+##### We plotted these results using the Rscript below:
 
 [`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
 #  
@@ -516,6 +516,10 @@ do
 done
 ```
 
+##### We plotted these results using the Rscript below:
+
+[`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
+
 ## Fst
 
 ```
@@ -537,6 +541,7 @@ do
     done
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 ```
+[`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
 #  
 
 ### 14) Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | **Dataset III**
@@ -608,7 +613,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 15 --mem-per-cpu 7800 -J FPGP_SNPs --time 2-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 15 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithHomers--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((476*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.005 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((476*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -doVcf 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithHomers--Article--Ultra
 ```
 
-_Number of SNPs_: **20,966**
+Number of SNPs: **20,966**
 
 Here we perform an analyse of supervised estimation of individual ancestries based on chosen populations of breeds:
 

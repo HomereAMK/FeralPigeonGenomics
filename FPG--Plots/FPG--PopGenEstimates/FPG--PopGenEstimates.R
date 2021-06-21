@@ -1,4 +1,4 @@
-### The BEGINNING ~~~~
+### The BEGINNING ~~~~~
 ##
 # ~ Plots FPGP--PopGenEstimates | By Marie-Christine RUFENER & George PACHECO
 
@@ -201,4 +201,4 @@ ggsave(PopGennEstimates, file = "FPG--PopGenEstimates.pdf", device = cairo_pdf, 
 
 #
 ##
-### The END ~~~~
+### The END ~~~~~
