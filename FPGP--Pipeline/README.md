@@ -1,7 +1,7 @@
-# **FPGP — _University of Copenhagen_**
+# **FPG — _University of Copenhagen_**
 ### Re-Sequencing + GBS Data Pipeline — by **Filipe G. Vieira** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George Pacheco** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
 
-**Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline.  Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
+**Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline. Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
 #  
 #  
 
@@ -109,15 +109,10 @@ Here we perform several statistical calculations and create HeatMap plots based 
 
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t XXX -n 10 -k 300 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Stats_FPGP--Article--Ultra.txt"
 
-#### Cut-sites Information
+##### We locally plot these results using the Rscript below:
 
-```
-grep -v "WGS" ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.tsv | grep -v "Blank" | tail -n +2 | cut -f 2- | awk '{for(i=1; i<=NF; i++)x[i]+=$i} END{for(i in x)print x[i]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.cutsitesmath
-
-awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.cutsitesmath
-```
-
-_Number of LOCI with No data for ALL_: **245,537**
+[`FPG--CoverageHeatmap.R`](../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap.R)
+#  
 
 ### 7) Filtering of Bad Samples
 
@@ -128,7 +123,17 @@ Here we create some auxiliary files.
 ```
 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
 ```
-#  
+
+#### Cut-sites Information
+
+```
+grep -v "WGS" ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.tsv | grep -v "Blank" | tail -n +2 | cut -f 2- | awk '{for(i=1; i<=NF; i++)x[i]+=$i} END{for(i in x)print x[i]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.cutsitesmath
+
+awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.cutsitesmath
+```
+
+Number of LOCI with No data for ALL: **245,537**
+#
 
 ### 8) Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
 
