@@ -111,7 +111,7 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- "/groups/hologenomics/fgvi
 
 ##### We locally plot these results using the Rscript below:
 
-[`FPG--CoverageHeatmap.R`](../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap.R)
+[`FPG--CoverageHeatmap.R`](../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.R)
 #  
 
 ### 7) Filtering of Bad Samples
