@@ -101,20 +101,23 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-
 ```
 #  
 
-### 6) Running Stats & Plots
+### 6) Running Stats & Filtering of Bad Samples
 
 #### Here we perform several statistical calculations and create HeatMap plots based on the presence/absence of data.
 
 ```
-xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t XXX -n 10 -k 300 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Stats_FPGP--Article--Ultra.txt"
+xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t 1 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--CoverageHeatMap/FPG--MappingStats.txt"
+```
+
+#### Here we perform several statistical calculations and create HeatMap plots based on the presence/absence of data.
+
+```
+xsbatch -c 10 --mem-per-cpu 20000 -J FPG_CovHeatMap --time 15:00:00 -- "python /lustre/hpc/hologenomics/fgvieira/scripts/kmeans.py -i ./Loci_Merged.coverage.tsv -c 10 -k 300 -n 10 -t -d float16 -o FPG--Loci_Merged.coverage"
 ```
 
 ##### These results were plotted using the Rscript below:
 
 [`FPG--CoverageHeatmap.R`](../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.R)
-#  
-
-### 7) Filtering of Bad Samples
 
 Here we create some auxiliary files.
 
