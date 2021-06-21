@@ -1,6 +1,6 @@
-### The BEGINNING ~~~~
+### The BEGINNING ~~~~~
 ##
-# > Plots FPG--MDS | By George PACHECO
+# > Plots FPG--MDS | First written by Filipe G. VIEIRA, and modified by George PACHECO.
 
 
 # Cleans the environment ~ 
@@ -103,7 +103,7 @@ data$BioStatus <- ifelse(data$Population %in% c("Torshavn","Ejde","Sumba","LjosA
                   ifelse(data$Population %in% c("SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl",
                                                "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
                                                "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
-                  ifelse(data$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", NA))))
+                  ifelse(data$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captives", NA))))
 
 
 # Expands the data by adding Groups ~
@@ -134,7 +134,7 @@ data$BioStatus <- factor(data$BioStatus, ordered = T,
                            levels = c("Remote_Localities_Within_Natural_Range",
                                       "Urban_Localities_Within_Natural_Range",
                                       "Localities_Outside_Natural_Range",
-                                      "Captive_Populations"))
+                                      "Captives"))
 
 
 # Defines the shapes to be used for each Group ~
@@ -163,6 +163,10 @@ Colour_Pops <- data %>%
 PopsOut <- c("PigeonIsland", "Trincomalee", "Wattala")
 Fill_Pops <- filter(data, !Population %in% PopsOut)
 
+# Dimensions ~
+# 1: D1_3.18814763506453
+# 2: D2_1.93889781570542
+# 3: D3_1.47369056639638
 
 # Creates MDS plots ~
 MDS_12 <-
@@ -172,18 +176,18 @@ ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
   scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
-                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
-                    label.buffer = unit(35, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(40, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
-                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   scale_shape_manual(values = Shapes) +
-  scale_x_continuous("Dimension 1 (3.22%)",
+  scale_x_continuous("Dimension 1 (3.19%)",
                      breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
                      labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
                      expand = c(0,0),
                      limits = c(-0.077, 0.03)) +
-  scale_y_continuous("Dimension 2 (1.95%)",
+  scale_y_continuous("Dimension 2 (1.94%)",
                      breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
                      expand = c(0,0),
                      labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
@@ -214,6 +218,104 @@ ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
 ggsave(MDS_12, file = "FPG--MDS_12.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
 
 
+MDS_13 <-
+  ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D3_1.47369056639638")) +
+  geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
+  geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
+  scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
+                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
+                    label.buffer = unit(40, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
+                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  scale_shape_manual(values = Shapes) +
+  scale_x_continuous("Dimension 1 (3.19%)",
+                     breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
+                     labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
+                     expand = c(0,0),
+                     limits = c(-0.077, 0.03)) +
+  scale_y_continuous("Dimension 3 (1.47%)",
+                     breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
+                     expand = c(0,0),
+                     labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
+                     limits = c(-0.060, 0.052)) +
+  theme(panel.background = element_rect(fill = "#ffffff"),
+        panel.border = element_blank(),
+        panel.grid.minor = element_blank(), 
+        panel.grid.major = element_blank(),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        legend.position = "right",
+        legend.title = element_text(color = "#000000", size = 13),
+        legend.text = element_text(size = 11),
+        axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        axis.title.y = element_text(size = 18, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text = element_text(color = "#000000", size = 13),
+        axis.ticks = element_line(color = "#000000", size = 0.3),
+        axis.line = element_line(colour = "#000000", size = 0.3)) +
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                             label.theme = element_text(size = 14, family = "Helvetica"),
+                             override.aes = list(size = 4.5, shape = 21, alpha = .9), order = 1),
+         shape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                              label.theme = element_text(size = 14, family = "Helvetica"),
+                              override.aes = list(size = 4.5, alpha = .9), order = 2), colour = "none")
+
+
+# Creates & Saves the final MDS Panel ~
+ggsave(MDS_13, file = "FPG--MDS_13.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+
+
+MDS_23 <-
+  ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
+  geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
+  geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
+  scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
+                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
+                    label.buffer = unit(40, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
+                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+  scale_shape_manual(values = Shapes) +
+  #scale_x_continuous("Dimension 2 (1.94%)",
+  #                   breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
+  #                   labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
+  #                   expand = c(0,0),
+  #                   limits = c(-0.077, 0.03)) +
+  #scale_y_continuous("Dimension 3 (1.47%)",
+  #                   breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
+  #                   expand = c(0,0),
+  #                   labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
+  #                   limits = c(-0.060, 0.052)) +
+  theme(panel.background = element_rect(fill = "#ffffff"),
+        panel.border = element_blank(),
+        panel.grid.minor = element_blank(), 
+        panel.grid.major = element_blank(),
+        legend.background = element_blank(),
+        legend.key = element_blank(),
+        legend.position = "right",
+        legend.title = element_text(color = "#000000", size = 13),
+        legend.text = element_text(size = 11),
+        axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        axis.title.y = element_text(size = 18, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text = element_text(color = "#000000", size = 13),
+        axis.ticks = element_line(color = "#000000", size = 0.3),
+        axis.line = element_line(colour = "#000000", size = 0.3)) +
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                             label.theme = element_text(size = 14, family = "Helvetica"),
+                             override.aes = list(size = 4.5, shape = 21, alpha = .9), order = 1),
+         shape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                              label.theme = element_text(size = 14, family = "Helvetica"),
+                              override.aes = list(size = 4.5, alpha = .9), order = 2), colour = "none")
+
+
+# Creates & Saves the final MDS Panel ~
+ggsave(MDS_23, file = "FPG--MDS_23.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+
+
 #
 ##
-### The END ~~~~
+### The END ~~~~~
