@@ -342,7 +342,7 @@ fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match
 
 ##### We locally plot these results using the Rscript below:
 
-_FPGP--ToPlotProportionOfHeterozygousSites.R_
+[`FPG--MDS.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
 #  
 
 ### 12) Initial Phylogenetic Recinstruction | **Dataset I**
@@ -553,7 +553,7 @@ tail -n +3 ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--MDS/FPG--GoodSamples_NoSrisor
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--MDS/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.annot
 ```
 
-##### We locally plot these MDS results using the Rscript below:
+#### We plot these MDS results using the Rscript below:
 
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
 #  
@@ -572,7 +572,7 @@ do
 done | xsbatch -c 11 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
-We locally plot these ngsAdmix results using the Rscript below:
+#### We plot these ngsAdmix results using the Rscript below:
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
 #  
