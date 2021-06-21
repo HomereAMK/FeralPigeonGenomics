@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# > Plots FPG--MDS | First written by Filipe G. VIEIRA, and modified by George PACHECO.
+# > Plots FPG--MDS | First written by Filipe G. VIEIRA with later modifications by George PACHECO.
 
 
 # Cleans the environment ~ 
@@ -183,15 +183,15 @@ ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
                     label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   scale_shape_manual(values = Shapes) +
   scale_x_continuous("Dimension 1 (3.19%)",
-                     breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
-                     labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
+                     breaks = c(-0.075, -0.05, -0.025, 0, 0.025),
+                     labels = c("-0.075", "-0.05", "-0.025", "0", "0.025"),
                      expand = c(0,0),
-                     limits = c(-0.077, 0.03)) +
+                     limits = c(-0.073, 0.03)) +
   scale_y_continuous("Dimension 2 (1.94%)",
-                     breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
+                     breaks = c(-0.05, -0.025, 0, 0.025, 0.05), 
                      expand = c(0,0),
-                     labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
-                     limits = c(-0.060, 0.052)) +
+                     labels = c("-0.05", "-0.025", "0", "0.025", "0.05"), 
+                     limits = c(-0.0525, 0.0525)) +
   theme(panel.background = element_rect(fill = "#ffffff"),
         panel.border = element_blank(),
         panel.grid.minor = element_blank(), 
@@ -225,22 +225,22 @@ MDS_13 <-
   scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
-                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
-                    label.buffer = unit(40, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(22, 'mm'), con.cap = unit(5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
-                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(14, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   scale_shape_manual(values = Shapes) +
   scale_x_continuous("Dimension 1 (3.19%)",
-                     breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
-                     labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
+                     breaks = c(-0.05, -0.025, 0, 0.025),
+                     labels = c("-0.05", "-0.025", "0", "0.025"),
                      expand = c(0,0),
-                     limits = c(-0.077, 0.03)) +
+                     limits = c(-0.073, 0.03)) +
   scale_y_continuous("Dimension 3 (1.47%)",
-                     breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
+                     breaks = c(-0.05, -0.025, 0, 0.025, 0.05), 
                      expand = c(0,0),
-                     labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
-                     limits = c(-0.060, 0.052)) +
+                     labels = c("-0.05", "-0.025", "0", "0.025", "0.05"), 
+                     limits = c(-0.0525, 0.0525)) +
   theme(panel.background = element_rect(fill = "#ffffff"),
         panel.border = element_blank(),
         panel.grid.minor = element_blank(), 
@@ -268,28 +268,28 @@ ggsave(MDS_13, file = "FPG--MDS_13.pdf", device = cairo_pdf, scale = 1.5, width 
 
 
 MDS_23 <-
-  ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
+  ggplot(data, aes_string(x = "D2_1.93889781570542", y = "D3_1.47369056639638")) +
   geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
   geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
   scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
-                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
-                    label.buffer = unit(40, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(20, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
-                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "straight", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(16, 'mm'), con.cap = unit(11.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   scale_shape_manual(values = Shapes) +
-  #scale_x_continuous("Dimension 2 (1.94%)",
-  #                   breaks = c(-0.075, -0.050, -0.025, 0, 0.025),
-  #                   labels = c("-0.075", "-0.050", "-0.025", "0", "0.025"),
-  #                   expand = c(0,0),
-  #                   limits = c(-0.077, 0.03)) +
-  #scale_y_continuous("Dimension 3 (1.47%)",
-  #                   breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
-  #                   expand = c(0,0),
-  #                   labels = c("-0.050", "-0.025", "0", "0.025", "0.050"), 
-  #                   limits = c(-0.060, 0.052)) +
+  scale_x_continuous("Dimension 2 (1.94%)",
+                     breaks = c(-0.05, -0.025, 0, 0.025, 0.05),
+                     labels = c("-0.05", "-0.025", "0", "0.025", "0.05"),
+                     expand = c(0,0),
+                     limits = c(-0.045, 0.045)) +
+  scale_y_continuous("Dimension 3 (1.47%)",
+                     breaks = c(-0.050, -0.025, 0, 0.025, 0.050), 
+                     expand = c(0,0),
+                     labels = c("-0.05", "-0.025", "0", "0.025", "0.05"), 
+                     limits = c(-0.0525, 0.0525)) +
   theme(panel.background = element_rect(fill = "#ffffff"),
         panel.border = element_blank(),
         panel.grid.minor = element_blank(), 

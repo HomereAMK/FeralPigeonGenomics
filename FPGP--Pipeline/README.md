@@ -112,7 +112,7 @@ xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/h
 #### Here we perform several statistical calculations and create HeatMap plots based on the presence/absence of data.
 
 ```
-xsbatch -c 10 --mem-per-cpu 20000 -J FPG_CovHeatMap --time 15:00:00 -- "python /lustre/hpc/hologenomics/fgvieira/scripts/kmeans.py -i ./Loci_Merged.coverage.tsv -c 10 -k 300 -n 10 -t -d float16 -o FPG--Loci_Merged.coverage"
+xsbatch -c 10 --mem-per-cpu 20000 -J FPG_CovHeatMap --time 15:00:00 -- "python /lustre/hpc/hologenomics/fgvieira/scripts/kmeans.py -i ~/data/Pigeons/FPGP/FPG--Analyses/FPG--CoverageHeatMap/Loci_Merged.coverage.tsv -c 10 -k 300 -n 10 -t -d float16 -o FPG--Loci_Merged.coverage"
 ```
 
 ##### These results were plotted using the Rscript below:
@@ -566,7 +566,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
 #  
 
-### 15) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix)
+### 15) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) | **Dataset III**
 
 Here we perform an analyse of estimation of individual ancestries:
 
@@ -575,9 +575,9 @@ export N_REP=100
 
 for K in `seq -w 2 20`
 do 
-    echo /groups/hologenomics/fgvieira/scripts/wrapper_ngsAdmix.sh -P 11 -debug 1 -likes ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz -K $K -minMaf 0 -tol 1e-6 -tolLike50 1e-3 -maxiter 10000 -o ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ngsAdmix/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.${K}
+    echo /groups/hologenomics/fgvieira/scripts/wrapper_ngsAdmix.sh -P 8 -debug 1 -likes ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz -K $K -minMaf 0 -tol 1e-6 -tolLike50 1e-3 -maxiter 10000 -o ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ngsAdmix/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.${K}
 
-done | xsbatch -c 11 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
+done | xsbatch -c 8 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
 #### We plot these ngsAdmix results using the Rscript below:
