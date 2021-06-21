@@ -542,10 +542,10 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 
 ##### We locally plot these MDS results using the Rscript below:
 
-[`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
+[`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)   
 
 
-### 14) Estimation of Individual Andestries [ngsAdmix](http://www.popgen.dk/software/index.php/NgsAdmix)
+### 14) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix)
 
 Here we perform an analyse of estimation of individual ancestries:
 
