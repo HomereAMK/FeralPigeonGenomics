@@ -6,6 +6,7 @@
 ### 1) Acess to Raw Data & Local Storage | [ERDA](https://www.erda.dk/)
 
 The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
+#  
 
 ### 2) Sequencing Quality Check | [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
@@ -15,6 +16,7 @@ Example:
 ```
 ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Fastqced--v0.11.5/
 ```
+#  
 
 ### 3) Demultiplexing | [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX)
 
@@ -56,6 +58,7 @@ Example:
 ```
 mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.R1.fastq.gz ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.fastq.gz
 ```
+#  
 
 ### 4) Filtering For Chimeric Reads
 
@@ -83,6 +86,7 @@ ls ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_*/*_Demultiplexed_GBSX--v1.3/*_!(*Und
 
 parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -o {..}.FilteredChimeras.fastq -s $TMP_DIR/{/...}-GBS.Chimeras.id -n && gzip --best {..}.FilteredChimeras.fastq && rm {.}" | xsbatch --mem-per-cpu XXX -R --max-array-jobs XXX -c 1 --time XXX --
 ```
+#  
 
 ### 5) Read Trimming & Mapping | [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix)
 
@@ -93,6 +97,7 @@ Basically, we run the very same _.YAML_ file used in the inicial GBSed run here,
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
 ```
+#  
 
 ### 6) Running Stats & Plots
 
@@ -517,6 +522,7 @@ do
     done
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 ```
+#  
 
 ### 14) Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | **Dataset III**
 
@@ -544,7 +550,6 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
 #  
-#  
 
 ### 14) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix)
 
@@ -563,6 +568,7 @@ done | xsbatch -c 11 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --tim
 We locally plot these ngsAdmix results using the Rscript below:
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
+#  
 
 
 ### Estimating Spacial Population Structure | [TESS3--v1.1.0]()
