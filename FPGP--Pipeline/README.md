@@ -103,13 +103,13 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-
 
 ### 6) Running Stats & Plots
 
-Here we perform several statistical calculations and create HeatMap plots based on the presence/absence of data.
+#### Here we perform several statistical calculations and create HeatMap plots based on the presence/absence of data.
 
-#### Here only considering the GBSed samples:
-
+```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t XXX -n 10 -k 300 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Stats_FPGP--Article--Ultra.txt"
+```
 
-##### We locally plot these results using the Rscript below:
+##### These results were plotted using the Rscript below:
 
 [`FPG--CoverageHeatmap.R`](../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.R)
 #  
