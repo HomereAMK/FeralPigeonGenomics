@@ -546,7 +546,7 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 
 ### 14) Multidimensional Scaling
 
-#### Here are perform a Multidimensional Scaling Anlysis based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Here are perform a Multidimensional Scaling Anlysis based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
 ##### Creates a distance matrix using the `.beagle` file using [ngsDist](https://github.com/fgvieira/ngsDist):
 
@@ -573,9 +573,9 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 
 ### 15) Estimation of Individual Ancestries
 
-#### Here are perform an Analysis of Estimation of Individual Ancestries based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Here are perform an Analysis of Estimation of Individual Ancestries based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
-##### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
+#### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
 
 ```
 export N_REP=100
@@ -587,7 +587,7 @@ do
 done | xsbatch -c 12 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
-##### These ngsAdmix results were plotted using the Rscript below:
+#### These ngsAdmix results were plotted using the Rscript below:
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
 #  
