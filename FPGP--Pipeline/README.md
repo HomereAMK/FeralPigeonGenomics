@@ -427,15 +427,15 @@ raxml-ng --threads XXX --support --tree ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP-
 ```
 ***
 
-### 13) Population Genetics Statistics | ANGSD--v0.925
+### 13) Population Genetics Statistics
 
-##### To create ancestral sequence:
+##### Creates ancestral sequence:
 
 ```
 xsbatch -c 12 --mem-per-cpu 2048 -J PBGP_AllSites --time 5-00 --force -- angsd -nThreads 12 -i ~/data/Pigeons/Analysis/PaleoMix_Re-Sequencing/Crupestris_01-WGS.RockDove_DoveTail_ReRun.realigned.bam -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -doFasta 1 -doCounts 1 -explode 1 -rmTrans 0 -seed 433 -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -out ~/data/Pigeons/PBGP/PBGP--Analyses/PBGP--PopGenStats/Crupestris_01-WGS.RockDove_DoveTail_ReRun.realigned.Ancestral
 ```
 
-##### To get list of specific BAMs:
+##### Gets lists of samples:
 
 ```
 POP=("Abadeh" "Barcelona" "Berlin" "Colombo" "Copenhagen" "Crete" "Denver" "Guimaraes" "Isfahan" "Johannesburg" "Lahijan" "Lisbon" "London" "MexicoCity" "Monterrey" "Nairobi" "Nowshahr" "Perth" "PigeonIsland" "Prague" "SaltLakeCity" "Salvador" "SanCristobalDeLasCasas" "Santiago" "Sardinia" "Tatui" "Tehran" "TelAviv" "TelAvivColony" "TlaxcalaDeXicohtencatl" "Torshavn" "Trincomalee" "Vernelle" "WadiHidan")
@@ -447,7 +447,7 @@ do
 done
 ```
 
-##### To run ANGSD with `-doSaf`:
+##### Runs ANGSD under `-doSaf`:
 
 ```
 for query in Torshavn
@@ -470,7 +470,7 @@ do
 done
 ```
 
-##### To run ANGSD with `-doThetas`:
+##### Runs ANGSD under `-doThetas`:
 
 ```
 for query in Torshavn
@@ -504,17 +504,6 @@ do
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus-DoSaf-WithWrapper-DoThetas-NoWrapper--Article--Ultra.PopGenSummary.txt
 ```
 
-##### Prints thetas:
-
-```
-for query in Torshavn
-
-do
-    thetaStat print ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus_${query}-DoSaf-WithWrapper-DoThetas-NoWrapper--Article--Ultra.thetas.idx > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus_${query}-DoSaf-WithWrapper-DoThetas-NoWrapper--Article--Ultra_Print
-
-done
-```
-
 ##### These results were plotted using the Rscript below:
 
 [`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
@@ -545,7 +534,7 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 
 ### 14) Multidimensional Scaling
 
-> Here are perform a _Multidimensional Scaling Anlysis_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Here we perform a _Multidimensional Scaling Anlysis_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
 ##### Creates a distance matrix using the `.beagle` file using [`ngsDist`](https://github.com/fgvieira/ngsDist):
 
@@ -572,7 +561,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 
 ### 15) Estimation of Individual Ancestries
 
-> Here are perform an _Analysis of Estimation of Individual Ancestries_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Here we perform an _Analysis of Estimation of Individual Ancestries_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
 ##### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
 
