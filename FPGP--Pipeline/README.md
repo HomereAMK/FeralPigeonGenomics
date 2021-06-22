@@ -544,7 +544,7 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 [`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
 #  
 
-### 14) Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | [`Dataset III`](./FPG--Datasets/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz)
+### 14) Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/)
 
 Here are perform a multidimensional scaling anlysis on the genetic distance matrix created above:
 
@@ -571,7 +571,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
 #  
 
-### 15) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) | **Dataset III**
+### 15) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) | [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/)
 
 Here we perform an analyse of estimation of individual ancestries:
 
