@@ -15,7 +15,7 @@ The GBS raw data was directly downloaded from the server of the _Institute of Bi
 ### 2) Sequencing Quality Check
 
 A general sequencing quality check of each plate was performed using [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
-#  
+#
 
 ##### _Example_:
 ```
@@ -26,39 +26,39 @@ A general sequencing quality check of each plate was performed using [FASTQc--v0
 ### 3) Demultiplexing
 
 All the plates were demultiplexed in the very same way using the software [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
-#  
+#
 
-##### **FPGP_1**:
+##### **FPG_1**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Demultiplexed_GBSX--v1.3/
 ```
 
-##### **FPGP_2**:
+##### **FPG_2**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_Demultiplexed_GBSX--v1.3/
 ```
 
-##### **FPGP_3**:
+##### **FPG_3**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_Demultiplexed_GBSX--v1.3/
 ```
 
-##### **FPGP_4**:
+##### **FPG_4**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_Demultiplexed_GBSX--v1.3/
 ```
 
-##### **FPGP_5**:
+##### **FPG_5**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/
 ```
 
-##### **FPGP_Extra**:
+##### **FPG_Extra**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Demultiplexed_GBSX--v1.3/
 ```
 
-##### An ordinary `-mv` command was used to eliminate the `.R1` suffix of each demultiplexed file.
+##### Eliminates the `.R1` suffix of each demultiplexed file with an ordinary `-mv` command:
 
 ##### _Example_:
 
@@ -70,7 +70,7 @@ mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GB
 ### 4) Filtering For Chimeric Reads
 
 We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same `.bed` file presented in this publication to restrict our analyses to the _GBS_ loci.
-#  
+#
 
 ##### Executes an inicial _PaleoMix_ run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the `.yaml` file below and respective command:
 
@@ -104,6 +104,7 @@ parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -
 
 Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
 #
+
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
 ```
@@ -111,7 +112,8 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-
 
 ### 6) Running Stats & Filtering of Bad Samples
 
-Performs several statistical calculations and creates heatmap plots based on the presence/absence of data.
+We use the scripts to perform several statistical calculations and creates heatmap plots based on the presence/absence of data.
+#
 
 ```
 xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t 1 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--CoverageHeatMap/FPG--MappingStats.txt"
@@ -148,7 +150,9 @@ awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Cover
 
 ### 8) Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
 
-#### 8.1) **Dataset I** | ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
+
+
+#### 8.1) [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) | ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
 
 ##### Gets list of samples:
 
@@ -164,7 +168,7 @@ xsbatch -c 40 --mem-per-cpu 7000 -J FPGP_AllSites --time 10-00 --force -- /group
 
 ##### _Number of SITES_: **1,225,204**
 
-###### Gets Real Coverage:
+##### Gets Real Coverage:
 
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.counts.gz | tail -n +2 | gawk ' {for (i=1;i<=NF;i++){a[i]+=$i;++count[i]}} END{ for(i=1;i<=NF;i++){print a[i]/count[i]}}' | paste ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.labels - > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/RealCoverage/FPGP--GoodSamples--Article--Ultra.GL-RealCoverage.txt
@@ -176,7 +180,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.beagle.gz | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/call_geno.pl --skip 3 | cut -f 4- | awk '{ for(i=1;i<=NF; i++){ if($i==-1)x[i]++} } END{ for(i=1;i<=NF; i++) print i"\t"x[i] }' | paste ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.labels - | awk '{print $1"\t"$3"\t"$3*100/1225204}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/MissingDataCalc/FPGP--GoodSamples--Article--Ultra.GL-Missing.txt
 ```
 
-#### 8.2) **Dataset II** | ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS):
+#### 8.2) [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/) | ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS):
 
 ##### Gets list of samples:
 
@@ -210,7 +214,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSris
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.haplo.gz | cut -f 4- | tail -n +2 | awk '{ for(i=1;i<=NF; i++){ if($i=="N")x[i]++} } END{ for(i=1;i<=NF; i++) print i"\t"x[i] }' | paste ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.labels - | awk '{print $1"\t"$3"\t"$3*100/1261881}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/MissingDataCalc/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.RHC-Missing.txt
 ```
 
-#### 8.3) **Dataset III** | ALL GOOD SAMPLES with the ReSeq Ferals & without Crupestris-Cpalumbus-Srisoria-Duplicates (465 SAMPLES / 463 GBS & 2 WGS):
+#### 8.3) [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/) | ALL GOOD SAMPLES with the ReSeq Ferals & without Crupestris-Cpalumbus-Srisoria-Duplicates (465 SAMPLES / 463 GBS & 2 WGS):
 
 ##### Gets list of samples:
 
