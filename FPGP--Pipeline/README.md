@@ -5,14 +5,14 @@
 #  
 #  
 
-### 1) Acess to Raw Data & Local Storage | [ERDA](https://www.erda.dk/)
+### 1) Acess to Raw Data & Local Storage 
 
-The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on ERDA KU under George's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
+> The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on [`ERDA`](https://www.erda.dk/) under Pacheco's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 #  
 
-### 2) Sequencing Quality Check | [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+### 2) Sequencing Quality Check
 
-A general sequencing quality check of each plate was performed using the software FastQC--v0.11.5 using default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
+> A general sequencing quality check of each plate was performed using [`FASTQc--v0.11.5`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 
 Example:
 ```
@@ -20,9 +20,9 @@ Example:
 ```
 #  
 
-### 3) Demultiplexing | [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX)
+### 3) Demultiplexing
 
-All the plates were demultiplexed in the very same way using the software GBSX--v1.3 based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
+> All the plates were demultiplexed in the very same way using the software [`GBSX--v1.3`](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 
 **FPGP_1**:
 ```
@@ -78,23 +78,25 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline run --jre-opt
 parallel --plus --keep-order --dryrun "samtools view {} | grep -v '^#' | awk '\$6~/[HS]/ && \$10~/ATGCAT/{print \$1}' | sort -u > $TMP_DIR/{/...}.Chimeras.id" ::: ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/*.bam | xsbatch -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 
-#### Finally, we excluded these identified reads using the software package QIIME. A filtered "fastq.gz" file is created inside the respectives folders of each original demultiplexed files.
+#### Finally, we excluded these identified reads using the software package QIIME. A filtered `.fastq` file is created inside the respectives folders of each original demultiplexed files.
 
 ```
 module load blast/v2.2.26
 module load qiime/v1.9.1
+```
 
+```
 ls ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_*/*_Demultiplexed_GBSX--v1.3/*_!(*Undetermined).fastq.gz | parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -o {..}.FilteredChimeras.fastq -s $TMP_DIR/{/...}-GBS.Chimeras.id -n && gzip --best {..}.FilteredChimeras.fastq && rm {.}" | xsbatch --mem-per-cpu XXX -R --max-array-jobs XXX -c 1 --time XXX --
+```
 
+```
 parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -o {..}.FilteredChimeras.fastq -s $TMP_DIR/{/...}-GBS.Chimeras.id -n && gzip --best {..}.FilteredChimeras.fastq && rm {.}" | xsbatch --mem-per-cpu XXX -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 #  
 
-### 5) Read Trimming & Mapping | [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix)
+### 5) Read Trimming & Mapping
 
-#### GBSed Samples:
-
-Basically, we run the very same _.YAML_ file used in the inicial GBSed run here, the only different was of course that now we used the filtered _.FASTQ.GZ_ files. Please notice that PCR duplicates are NOT removed here!
+> Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
@@ -103,7 +105,7 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-
 
 ### 6) Running Stats & Filtering of Bad Samples
 
-#### Here we perform several statistical calculations and create HeatMap plots based on the presence/absence of data.
+> Performs several statistical calculations and creates heatmap plots based on the presence/absence of data.
 
 ```
 xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t 1 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--CoverageHeatMap/FPG--MappingStats.txt"
@@ -546,7 +548,7 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 
 ### 14) Multidimensional Scaling
 
->> Here are perform a Multidimensional Scaling Anlysis based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Here are perform a _Multidimensional Scaling Anlysis_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
 ##### Creates a distance matrix using the `.beagle` file using [`ngsDist`](https://github.com/fgvieira/ngsDist):
 
@@ -573,7 +575,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 
 ### 15) Estimation of Individual Ancestries
 
-> Here are perform an Analysis of Estimation of Individual Ancestries based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Here are perform an _Analysis of Estimation of Individual Ancestries_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
 ##### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
 
@@ -582,9 +584,9 @@ export N_REP=100
 
 for K in `seq -w 2 20`
 do 
-    echo /groups/hologenomics/fgvieira/scripts/wrapper_ngsAdmix.sh -P 12 -debug 1 -likes ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz -K $K -minMaf 0 -printInfo -tol 1e-6 -tolLike50 1e-3 -maxiter 10000 -o ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ngsAdmix/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.${K}
+    echo /groups/hologenomics/fgvieira/scripts/wrapper_ngsAdmix.sh -P 18 -debug 1 -likes ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz -K $K -minMaf 0 -tol 1e-6 -tolLike50 1e-3 -maxiter 10000 -o ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ngsAdmix/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.${K}
 
-done | xsbatch -c 12 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
+done | xsbatch -c 18 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
 ##### These ngsAdmix results were plotted using the Rscript below:
