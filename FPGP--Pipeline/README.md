@@ -546,9 +546,9 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 
 ### 14) Multidimensional Scaling
 
-> Here are perform a Multidimensional Scaling Anlysis based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+>> Here are perform a Multidimensional Scaling Anlysis based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
-##### Creates a distance matrix using the `.beagle` file using [ngsDist](https://github.com/fgvieira/ngsDist):
+##### Creates a distance matrix using the `.beagle` file using [`ngsDist`](https://github.com/fgvieira/ngsDist):
 
 ```
 xsbatch -c 10 --mem-per-cpu 2000 -J Dist_Corr --time 1-00 -- "ngsDist --n_threads 10 --geno ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz --pairwise_del --seed 44 --probs --n_ind 465 --n_sites 22434 --labels ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.labels --out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.dist"
@@ -575,7 +575,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 
 > Here are perform an Analysis of Estimation of Individual Ancestries based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
-#### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
+##### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
 
 ```
 export N_REP=100
@@ -587,7 +587,7 @@ do
 done | xsbatch -c 12 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
-#### These ngsAdmix results were plotted using the Rscript below:
+##### These ngsAdmix results were plotted using the Rscript below:
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
 #  
