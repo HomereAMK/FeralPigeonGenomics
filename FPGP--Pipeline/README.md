@@ -14,7 +14,7 @@
 
 > A general sequencing quality check of each plate was performed using [`FASTQc--v0.11.5`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 
-Example:
+##### _Example_:
 ```
 ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Fastqced--v0.11.5/
 ```
@@ -24,39 +24,40 @@ Example:
 
 > All the plates were demultiplexed in the very same way using the software [`GBSX--v1.3`](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 
-**FPGP_1**:
+#### **FPGP_1**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Demultiplexed_GBSX--v1.3/
 ```
 
-**FPGP_2**:
+#### **FPGP_2**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_Demultiplexed_GBSX--v1.3/
 ```
 
-**FPGP_3**:
+#### **FPGP_3**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_Demultiplexed_GBSX--v1.3/
 ```
 
-**FPGP_4**:
+#### **FPGP_4**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_Demultiplexed_GBSX--v1.3/
 ```
 
-**FPGP_5**:
+#### **FPGP_5**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/
 ```
 
-**FPGP_Extra**:
+#### **FPGP_Extra**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Demultiplexed_GBSX--v1.3/
 ```
 
-An ordinary "-mv" command was used to eliminate the ".R1" determination of each demultiplexed file.
+##### An ordinary `-mv` command was used to eliminate the `.R1` suffix of each demultiplexed file.
 
-Example:
+##### _Example_:
+
 ```
 mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.R1.fastq.gz ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.fastq.gz
 ```
@@ -64,21 +65,21 @@ mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GB
 
 ### 4) Filtering For Chimeric Reads
 
-We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same `.bed` file presented in this publication to restrict our analyses to the _GBS_ loci.
+> We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same `.bed` file presented in this publication to restrict our analyses to the _GBS_ loci.
 
-#### We first executed an inicial PaleoMix run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the `.yaml` file below and respective command:
+##### Executes an inicial _PaleoMix_ run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the `.yaml` file below and respective command:
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline run --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS_S.risoria.yaml
 ```
 
-#### Then we generate an ID file for each sample contained the reads that should be excluded. Those are reads having a second or more cut-site and that were mapped to two or more different regions:
+##### Generates an ID file for each sample contained the reads that should be excluded. Those are reads having a second or more cut-site and that were mapped to two or more different regions:
 
 ```
 parallel --plus --keep-order --dryrun "samtools view {} | grep -v '^#' | awk '\$6~/[HS]/ && \$10~/ATGCAT/{print \$1}' | sort -u > $TMP_DIR/{/...}.Chimeras.id" ::: ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/*.bam | xsbatch -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 
-#### Finally, we excluded these identified reads using the software package QIIME. A filtered `.fastq` file is created inside the respectives folders of each original demultiplexed files.
+##### Excludes these identified reads using the software package [`QIIME`](http://qiime.org/). A filtered `.fastq` file is created inside the respectives folders of each original demultiplexed files.
 
 ```
 module load blast/v2.2.26
@@ -111,7 +112,7 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-
 xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t 1 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--CoverageHeatMap/FPG--MappingStats.txt"
 ```
 
-#### Here we perform several statistical calculations and create HeatMap plots based on the presence/absence of data.
+##### Performs several statistical calculations and creates heatmap plots based on the presence/absence of data.
 
 ```
 xsbatch -c 10 --mem-per-cpu 20000 -J FPG_CovHeatMap --time 15:00:00 -- "python /lustre/hpc/hologenomics/fgvieira/scripts/kmeans.py -i ~/data/Pigeons/FPGP/FPG--Analyses/FPG--CoverageHeatMap/Loci_Merged.coverage.tsv -c 10 -k 300 -n 10 -t -d float16 -o FPG--Loci_Merged.coverage"
