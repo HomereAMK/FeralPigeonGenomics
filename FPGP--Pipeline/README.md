@@ -103,8 +103,7 @@ parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -
 ### 5) Read Trimming & Mapping
 
 Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
-#  
-
+# 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
 ```
