@@ -9,12 +9,12 @@
 
 ### 1) Acess to Raw Data & Local Storage 
 
-The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on [`ERDA`](https://www.erda.dk/) under Pacheco's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
+The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 ***
 
 ### 2) Sequencing Quality Check
 
-A general sequencing quality check of each plate was performed using [`FASTQc--v0.11.5`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
+A general sequencing quality check of each plate was performed using [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 
 ##### _Example_:
 ```
@@ -24,7 +24,7 @@ A general sequencing quality check of each plate was performed using [`FASTQc--v
 
 ### 3) Demultiplexing
 
-All the plates were demultiplexed in the very same way using the software [`GBSX--v1.3`](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
+All the plates were demultiplexed in the very same way using the software [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 
 ##### **FPGP_1**:
 ```
@@ -81,7 +81,7 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline run --jre-opt
 parallel --plus --keep-order --dryrun "samtools view {} | grep -v '^#' | awk '\$6~/[HS]/ && \$10~/ATGCAT/{print \$1}' | sort -u > $TMP_DIR/{/...}.Chimeras.id" ::: ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/*.bam | xsbatch -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 
-##### Excludes these identified reads using the software package [`QIIME`](http://qiime.org/). A filtered `.fastq` file is created inside the respectives folders of each original demultiplexed files.
+##### Excludes these identified reads using the software package [QIIME](http://qiime.org/). A filtered `.fastq` file is created inside the respectives folders of each original demultiplexed files.
 
 ```
 module load blast/v2.2.26
@@ -126,13 +126,13 @@ xsbatch -c 10 --mem-per-cpu 20000 -J FPG_CovHeatMap --time 15:00:00 -- "python /
 
 Here we create some auxiliary files.
 
-#### We manually create a list containing SAMPLES to be excluded. Please notice that the 10 BAD GBS SAMPLES and 6 BLANKS are highlighted in the Coverage HeatMap:
+##### We manually create a list containing SAMPLES to be excluded. Please notice that the 10 BAD GBS SAMPLES and 6 BLANKS are highlighted in the Coverage HeatMap:
 
 ```
 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
 ```
 
-#### Cut-sites Information
+##### Cut-sites Information
 
 ```
 grep -v "WGS" ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.tsv | grep -v "Blank" | tail -n +2 | cut -f 2- | awk '{for(i=1; i<=NF; i++)x[i]+=$i} END{for(i in x)print x[i]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.cutsitesmath
@@ -140,8 +140,8 @@ grep -v "WGS" ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merg
 awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.cutsitesmath
 ```
 
-Number of LOCI with No data for ALL: **245,537**
-#
+##### _Number of LOCI with No data for ALL_: **245,537**
+***
 
 ### 8) Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
 
@@ -159,7 +159,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 40 --mem-per-cpu 7000 -J FPGP_AllSites --time 10-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 40 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((475*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((475*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -doVcf 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra
 ```
 
-##### Number of SITES: **1,225,204**
+##### _Number of SITES_: **1,225,204**
 
 ###### Gets Real Coverage:
 
@@ -187,7 +187,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 46 --mem-per-cpu 7000 -J FPGP_AllSites --time 12:00:00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 46 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((469*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((469*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -doVcf 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra
 ```
 
-##### Number of SITES: **1,261,881**
+##### _Number of SITES_: **1,261,881**
 
 ##### Gets Real Coverage:
 
@@ -221,7 +221,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 10 --mem-per-cpu 20000 -J FPG_SNPs --time 3-00:00:00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 10 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((465*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.004 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((465*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -out ~/data/Pigeons/FPG/FPGP--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates
 ```
 
-##### Number of SNPs: **22,434**
+##### _Number of SNPs_: **22,434**
 
 ##### Gets Real Coverage:
 
@@ -249,7 +249,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 64 --mem-per-cpu 7800 -J FPGP_SNPs --time 12:00:00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 64 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((458*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.005 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((458*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -doVcf 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra
 ```
 
-##### Number of SNPs: **20,705**
+##### _Number of SNPs_: **20,705**
 
 ##### Gets Real Coverage:
 
@@ -612,7 +612,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 xsbatch -c 15 --mem-per-cpu 7800 -J FPGP_SNPs --time 2-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 15 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithHomers--Article--Ultra.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((476*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -MinMaf 0.005 -SNP_pval 1e-6 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((476*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -doVcf 1 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates_WithHomers--Article--Ultra
 ```
 
-Number of SNPs: **20,966**
+_Number of SNPs_: **20,966**
 
 Here we perform an analyse of supervised estimation of individual ancestries based on chosen populations of breeds:
 
