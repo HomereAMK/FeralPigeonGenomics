@@ -24,32 +24,32 @@ A general sequencing quality check of each plate was performed using [`FASTQc--v
 
 All the plates were demultiplexed in the very same way using the software [`GBSX--v1.3`](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 
-#### **FPGP_1**:
+##### **FPGP_1**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Demultiplexed_GBSX--v1.3/
 ```
 
-#### **FPGP_2**:
+##### **FPGP_2**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_2/FPGP_2-C3KBHACXX_7_Demultiplexed_GBSX--v1.3/
 ```
 
-#### **FPGP_3**:
+##### **FPGP_3**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_3/FPGP_3-C5706ACXX_8_Demultiplexed_GBSX--v1.3/
 ```
 
-#### **FPGP_4**:
+##### **FPGP_4**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_4/FPGP_4-CA7YJANXX_7_Demultiplexed_GBSX--v1.3/
 ```
 
-#### **FPGP_5**:
+##### **FPGP_5**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/
 ```
 
-#### **FPGP_Extra**:
+##### **FPGP_Extra**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Demultiplexed_GBSX--v1.3/
 ```
