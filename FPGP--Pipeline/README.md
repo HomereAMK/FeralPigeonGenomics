@@ -544,36 +544,38 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 [`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
 #  
 
-### 14) Multidimensional Scaling | [ngsDist](https://github.com/fgvieira/ngsDist) + [get_PCA.R] | [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/)
+### 14) Multidimensional Scaling
 
-Here are perform a multidimensional scaling anlysis on the genetic distance matrix created above:
+#### Here are perform a Multidimensional Scaling Anlysis based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
 
-##### To get distance matrix:
+##### Creates a distance matrix using the `.beagle` file using [ngsDist](https://github.com/fgvieira/ngsDist):
 
 ```
 xsbatch -c 10 --mem-per-cpu 2000 -J Dist_Corr --time 1-00 -- "ngsDist --n_threads 10 --geno ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz --pairwise_del --seed 44 --probs --n_ind 465 --n_sites 22434 --labels ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.labels --out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--MDS/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.dist"
 ```
 
-##### To perform MDS:
+##### Performs MDS using [`get_PCA.R`](./FPG--Scripts/get_PCA.R):
 
 ```
 tail -n +3 ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--MDS/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.dist | Rscript --vanilla --slave /groups/hologenomics/fgvieira/scripts/get_PCA.R --no_header --data_symm -n 10 -m "mds" -o ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--MDS/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.mds
 ```
 
-##### Create `.annot` file:
+##### Creates the auxiliary `.annot` file:
 
 ```
 cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.labels | awk '{split($0,a,"_"); print $1"\t"a[1]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--MDS/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.annot
 ```
 
-#### We plot these MDS results using the Rscript below:
+##### These MDS results were plotted using the Rscript below:
 
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
 #  
 
-### 15) Estimation of Individual Ancestries | [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) | [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/)
+### 15) Estimation of Individual Ancestries
 
-Here we perform an analyse of estimation of individual ancestries:
+#### Here are perform an Analysis of Estimation of Individual Ancestries based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+
+##### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
 
 ```
 export N_REP=100
@@ -585,10 +587,19 @@ do
 done | xsbatch -c 12 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
-#### We plot these ngsAdmix results using the Rscript below:
+##### These ngsAdmix results were plotted using the Rscript below:
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
 #  
+
+
+
+
+
+
+
+
+
 
 
 ### Estimating Spacial Population Structure | [TESS3--v1.1.0]()
