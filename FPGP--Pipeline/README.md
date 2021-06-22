@@ -9,7 +9,18 @@
 
 ### 1) Acess to Raw Data & Local Storage 
 
-The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
+The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and the MD5SUM numbers were duly confirmed for all downloaded files. This data is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353), and can be downloaded through the links below.
+#
+
+[FPG_1]()
+[FPG_2]()
+[FPG_3]()
+[FPG_4]()
+[FPG_5]()
+[FPG_Extra]()
+
+
+
 ***
 
 ### 2) Sequencing Quality Check
@@ -112,32 +123,38 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-
 
 ### 6) Running Stats & Filtering of Bad Samples
 
-We use the scripts to perform several statistical calculations and creates heatmap plots based on the presence/absence of data.
+We used the outputs from _PaleoMix_ to create a summary file cointaing information on the mapping statistics of each sample. In addition, we used some scripts to perform several create some heatmap plots to help in the identification of bad SAMPLES.
 #
+
+##### Runs [`paleomix_summary2tsv.sh`](./FPG--Scripts/paleomix_summary2tsv.sh) to create a summary file with mapping information, and absence/presence `.tsv` files:
 
 ```
 xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t 1 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--CoverageHeatMap/FPG--MappingStats.txt"
 ```
 
-##### Performs several statistical calculations and creates heatmap plots based on the presence/absence of data.
+##### Runs [`kmeans.py`](./FPG--Scripts/kmeans.py) on the `.tsv` files created above to calculate clusters of LOCI.
 
 ```
 xsbatch -c 10 --mem-per-cpu 20000 -J FPG_CovHeatMap --time 15:00:00 -- "python /lustre/hpc/hologenomics/fgvieira/scripts/kmeans.py -i ~/data/Pigeons/FPGP/FPG--Analyses/FPG--CoverageHeatMap/Loci_Merged.coverage.tsv -c 10 -k 300 -n 10 -t -d float16 -o FPG--Loci_Merged.coverage"
+```
+
+##### Gets the weights of each cluster:
+
+```
+tail -n +2 ~/data/Pigeons/FPGP/FPG--Analyses/FPG--CoverageHeatMap/FPG--Loci_Merged.coverage.km_clusters.tsv | cut -f 2 | sort -g | uniq -c | awk '{print sqrt($1)}' | tr "\n" "," | sed 's/,$/\n/' > ~/data/Pigeons/FPGP/FPG--Analyses/FPG--CoverageHeatMap/FPG--Loci_Merged.coverage.km_weights.txt
 ```
 
 ##### These results were plotted using the Rscript below:
 
 [`FPG--CoverageHeatmap.R`](../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.R)
 
-Here we create some auxiliary files.
-
-##### We manually create a list containing SAMPLES to be excluded. Please notice that the 10 BAD GBS SAMPLES and 6 BLANKS are highlighted in the Coverage HeatMap:
+##### List containing SAMPLES to be excluded. Please notice that the 10 BAD GBS SAMPLES and 6 BLANKS are highlighted in the Coverage HeatMap:
 
 ```
 ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
 ```
 
-##### Cut-sites Information
+##### Gets the number of potential _GBS_ SITES that were not covered:
 
 ```
 grep -v "WGS" ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.tsv | grep -v "Blank" | tail -n +2 | cut -f 2- | awk '{for(i=1; i<=NF; i++)x[i]+=$i} END{for(i in x)print x[i]}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--CoverageHeatMap/Loci_Merged.coverage.cutsitesmath
@@ -148,9 +165,10 @@ awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Cover
 ##### _Number of LOCI with No data for ALL_: **245,537**
 ***
 
-### 8) Creation of Specific Datasets | [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD)
+### 8) Creation of Specific Datasets
 
-
+We used [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD) to create specific datasets to be used by different downstream analyses.
+#
 
 #### 8.1) [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) | ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
 
@@ -288,7 +306,7 @@ xsbatch -c 20 --mem-per-cpu 6400 -J pptFPGP --time 10-00 --force -- /groups/holo
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.depth.pos.gz | awk 'NR>1 {print $1"\t"$2-1"\t"$2"\t"$3}' | bedtools intersect -a - -b ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged.bed -wb | bedtools groupby -g 8 -c 4 -o mean > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_IntersectedWithMerged--Article--Ultra.mean
 ```
 
-#### This `.mean` file was plotted using the RScript below, and based on this distribution we deliberated on a maximum GLOBAL DEPTH cutoff:
+##### This `.mean` file was plotted using the RScript below, and based on this distribution we deliberated on a maximum GLOBAL DEPTH cutoff:
 
 [`FPG--CoverageDistribution.R`](../FPG--Plots/FPG--Stats/FPG--CoverageDistribution/FPG--CoverageDistribution.R)
 ***
