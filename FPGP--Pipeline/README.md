@@ -580,9 +580,9 @@ export N_REP=100
 
 for K in `seq -w 2 20`
 do 
-    echo /groups/hologenomics/fgvieira/scripts/wrapper_ngsAdmix.sh -P 8 -debug 1 -likes ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz -K $K -minMaf 0 -tol 1e-6 -tolLike50 1e-3 -maxiter 10000 -o ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ngsAdmix/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.${K}
+    echo /groups/hologenomics/fgvieira/scripts/wrapper_ngsAdmix.sh -P 12 -debug 1 -likes ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.beagle.gz -K $K -minMaf 0 -printInfo -tol 1e-6 -tolLike50 1e-3 -maxiter 10000 -o ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ngsAdmix/FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.${K}
 
-done | xsbatch -c 8 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
+done | xsbatch -c 12 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
 #### We plot these ngsAdmix results using the Rscript below:

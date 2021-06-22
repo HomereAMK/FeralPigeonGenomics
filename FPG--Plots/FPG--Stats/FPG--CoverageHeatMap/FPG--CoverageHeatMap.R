@@ -1,4 +1,4 @@
-### The BEGINNING ~~~~
+### The BEGINNING ~~~~~
 ##
 # ~ Creates FPGP--CoverageHeatMap | By George PACHECO
 
@@ -51,9 +51,9 @@ pheatmap(KMs,
          cellwidth = 10, cellheight = 10,
          cutree_rows = max(5, floor(NR * 20/1000)), cutree_cols = max(5, floor(NC * 20/1000)),
          treeheight_row = max(10, floor(NR * .5)), treeheight_col=max(10,floor(NC * .5)),
-         filename = "FPG--CovHeatMap.pdf")
+         filename = "FPG--CoverageHeatMap.pdf")
 
 
 #
 ##
-### The END ~~~~
+### The END ~~~~~
