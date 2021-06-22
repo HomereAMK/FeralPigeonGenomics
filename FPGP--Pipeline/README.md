@@ -7,12 +7,12 @@
 
 ### 1) Acess to Raw Data & Local Storage 
 
-> The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on [`ERDA`](https://www.erda.dk/) under Pacheco's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
+- The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on [`ERDA`](https://www.erda.dk/) under Pacheco's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
 #  
 
 ### 2) Sequencing Quality Check
 
-> A general sequencing quality check of each plate was performed using [`FASTQc--v0.11.5`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
+- A general sequencing quality check of each plate was performed using [`FASTQc--v0.11.5`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 
 ##### _Example_:
 ```
@@ -22,7 +22,7 @@
 
 ### 3) Demultiplexing
 
-> All the plates were demultiplexed in the very same way using the software [`GBSX--v1.3`](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
+- All the plates were demultiplexed in the very same way using the software [`GBSX--v1.3`](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 
 #### **FPGP_1**:
 ```
