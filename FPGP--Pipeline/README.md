@@ -1,6 +1,4 @@
-
-
-## **FPG — _University of Copenhagen_**
+# **FPG — _University of Copenhagen_**
 
 ***
 ### Re-Sequencing + GBS Data Pipeline — by **Filipe G. Vieira** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George Pacheco** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
@@ -11,7 +9,7 @@
 ### 1) Acess to Raw Data & Local Storage 
 
 The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and it is now stored on [`ERDA`](https://www.erda.dk/) under Pacheco's account (DQM353). The MD5SUM numbers were confirmed for all downloaded files.
-#  
+***
 
 ### 2) Sequencing Quality Check
 
@@ -21,7 +19,7 @@ A general sequencing quality check of each plate was performed using [`FASTQc--v
 ```
 ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Fastqced--v0.11.5/
 ```
-#  
+**
 
 ### 3) Demultiplexing
 
