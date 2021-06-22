@@ -1,9 +1,10 @@
 # **FPG — _University of Copenhagen_**
 
-***
+
 ### Re-Sequencing + GBS Data Pipeline — by **Filipe G. Vieira** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George Pacheco** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
 
 **Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline. Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
+***
 ***
 
 ### 1) Acess to Raw Data & Local Storage 
@@ -19,7 +20,7 @@ A general sequencing quality check of each plate was performed using [`FASTQc--v
 ```
 ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_1/FPGP_1-C2YYMACXX_3_Fastqced--v0.11.5/
 ```
-**
+***
 
 ### 3) Demultiplexing
 
@@ -62,7 +63,7 @@ xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX
 ```
 mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.R1.fastq.gz ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/Wattala_01.fastq.gz
 ```
-#  
+***
 
 ### 4) Filtering For Chimeric Reads
 
@@ -94,7 +95,7 @@ ls ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_*/*_Demultiplexed_GBSX--v1.3/*_!(*Und
 ```
 parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -o {..}.FilteredChimeras.fastq -s $TMP_DIR/{/...}-GBS.Chimeras.id -n && gzip --best {..}.FilteredChimeras.fastq && rm {.}" | xsbatch --mem-per-cpu XXX -R --max-array-jobs XXX -c 1 --time XXX --
 ```
-#  
+***
 
 ### 5) Read Trimming & Mapping
 
@@ -103,7 +104,7 @@ Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
 ```
-#  
+***
 
 ### 6) Running Stats & Filtering of Bad Samples
 
@@ -261,7 +262,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSris
 ```
 zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.beagle.gz | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/call_geno.pl --skip 3 | cut -f 4- | awk '{ for(i=1;i<=NF; i++){ if($i==-1)x[i]++} } END{ for(i=1;i<=NF; i++) print i"\t"x[i] }' | paste ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.labels - | awk '{print $1"\t"$3"\t"$3*100/20659}' > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/MissingDataCalc/FPGP--GoodSamples_NoSrisoriaNoCpalumbusNoDuplicatesNoCaptives--Article--Ultra.GL-Missing.txt
 ```
-#  
+***
 
 ### 9) Global Coverage Distribution | **Dataset I**
 
@@ -280,7 +281,7 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 #### This `.mean` file was plotted using the RScript below, and based on this distribution we deliberated on a maximum GLOBAL DEPTH cutoff:
 
 [`FPG--CoverageDistribution.R`](../FPG--Plots/FPG--Stats/FPG--CoverageDistribution/FPG--CoverageDistribution.R)
-#  
+***
 
 ### 10) Sites Info | **Dataset I**
 
@@ -309,7 +310,7 @@ awk '{if ($3!=0) print;}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous
 ##### We plotted these results using the Rscript below:
 
 [`FPG--ScaffoldLengthVsNumberOfSites.R`](../FPG--Plots/FPG--Stats/FPG--SitesInfo/FPG--ScaffoldLengthVsNumberOfSites.R.R)
-#  
+***
 
 ### 11) Heterozygosity Calculation | **Dataset I**
 
@@ -349,7 +350,7 @@ fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match
 ##### We plotted these results using the Rscript below:
 
 [`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
-#  
+***
 
 ### 12) Initial Phylogenetic Recinstruction | **Dataset I**
 
@@ -424,7 +425,7 @@ raxml-ng-mpi --threads XXX --bootstrap --model GTR+G --bs-trees 100 --site-repea
 ```
 raxml-ng --threads XXX --support --tree ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.raxml.bestTree --bs-trees ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.BOOT.tree --prefix ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Phylogenies/ML/FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.ngsDist.FINAL
 ```
-#  
+***
 
 ### 13) Population Genetics Statistics | ANGSD--v0.925
 
@@ -540,7 +541,7 @@ do
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 ```
 [`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
-#  
+***
 
 ### 14) Multidimensional Scaling
 
@@ -567,7 +568,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 ##### These MDS results were plotted using the Rscript below:
 
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
-#  
+***
 
 ### 15) Estimation of Individual Ancestries
 
@@ -588,7 +589,7 @@ done | xsbatch -c 18 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --tim
 ##### These ngsAdmix results were plotted using the Rscript below:
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
-#  
+***
 
 
 
