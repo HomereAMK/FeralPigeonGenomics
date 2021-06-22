@@ -15,6 +15,7 @@ The GBS raw data was directly downloaded from the server of the _Institute of Bi
 ### 2) Sequencing Quality Check
 
 A general sequencing quality check of each plate was performed using [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
+#  
 
 ##### _Example_:
 ```
@@ -25,6 +26,7 @@ A general sequencing quality check of each plate was performed using [FASTQc--v0
 ### 3) Demultiplexing
 
 All the plates were demultiplexed in the very same way using the software [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
+#  
 
 ##### **FPGP_1**:
 ```
@@ -68,6 +70,7 @@ mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GB
 ### 4) Filtering For Chimeric Reads
 
 We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same `.bed` file presented in this publication to restrict our analyses to the _GBS_ loci.
+#  
 
 ##### Executes an inicial _PaleoMix_ run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the `.yaml` file below and respective command:
 
@@ -100,6 +103,7 @@ parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -
 ### 5) Read Trimming & Mapping
 
 Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
+#  
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
