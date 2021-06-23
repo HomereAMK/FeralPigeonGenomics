@@ -9,7 +9,7 @@
 
 ### 1) Acess to Raw Data & Local Storage 
 
-The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and the MD5SUM numbers were duly confirmed for all downloaded files. This data is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353), and can be downloaded through the links below.
+The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command. This data is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353), and can be downloaded through the links below.
 #
 
 - [FPG_1](https://sid.erda.dk/share_redirect/DUyRcvLTbq)
@@ -167,7 +167,9 @@ awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Cover
 We used [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD) to create specific datasets to be used by different downstream analyses.
 #
 
-#### 8.1) [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) | ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
+#### 8.1) [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/)
+
+> ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
 
 ##### Gets list of samples:
 
@@ -196,7 +198,9 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 ```
 #
 
-#### 8.2) [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/) | ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS):
+#### 8.2) [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/)
+
+> ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS):
 
 ##### Gets list of samples:
 
