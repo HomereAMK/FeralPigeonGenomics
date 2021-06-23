@@ -164,6 +164,9 @@ awk '$1==0{cnt++} END{print cnt}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Cover
 
 ### 7) Global Coverage Distribution
 
+We used [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD) to create specific datasets to be used by different downstream analyses.
+#
+
 > ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
 
 ##### Gets list of samples:
@@ -221,9 +224,9 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Artic
 ```
 #
 
-#### 8.2) [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/)
+#### 8.2) ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS)
 
-> ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Srisoria-Cpalumbus (469 SAMPLES / 466 GBS & 3 WGS):
+> [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/)
 
 ##### Gets list of samples:
 
@@ -258,9 +261,9 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSris
 ```
 #
 
-#### 8.3) [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/)
+#### 8.3) ALL GOOD SAMPLES with the ReSeq Ferals & without Crupestris-Cpalumbus-Srisoria-Duplicates (465 SAMPLES / 463 GBS & 2 WGS)
 
-> ALL GOOD SAMPLES with the ReSeq Ferals & without Crupestris-Cpalumbus-Srisoria-Duplicates (465 SAMPLES / 463 GBS & 2 WGS):
+> [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/)
 
 ##### Gets list of samples:
 
@@ -289,9 +292,9 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSris
 ```
 #
 
-#### 8.4) [`Dataset IV`](./FPG--Datasets/FPG--Dataset_IV/)
+#### 8.4) ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Cpalumbus-Srisoria-Duplicates-Captives (458 SAMPLES / 463 GBS & 3 WGS)
 
-> ALL GOOD SAMPLES with the ReSeq Ferals-Crupestris & without Cpalumbus-Srisoria-Duplicates-Captives (458 SAMPLES / 463 GBS & 3 WGS):
+> [`Dataset IV`](./FPG--Datasets/FPG--Dataset_IV/)
 
 ##### Gets list of samples:
 
