@@ -12,15 +12,12 @@
 The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command, and the MD5SUM numbers were duly confirmed for all downloaded files. This data is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353), and can be downloaded through the links below.
 #
 
-- [FPG_1]()
-- [FPG_2]()
-- [FPG_3]()
-- [FPG_4]()
-- [FPG_5]()
-- [FPG_Extra]()
-
-
-
+- [FPG_1](https://sid.erda.dk/share_redirect/DUyRcvLTbq)
+- [FPG_2](https://sid.erda.dk/share_redirect/BTbP4yIran)
+- [FPG_3](https://sid.erda.dk/share_redirect/bWkpOKZxmV)
+- [FPG_4](https://sid.erda.dk/share_redirect/F1K0CZNDq5)
+- [FPG_5](https://sid.erda.dk/share_redirect/DFNvZ6qk2I)
+- [FPG_Extra](https://sid.erda.dk/share_redirect/Bsj30FqosH)
 ***
 
 ### 2) Sequencing Quality Check
