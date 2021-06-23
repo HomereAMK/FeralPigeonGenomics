@@ -194,9 +194,9 @@ zcat ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples.depth.pos
 We used [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD) to create specific datasets to be used by different downstream analyses.
 #
 
-#### 8.1) [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/)
+#### 8.1) ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS)
 
-> ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS):
+> [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/)
 
 ##### _List of samples as in_ 7)
 
