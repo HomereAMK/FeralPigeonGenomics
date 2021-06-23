@@ -1,61 +1,58 @@
-### The BEGINNING ~~~~
+### The BEGINNING ~~~~~
 ##
-# > Plots FPGP--Phylogeny | By George PACHECO
+# > Plots FPG--Phylogeny | By George PACHECO
 
 
-# Sets working directory:
-
+# Sets working directory ~
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# Loads required packages:
 
-pacman::p_load(ggtree, ggplot2, ggrepel, extrafont, treeio)
+# Loads required packages ~
+pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape)
 
-# Imports extra fonts:
 
+# Imports extra fonts ~
 loadfonts(device = "win", quiet = TRUE)
 
-# Reads data:
 
-ggtree(Tree) + geom_nodelab(aes(label = label))
-ggtree(Tree) + geom_nodelab(aes(label = label), subset = as.numeric(label) > 90)
-
-Tree_New <- read.newick("FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.FINAL.raxml.support",
-                       node.label = 'support', root.position = )
-
-Tree <- read.tree(file = "FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.FINAL.raxml.support")
-ggtree(Tree, layout="circular") +
-geom_rootpoint() +
-geom_tiplab(align = TRUE, linesize = .5) +
-geom_label_repel(aes(label = bootstrap, fill = bootstrap)) +
-  theme(panel.background = element_rect(fill = '#FAFAFA'),
-        panel.grid.minor.x = element_blank(),
-        legend.position = "none",
-        panel.grid.major = element_blank(),
-        plot.title = element_blank(),
-        axis.title = element_blank(),
-        axis.text.x = element_text(colour = "#000000", size = 6, angle = 90, vjust = 0.5, hjust = 1),
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank(),
-        strip.text.x = element_text(colour = "#000000", face = "bold", size = 7, angle = 270, margin = margin(0.1, 0, 0.1, 0, "cm")),
-        strip.text.y = element_text(colour = "#000000", face = "bold", size = 7, angle = 270, margin = margin(0, 0.1, 0, 0.1, "cm")))
+# Reads data ~
+Data1 <- read.newick("FPGP--GoodSamples--Article--Ultra.nwk")
 
 
-
-ggsave(file = "FPGP--Phylogeny.pdf", device = cairo_pdf, width = 20, height = 20, dpi = 1000)
-geom_tiplab()
-
-?ggtree
-
-?reroot
-
-#geom_nodelab(aes(label = label)) +
-#geom_text(aes(label=node), hjust=-.3)
+# Roots the phylogeny ~
+Data1_rooted <- root(Data1, which(Data1$tip.label == "Srisoria_01-GBS"))
 
 
-raxml_file <- system.file("extdata/RAxML", "", package = "treeio")
-read.raxml(raxml_file)
-raxml
+# Selects clades to highlight ~
+outgroups <- list(outgroup1 = c("Crupestris_01-WGS", "Crupestris_01-GBS"),
+                  outgroup2 = c("Cpalumbus_01-GBS", "Cpalumbus_02-GBS", "Cpalumbus_03-GBS", "Cpalumbus_04-GBS", "Cpalumbus_05-GBS"),
+                  outgroup3 = c("Srisoria_01-GBS"))
+Data1_rooted <- groupOTU(Data1_rooted, outgroups)
 
 
+# Creates the plot ~
+PhyloData1 <-
+ ggtree(Data1_rooted, aes(colour = group, show.legend = TRUE), layout = "circular", size = .125, branch.length = "none") +
+  geom_tiplab(align = TRUE, linesize = .02, offset = .5, size = .7, show.legend = FALSE) +
+  scale_colour_manual(name = "Species", labels = c("Columba livia", "Columba rupestris", "Columba palumbus", "Streptopelia risoria"),
+                                        values = c("#000000", "#fb8072", "#984ea3", "#33a02c")) +
+  theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
+        plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
+        legend.position = "top",
+        legend.margin = margin(t = 0, b = 0, r = 0, l = 0),
+        legend.box.margin = margin(t = 5, b = -20, r = 0, l = 0)) +
+  guides(colour = guide_legend(title.theme = element_text(size = 10, face = "bold", family = "Helvetica"),
+                               label.theme = element_text(size = 7.5, family = "Helvetica", face = "italic"),
+                               override.aes = list(size = .35, alpha = .9)))
 
+
+# Saves the plot ~
+ggsave(PhyloData1, file = "FPG--PhyloData_I.pdf", device = cairo_pdf, scale = 1.5, width = 4, height = 4, dpi = 600)
+
+
+#
+##
+### The END ~~~~~
+
+
+#geom_text(aes(label = node), size = .5, hjust=-.3) +

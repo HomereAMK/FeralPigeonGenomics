@@ -61,13 +61,13 @@ PopGen$BioStatus <- as.factor(gsub(" ", "_", PopGen$BioStatus))
 ## Expands Hets by adding BioStatus ~
 Hets$BioStatus <- ifelse(Hets$Population %in% c("Torshavn","Ejde","Sumba","LjosAir","Kunoy","Nolsoy","Crete",
                                                 "Sardinia","Vernelle","WadiHidan","PigeonIsland","Trincomalee"), "Remote_Localities_Within_Natural_Range",
-                         ifelse(Hets$Population %in% c("Guimaraes","Lisbon","Barcelona","Berlin","Cambridge",
-                                                       "Colombo","Copenhagen","London","Prague","Jihlava","Abadeh",
-                                                       "Isfahan","Lahijan","Nowshahr","Tehran","TelAviv"), "Urban_Localities_Within_Natural_Range",
-                                ifelse(Hets$Population %in% c("SaltLakeCity","Denver","Virginia","TlaxcalaDeXicohtencatl",
-                                                              "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
-                                                              "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
-                                       ifelse(Hets$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", "Outgroups"))))
+                  ifelse(Hets$Population %in% c("Guimaraes","Lisbon","Barcelona","Berlin","Cambridge",
+                                                "Colombo","Copenhagen","London","Prague","Jihlava","Abadeh",
+                                                "Isfahan","Lahijan","Nowshahr","Tehran","TelAviv"), "Urban_Localities_Within_Natural_Range",
+                  ifelse(Hets$Population %in% c("SaltLakeCity","Denver","Virginia","TlaxcalaDeXicohtencatl",
+                                                "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
+                                                "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
+                  ifelse(Hets$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", "Outgroups"))))
 
 
 ## Sets BioStatus from character -> factor (better for data manipulation & necessary for plotting)

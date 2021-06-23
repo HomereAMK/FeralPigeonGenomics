@@ -14,6 +14,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # Loads required packages ~
 pacman::p_load(pheatmap, tidyverse, reshape2)
 
+?pheatmap
+
 
 # Loads Fst table ~
 data <- read.table("FPG--Fst.tsv", sep = "\t", header = FALSE, stringsAsFactors = FALSE)

@@ -1,33 +1,32 @@
-### The BEGINNING ~~~~
+### The BEGINNING ~~~~~
 ##
-# > Creates FPGP--Map | By George PACHECO
+# ~ Creates FPGP--Map | By George PACHECO
 
 
-# Sets working directory:
-
+# Sets working directory ~
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# Loads required packages:
 
+# Loads required packages ~
 pacman::p_load(rnaturalearth, rnaturalearthdata, rgeos, sf, ggspatial, tidyverse, ggrepel, extrafont, cowplot)
 
-# Imports extra fonts:
 
+# Imports extra fonts ~
 loadfonts(device = "win", quiet = TRUE)
 
-# Imports .shp files:
 
+# Imports .shp files ~
 Global <- ne_countries(scale = 'medium', returnclass = 'sf')
 FRO <- read_sf(dsn = ".", layer = "FRO_adm0")
 SLK <- read_sf(dsn = ".", layer = "LKA_adm0")
 NR <- read_sf(dsn = ".", layer = "Columba_livia")
 
-# Creates sub-sets of the .shp files: 
 
+# Creates sub-sets of the .shp files ~
 NR_slk <- st_crop(NR, xmin = 79.5, xmax = 83, ymin = 5, ymax = 10, expand = FALSE)
 
-# Loads coordinates:
 
+# Loads coordinates ~
 Coords_Global <- read.csv2("Locations_GLOBE.txt", sep = "\t", header = TRUE, encoding = "UTF-8")
 Coords_Global$Longitude <- as.numeric(Coords_Global$Longitude)
 Coords_Global$Latitude <- as.numeric(Coords_Global$Latitude)
@@ -40,25 +39,26 @@ Coords_SLK <- read.csv2("Locations_SriLanka.txt", sep = "\t", header = TRUE, enc
 Coords_SLK$Longitude <- as.numeric(Coords_SLK$Longitude)
 Coords_SLK$Latitude <- as.numeric(Coords_SLK$Latitude)
 
-# Transforms coordinates:
 
+# Transforms coordinates ~
 Coords_Global_sf <- st_as_sf(Coords_Global, coords = c("Longitude", "Latitude"), crs = 4326)
 Coords_FRO_sf <- st_as_sf(Coords_FRO, coords = c("Longitude", "Latitude"), crs = 4326)
 Coords_SLK_sf <- st_as_sf(Coords_SLK, coords = c("Longitude", "Latitude"), crs = 4326)
 
-# Reorganises the data:
 
+# Reorganises the data ~
 Coords_Global_sf$Class_Article <- factor(Coords_Global_sf$Class_Article, levels=c(
                                "Remote Localities Within Natural Range",
                                "Urban Localities Within Natural Range",
                                "Localities Outside Natural Range",
                                "Captive Populations"))
-# Creates the base maps:
 
-# Map1 - Global:
 
+# Creates the base maps ~
+
+# Map1 - Global ~
 Map1 <-
-ggplot() +
+ ggplot() +
   geom_sf(data = Global, fill = "#fff5f0", color = "black") +
   geom_sf(data = NR[NR$origin == "1",], fill = "#addd8e", alpha = 0.35, color = NA) +
   geom_sf(data = Coords_Global_sf, aes(fill = Class_Article), size = 3, show.legend = "point", shape = 21, colour = "black") +
@@ -91,12 +91,13 @@ ggplot() +
                              label.theme = element_text(size = 8, face = "italic", family = "Helvetica"),
                              override.aes = list(size = 3, alpha = 0.9)), colour = "none")
 
+
 #ggsave(Map1, file = "Global.pdf", device = cairo_pdf, width = 26, height = 13, scale = 0.8, limitsize = FALSE, dpi = 1000)
 
-# Map2 - Faroe Islands:
 
+# Map2 - Faroe Islands ~
 Map2 <-
-ggplot() + 
+ ggplot() + 
   geom_sf(data = FRO, fill = "#fff5f0", color = "black") +
   geom_sf(data = NR[NR$origin == "1",], fill = "#addd8e", alpha = 0.35, color = NA) +
   geom_sf(data = Coords_FRO_sf, aes(fill = Class_Article), size = 5, alpha = 0.9, show.legend = "point", shape = 21, colour = "black") +
@@ -121,12 +122,13 @@ ggplot() +
   theme(axis.ticks = element_line(color ="black", size = 0.5)) +
   guides(color = "none", fill = "none")
 
+
 #ggsave(Map2, file = "FO.pdf", device = cairo_pdf, width = 13, height = 13, scale = 0.65, limitsize = FALSE, dpi = 1000)
 
-# Map3 - Sri Lanka:
 
+# Map3 - Sri Lanka ~
 Map3 <-
-ggplot() + 
+ ggplot() + 
   geom_sf(data = SLK, fill = "#fff5f0", color = "black") +
   geom_sf(data = NR_slk[NR_slk$origin == "1",], fill = "#addd8e", alpha = 0.35, color = NA) +
   geom_sf(data = Coords_SLK_sf, aes(fill = Class_Article), size = 5, alpha = 0.9, show.legend = "point", shape = 21, colour = "black") +
@@ -152,20 +154,22 @@ ggplot() +
   theme(axis.ticks = element_line(color ="black", size = 0.5)) +
   guides(color = "none", fill = "none")
 
+
 #ggsave(Map3, file = "SLK.pdf", device = cairo_pdf, width = 13, height = 13, scale = 0.65, limitsize = FALSE, dpi = 1000)
 
-# Adds final touches:
 
+# Adds final touches ~
 BottomRow <- plot_grid(Map2, Map3)
 BottomRowUp <-
 BottomRow + geom_label(aes(label = "Faroe Islands"), x = 0.1219, y = 0.93, size = 7.5, fontface = "bold", fill = "#c6dbef", color = "black", family = "Georgia") +
 geom_label(aes(label = "Sri Lanka"), x = 0.57, y = 0.93, size = 7.5, fontface = "bold", fill = "#c6dbef", color = "black", family = "Georgia")
 
-# Creates & Saves the final Map Panel:
 
+# Creates & Saves the final Map Panel ~
 MapPanel <- plot_grid(Map1, BottomRowUp, ncol = 1)
 ggsave(MapPanel, file = "FPGP--Map.pdf", device = cairo_pdf, width = 50, height = 50, scale = 0.335, limitsize = FALSE, dpi = 1000)
 
+
 #
 ##
-### The END ~~~~
+### The END ~~~~~
