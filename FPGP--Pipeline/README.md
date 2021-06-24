@@ -61,6 +61,8 @@ xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GBSX--v1.3/
 ```
 
+hauhauhauah
+
 ##### **FPG_Extra**:
 ```
 xsbatch -c XXX --time XXX -J XXX -- java -jar /groups/hologenomics/software/GBSX/releases/latest/GBSX_v1.3.jar --Demultiplexer -t XXX -f1 ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_fastq.gz -i ~/data/Pigeons/FPBG/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Barcodes.info -mb 1 -me 1 -ca false -gzip true -o ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_Extra/FPGP_Extra-CADYEANXX_1_Demultiplexed_GBSX--v1.3/
@@ -126,7 +128,7 @@ We used the outputs from _PaleoMix_ to create a summary file cointaing informati
 ##### Runs [`paleomix_summary2tsv.sh`](./FPG--Scripts/paleomix_summary2tsv.sh) to create a summary file with mapping information, and absence/presence `.tsv` files:
 
 ```
-xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t 1 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--CoverageHeatMap/FPG--MappingStats.txt"
+xsbatch -c 1 --mem-per-cpu 12000 -J FPG_CovHeatMap --time 10:00:00 -- "/groups/hologenomics/fgvieira/scripts/paleomix_summary2tsv.sh -t 1 --samples ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPGP--AllSamples--Article--Ultra.list --heatmap Loci_Merged ~/data/Pigeons/Analysis/PaleoMix_GBS/ > ~/data/Pigeons/FPGP/FPG--Analyses/FPG--CoverageHeatMap/FPG--MappingStats.txt"
 ```
 
 ##### Runs [`kmeans.py`](./FPG--Scripts/kmeans.py) on the `.tsv` files created above to calculate clusters of LOCI.
@@ -148,7 +150,7 @@ tail -n +2 ~/data/Pigeons/FPGP/FPG--Analyses/FPG--CoverageHeatMap/FPG--Loci_Merg
 ##### List containing SAMPLES to be excluded. Please notice that the 10 BAD GBS SAMPLES and 6 BLANKS are highlighted in the Coverage HeatMap:
 
 ```
-~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
+~/data/Pigeons/FPGP/FPG--Analyses/FPG--Lists/FPGP--BadSamples--Article--Ultra.list (10 GBS SAMPLES / 6 BLANKS)
 ```
 
 ##### Gets the number of potential _GBS_ SITES that were not covered:
