@@ -44,7 +44,7 @@ n <- ncol(data)
 
 # Reads annotation file ~
 if(!is.null(opt$annot)){
-annot <- read.table(opt$annot, sep = "\t", header = TRUE, stringsAsFactors=FALSE)
+annot <- read.table(opt$annot, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 colnames(annot) <- c("Sample_ID", "Population")
 data <- merge(data, annot, by.x = 0, by.y = opt$id_column)
 
