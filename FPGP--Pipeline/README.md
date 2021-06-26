@@ -178,7 +178,7 @@ find ~/data/Pigeons/Analysis/PaleoMix_GBS/*.bam ~/data/Pigeons/Analysis/PaleoMix
 ##### Runs ANGSD:
 
 ```
-xsbatch -c 20 --mem-per-cpu 6400 -J pptFPGP --time 10-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 20 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPG--Analyses/FPG--Lists/FPG--GoodSamples.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((475*95/100)) -doCounts 1 -dumpCounts 2 -maxDepth $((475*1000)) -out ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPGP--GoodSamples.depth
+xsbatch -c 40 --mem-per-cpu 6400 -J FPGCov --time 3-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 40 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPG--Analyses/FPG--Lists/FPG--GoodSamples.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((475*95/100)) -doCounts 1 -dumpCounts 2 -maxDepth $((475*1000)) -out ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples.depth
 ```
 
 ##### Creates a `.mean` file containing the average GLOBAL DEPTH of each outputted LOCI:

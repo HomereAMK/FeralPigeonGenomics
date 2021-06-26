@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# > Plots FPG--MDS | First written by Filipe G. VIEIRA with later modifications by George PACHECO.
+# ~ Plots FPG--MDS | First written by Filipe G. VIEIRA with later modifications by George PACHECO.
 
 
 # Cleans the environment ~ 
@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(optparse, tidyverse, plyr, RColorBrewer, extrafont, ggforce)
+pacman::p_load(optparse, tidyverse, plyr, RColorBrewer, extrafont, ggforce, ggstar)
 
 
 # Imports extra fonts ~
@@ -139,49 +139,39 @@ data$BioStatus <- factor(data$BioStatus, ordered = T,
 
 # Defines the shapes to be used for each Group ~
 Shapes <- as.vector(c(# Group A
-                      8, 
+                      29, 
                       # Group B
-                      21,
+                      11,
                       # Group C
-                      22,
+                      13,
                       # Group D
-                      23,
+                      7,
                       # Group E
-                      24,
+                      14,
                       # Group F
-                      25,
+                      28,
                       # Not Grouped
                       9))
 
-
-# Creates the subset Colour_Pops ~
-Colour_Pops <- data %>%
- filter(Population == "PigeonIsland" | Population == "Trincomalee" | Population == "Wattala")
-
-
-# Creates the subset Fill_Pops ~
-PopsOut <- c("PigeonIsland", "Trincomalee", "Wattala")
-Fill_Pops <- filter(data, !Population %in% PopsOut)
 
 # Dimensions ~
 # 1: D1_3.18814763506453
 # 2: D2_1.93889781570542
 # 3: D3_1.47369056639638
 
+
 # Creates MDS plots ~
 MDS_12 <-
 ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
-  geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
-  geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
-  scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  geom_star(aes(starshape = Groups, fill = BioStatus), size = 2.8, alpha = .9, starstroke = .15) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_starshape_manual(values = Shapes) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
                     label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
                     label.buffer = unit(40, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
                     label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
-  scale_shape_manual(values = Shapes) +
   scale_x_continuous("Dimension 1 (3.19%)",
                      breaks = c(-0.075, -0.05, -0.025, 0, 0.025),
                      labels = c("-0.075", "-0.05", "-0.025", "0", "0.025"),
@@ -207,11 +197,12 @@ ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
         axis.ticks = element_line(color = "#000000", size = 0.3),
         axis.line = element_line(colour = "#000000", size = 0.3)) +
   guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                               label.theme = element_text(size = 14, family = "Helvetica"),
-                               override.aes = list(size = 4.5, shape = 21, alpha = .9), order = 1),
-         shape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                             label.theme = element_text(size = 14, family = "Helvetica"),
+                             override.aes = list(starshape = 21, size = 5, alpha = .9, starstroke = .15), order = 1),
+         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
                               label.theme = element_text(size = 14, family = "Helvetica"),
-                              override.aes = list(size = 4.5, alpha = .9), order = 2), colour = "none")
+                              override.aes = list(starshape = Shapes, size = 5, alpha = .9, starstroke = .15), order = 2),
+         colour = "none")
 
 
 # Creates & Saves the final MDS Panel ~
@@ -220,17 +211,15 @@ ggsave(MDS_12, file = "FPG--MDS_12.pdf", device = cairo_pdf, scale = 1.5, width 
 
 MDS_13 <-
   ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D3_1.47369056639638")) +
-  geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
-  geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
-  scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  geom_star(aes(starshape = Groups, fill = BioStatus), size = 2.8, alpha = .9, starstroke = .15) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_starshape_manual(values = Shapes) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
                     label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
                     label.buffer = unit(22, 'mm'), con.cap = unit(5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
                     label.buffer = unit(14, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
-  scale_shape_manual(values = Shapes) +
   scale_x_continuous("Dimension 1 (3.19%)",
                      breaks = c(-0.05, -0.025, 0, 0.025),
                      labels = c("-0.05", "-0.025", "0", "0.025"),
@@ -257,10 +246,11 @@ MDS_13 <-
         axis.line = element_line(colour = "#000000", size = 0.3)) +
   guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
                              label.theme = element_text(size = 14, family = "Helvetica"),
-                             override.aes = list(size = 4.5, shape = 21, alpha = .9), order = 1),
-         shape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                              label.theme = element_text(size = 14, family = "Helvetica"),
-                              override.aes = list(size = 4.5, alpha = .9), order = 2), colour = "none")
+                             override.aes = list(starshape = 21, size = 5, alpha = .9, starstroke = .15), order = 1),
+         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                                  label.theme = element_text(size = 14, family = "Helvetica"),
+                                  override.aes = list(starshape = Shapes, size = 5, alpha = .9, starstroke = .15), order = 2),
+         colour = "none")
 
 
 # Creates & Saves the final MDS Panel ~
@@ -269,17 +259,15 @@ ggsave(MDS_13, file = "FPG--MDS_13.pdf", device = cairo_pdf, scale = 1.5, width 
 
 MDS_23 <-
   ggplot(data, aes_string(x = "D2_1.93889781570542", y = "D3_1.47369056639638")) +
-  geom_point(data = Fill_Pops, aes(fill = BioStatus, shape = Groups), size = 2.8, alpha = .9, stroke = .3) +
-  geom_point(data = Colour_Pops, aes(colour = BioStatus, shape = Groups ), size = 2.8, alpha = .9, stroke = .3) +
-  scale_colour_manual(values = c("#44AA99", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  geom_star(aes(starshape = Groups, fill = BioStatus), size = 2.8, alpha = .9, starstroke = .15) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
+  scale_starshape_manual(values = Shapes) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
                     label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
                     label.buffer = unit(20, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
                     label.buffer = unit(16, 'mm'), con.cap = unit(11.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
-  scale_shape_manual(values = Shapes) +
   scale_x_continuous("Dimension 2 (1.94%)",
                      breaks = c(-0.05, -0.025, 0, 0.025, 0.05),
                      labels = c("-0.05", "-0.025", "0", "0.025", "0.05"),
@@ -306,10 +294,11 @@ MDS_23 <-
         axis.line = element_line(colour = "#000000", size = 0.3)) +
   guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
                              label.theme = element_text(size = 14, family = "Helvetica"),
-                             override.aes = list(size = 4.5, shape = 21, alpha = .9), order = 1),
-         shape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                              label.theme = element_text(size = 14, family = "Helvetica"),
-                              override.aes = list(size = 4.5, alpha = .9), order = 2), colour = "none")
+                             override.aes = list(starshape = 21, size = 5, alpha = .9, starstroke = .15), order = 1),
+         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
+                                  label.theme = element_text(size = 14, family = "Helvetica"),
+                                  override.aes = list(starshape = Shapes, size = 5, alpha = .9, starstroke = .15), order = 2),
+         colour = "none")
 
 
 # Creates & Saves the final MDS Panel ~
