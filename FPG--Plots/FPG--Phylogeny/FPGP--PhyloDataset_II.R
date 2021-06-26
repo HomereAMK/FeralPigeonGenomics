@@ -115,7 +115,12 @@ middlePhylo2 <-
   scale_size_continuous(range = c(1, 3),
   guide = guide_legend(keywidth = .5, keyheight = .5, override.aes = list(starshape = 15), order = 2)) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9", "#fb8072"), guide = "none") +
-  scale_starshape_manual(values = c(1, 15), guide = guide_legend(keywidth = .5, keyheight = .5, order = 1), na.translate = FALSE)
+  scale_starshape_manual(values = Shapes, guide = guide_legend(keywidth = .5, keyheight = .5, order = 1), na.translate = FALSE)
+
+ggsave(middlePhylo2, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
+
+
+??ggstar
 
 
 
@@ -145,7 +150,7 @@ fullPhylo2 <-
                     guide = guide_legend(keywidth = .5, keyheight = .5, order = 2), na.translate = FALSE)
 
 
-ggsave(fullPhylo2, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
+
 
 
 #
