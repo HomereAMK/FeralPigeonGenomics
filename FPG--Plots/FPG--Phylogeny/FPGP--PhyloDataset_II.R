@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# > Plots FPG--Phylogeny | By George PACHECO
+# ~ Plots FPG--Phylogeny | By George PACHECO
 
 
 # Cleans the environment ~ 
@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar)
+pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar, reshape2)
 
 
 # Load helper function ~
@@ -50,24 +50,30 @@ Data2_annot$Groups <- # Remote Localities Within Natural Range
                         ifelse(Data2_annot$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group_C",
                         ifelse(Data2_annot$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group_D",
                         ifelse(Data2_annot$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group_E",
-                        ifelse(Data2_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F", "Not_Grouped"))))))
+                        ifelse(Data2_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F",
+                        ifelse(Data2_annot$Population %in% c("Wattala"), "Not_Grouped", NA)))))))
+
+
+
+Data2_annot <- melt(Data2_annot)
+head(Data2_annot)
 
 
 # Defines the shapes to be used for each Group ~
 Shapes <- as.vector(c(# Group A
-  8, 
-  # Group B
-  21,
-  # Group C
-  22,
-  # Group D
-  23,
-  # Group E
-  24,
-  # Group F
-  25,
-  # Not Grouped
-  9))
+                      29, 
+                      # Group B
+                      11,
+                      # Group C
+                      13,
+                      # Group D
+                      7,
+                      # Group E
+                      14,
+                      # Group F
+                      28,
+                      # Not Grouped
+                      9))
 
 
 # Roots the phylogeny ~
@@ -87,70 +93,78 @@ Data2_annot$BioStatus <- factor(Data2_annot$BioStatus, ordered = T,
                                       "Captives"))
 
 
+# Reorders Groups ~
+Data2_annot$Groups <- factor(Data2_annot$Groups, ordered = T,
+                           levels = c("Group_A",
+                                      "Group_B",
+                                      "Group_C",
+                                      "Group_D",
+                                      "Group_E",
+                                      "Group_F",
+                                      "Not_Grouped"))
+
+# Corrects groups ~
+#levels(Data2_annot$Groups <- sub("Torshavn", "Tórshavn", fulldf$Population))
+#levels(Data2_annot$Groups <- sub("WadiHidan", "Wadi Hidan", fulldf$Population))
+#levels(Data2_annot$Groups <- sub("Tatui", "Tatuí", fulldf$Population))
+#levels(Data2_annot$Groups <- sub("PigeonIsland", "Pigeon Island", fulldf$Population))
+#levels(Data2_annot$Groups <- sub("Guimaraes", "Guimarães", fulldf$Population))
+
+
+# Creates base phylogeny ~
+basePhylo2 <-
+  ggtree(Data2_rooted, layout = "circular", aes(colour = group), size = .125) +
+  scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"))
+
+
+# Merges annotation to base phylogeny ~
 basePhylo2_annot <- basePhylo2 %<+% Data2_annot
 
-knitr::kable(head(Data2_annot))
 
-
-basePhylo2 <-
-  ggtree(Data2_rooted, aes(colour = group, show.legend = TRUE), layout = "fan", size = .125) +
-  geom_tiplab(align = TRUE, linesize = .02, size = .7, show.legend = FALSE) +
-  geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = .6, fill = "#155211", colour = "#ffffff", alpha = .9, stroke = .07) +
-  scale_colour_manual(name = "Species", labels = c("Columba livia", "Columba rupestris", "Columba palumbus", "Streptopelia risoria"),
-                      values = c("#000000", "#fb8072")) +
+# Creates final phylogeny ~
+middlePhylo2 <-
+  basePhylo2_annot +
+  geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
+  #geom_text(aes(label = node), size = .5, hjust = -.3) +
+  geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 1.25, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07) +
+  geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.25, starstroke = .07) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data2_annot$BioStatus)), na.translate = FALSE) +
+  scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data2_annot$Groups)), na.translate = FALSE) +
   #geom_treescale(x = 12, y = 12, label = "Scale", fontsize = 4, offset.label = 4, family = "Helvetica") +
   theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
         plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
-        legend.position = "right",
+        legend.position = c(.11, .875),
+        legend.spacing.y = unit(.25, "cm"),
+        legend.key.height = unit(.35, "cm"),
         legend.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.box.margin = margin(t = 5, b = -20, r = 0, l = 0)) +
-  guides(colour = guide_legend(title.theme = element_text(size = 10, face = "bold", family = "Helvetica"),
-                               label.theme = element_text(size = 7.5, family = "Helvetica", face = "italic"),
-                               override.aes = list(size = .35, alpha = .9)))
+  guides(colour = guide_legend(title = "Species", title.theme = element_text(size = 11, face = "bold", family = "Helvetica"),
+                               label.theme = element_text(size = 8, family = "Helvetica", face = "italic"), override.aes = list(size = .8, starshape = NA), order = 1),
+         fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 11, face = "bold", family = "Helvetica"),
+                             label.theme = element_text(size = 8, family = "Helvetica"),
+                             override.aes = list(starshape = 21, size = 2.85, alpha = .9, starstroke = .0015), order = 2),
+         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 11, face = "bold", family = "Helvetica"),
+                                  label.theme = element_text(size = 8, family = "Helvetica"),
+                                  override.aes = list(starshape = Shapes, size = 2.85, starstroke = .15), order = 3))
+
+finalPhylo2 <-
+middlePhylo2 %>% collapse(node = 480, 'max', fill = "#44AA99", alpha = .65)
+
+final2Phylo2 <-
+  finalPhylo2 %>% collapse(node = 469, 'max', fill = "#44AA99", alpha = .65)
+
+final2Phylo2
 
 
-middlePhylo2 <-
-  basePhylo2_annot +
-  geom_star(mapping = aes(fill = BioStatus, size = 2, starshape = Groups), starstroke = .2) +
-  scale_size_continuous(range = c(1, 3),
-  guide = guide_legend(keywidth = .5, keyheight = .5, override.aes = list(starshape = 15), order = 2)) +
-  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9", "#fb8072"), guide = "none") +
-  scale_starshape_manual(values = Shapes, guide = guide_legend(keywidth = .5, keyheight = .5, order = 1), na.translate = FALSE)
-
-ggsave(middlePhylo2, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
+finalPhylo2 <- 
+ finalPhylo2 +
+ #geom_text2(aes(subset = (node == 480)), cex = 2, label = intToUtf8(9668), hjust = .2, vjust = .45) +
+ geom_text2(aes(subset = (node == 480)), label = "Pigeon Island", fontface = "bold", family = "Helvetica", cex = 3, vjust = -6, hjust = -2.5, show.legend = FALSE)
 
 
-??ggstar
+ggsave(finalPhylo2, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
 
-
-
-
-
-
-
-
-+
-  guide = guide_legend(keywidth = .5, keyheight = .5, override.aes = list(starshape = 15), order = 2) +
-  scale_fill_manual(values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"), guide = "none") +
-  scale_starshape_manual(values = c(1, 15), guide = guide_legend(keywidth = .5, keyheight = .5, order = 1), na.translate = FALSE)
-
-
-
-
-
-
-
-fullPhylo2 <- 
- basePhylo2 +
- new_scale_fill() +
- geom_fruit(data = Data2_annot, geom = geom_tile,
-            mapping = aes(y = label, x = BioStatus, fill = BioStatus),
-            width = .005, color = "#000000", offset = .08, pwidth = .25) +
-  scale_fill_manual(name = "Biological Status", values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9", "#fb8072"),
-                    guide = guide_legend(keywidth = .5, keyheight = .5, order = 2), na.translate = FALSE)
-
-
-
+?geom_text2
 
 
 #
