@@ -113,7 +113,7 @@ Data2_annot$Groups <- factor(Data2_annot$Groups, ordered = T,
 
 # Creates base phylogeny ~
 basePhylo2 <-
-  ggtree(Data2_rooted, layout = "circular", aes(colour = group), size = .125) +
+  ggtree(Data2_rooted, layout = "fan", aes(colour = group), size = .125) +
   scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"))
 
 
@@ -125,12 +125,12 @@ basePhylo2_annot <- basePhylo2 %<+% Data2_annot
 middlePhylo2 <-
   basePhylo2_annot +
   geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
-  #geom_text(aes(label = node), size = .5, hjust = -.3) +
   geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 1.25, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07) +
   geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.25, starstroke = .07) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data2_annot$BioStatus)), na.translate = FALSE) +
   scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data2_annot$Groups)), na.translate = FALSE) +
   #geom_treescale(x = 12, y = 12, label = "Scale", fontsize = 4, offset.label = 4, family = "Helvetica") +
+  #geom_text(aes(label = node), size = 1, hjust = -.3) +
   theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
         plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.position = c(.11, .875),
@@ -147,24 +147,94 @@ middlePhylo2 <-
                                   label.theme = element_text(size = 8, family = "Helvetica"),
                                   override.aes = list(starshape = Shapes, size = 2.85, starstroke = .15), order = 3))
 
-finalPhylo2 <-
-middlePhylo2 %>% collapse(node = 480, 'max', fill = "#44AA99", alpha = .65)
 
-final2Phylo2 <-
-  finalPhylo2 %>% collapse(node = 469, 'max', fill = "#44AA99", alpha = .65)
+ggsave(middlePhylo2, file = "FPG--PhyloData_Middle.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
 
-final2Phylo2
+
+# Tel Aviv Colony ~
+collapsePhylo2_1 <-
+ middlePhylo2 %>% collapse(node = 588, 'max', fill = "#56B4E9", alpha = .7)
+
+# Faroe Islands ~
+collapsePhylo2_2 <-
+ collapsePhylo2_1 %>% collapse(node = 526, 'max', fill = "#44AA99", alpha = .7)
+
+# Barcelona ~
+collapsePhylo2_3 <-
+ collapsePhylo2_2 %>% collapse(node = 900, 'max', fill = "#F0E442", alpha = .7)
+
+# Salvador ~
+collapsePhylo2_4 <-
+ collapsePhylo2_3 %>% collapse(node = 886, 'max', fill = "#E69F00", alpha = .7)
+
+# Tatuí ~
+collapsePhylo2_5 <-
+ collapsePhylo2_4 %>% collapse(node = 867, 'max', fill = "#E69F00", alpha = .7)
+
+# Santiago ~
+collapsePhylo2_6 <-
+ collapsePhylo2_5 %>% collapse(node = 851, 'max', fill = "#E69F00", alpha = .7)
+
+# Monterrey ~
+collapsePhylo2_7 <-
+  collapsePhylo2_6 %>% collapse(node = 837, 'max', fill = "#E69F00", alpha = .7)
+
+# San Cristóbal de las Casas ~
+collapsePhylo2_8 <-
+  collapsePhylo2_7 %>% collapse(node = 824, 'max', fill = "#E69F00", alpha = .7)
+
+# Nairobi ~
+collapsePhylo2_9 <-
+  collapsePhylo2_8 %>% collapse(node = 639, 'max', fill = "#E69F00", alpha = .7)
+
+# Colombo ~
+collapsePhylo2_10 <-
+  collapsePhylo2_9 %>% collapse(node = 629, 'max', fill = "#F0E442", alpha = .7)
+
+# Colombo ~
+collapsePhylo2_10 <-
+  collapsePhylo2_9 %>% collapse(node = 629, 'max', fill = "#F0E442", alpha = .7)
+
+# Pigeon Island & Trincomalee ~
+collapsePhylo2_11 <-
+  collapsePhylo2_10 %>% collapse(node = 480, 'max', fill = "#44AA99", alpha = .7)
 
 
 finalPhylo2 <- 
- finalPhylo2 +
- #geom_text2(aes(subset = (node == 480)), cex = 2, label = intToUtf8(9668), hjust = .2, vjust = .45) +
- geom_text2(aes(subset = (node == 480)), label = "Pigeon Island", fontface = "bold", family = "Helvetica", cex = 3, vjust = -6, hjust = -2.5, show.legend = FALSE)
+ collapsePhylo2_11 +
+  
+  geom_text2(aes(subset = (node == 526)), label = "Faroe Islands", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = -1.6, hjust = -3.5, angle = 70, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 526)), starshape = 13, size = 1.25, fill = "#44AA99", alpha = .9, starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 588)), label = "Tel Aviv Colony", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 0, hjust = -2, angle = 95, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 588)), starshape = 13, size = 1.25, fill = "#56B4E9", alpha = .9, starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 639)), label = "Nairobi", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 0, hjust = -6.5, angle = 120, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 639)), starshape = 7, size = 1.25, fill = "#E69F00", alpha = .9, starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 629)), label = "Colombo", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = -.85, hjust = -5, angle = 130, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 629)), starshape = 7, size = 1.25, fill = "#F0E442", alpha = .9, starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 900)), label = "Barcelona", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = -3, hjust = 5.75, angle = -2.5, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 900)), starshape = 14, size = 1.25, fill = "#F0E442", starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 886)), label = "Salvador", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 15, hjust = 6, angle = 12, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 886)), starshape = 13, size = 1.25, fill = "#56B4E9", starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 867)), label = "Tatuí", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 0, hjust = 0, angle = 0, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 867)), starshape = 13, size = 1.25, fill = "#56B4E9", starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 851)), label = "Santiago", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 0, hjust = 0, angle = 0, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 851)), starshape = 13, size = 1.25, fill = "#56B4E9", starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 824)), label = "San Cristóbal de las Casas", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 0, hjust = 0, angle = 0, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 824)), starshape = 13, size = 1.25, fill = "#56B4E9", starstroke = .07, show.legend = FALSE) +
+  
+  geom_text2(aes(subset = (node == 480)), label = "Pigeon Island & Trincomalee", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = -8, hjust = -1.75, angle = 0, show.legend = FALSE) +
+  geom_star(aes(subset = (node == 480)), starshape = 29, size = 1.25, fill = "#44AA99", alpha = .9, starstroke = .07, show.legend = FALSE)
 
-
+ 
 ggsave(finalPhylo2, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
-
-?geom_text2
 
 
 #
