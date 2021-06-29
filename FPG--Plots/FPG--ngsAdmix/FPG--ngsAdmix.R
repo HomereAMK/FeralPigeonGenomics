@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# > Plots FPGP--ngsAdmix | By George PACHECO
+# ~ Plots FPGP--ngsAdmix | First written by Jose SAMANIEGO and modified by George PACHECO.
 
 
 # Cleans the environment ~ 
@@ -14,6 +14,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # Loads required packages ~
 pacman::p_load(tidyverse, optparse, plyr, RColorBrewer, extrafont, gtable, grid)
 
+
+# Creates colour palette ~
 nb.cols <- 15
 MyColours <- colorRampPalette(brewer.pal(8, "Paired"))(nb.cols)
 
@@ -23,11 +25,11 @@ loadfonts(device = "win", quiet = TRUE)
 
 
 # Loads the data ~
-samples <- read.table("FPG.popfile", stringsAsFactors = FALSE, sep = "\t")
+samples <- read.table("FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.popfile", stringsAsFactors = FALSE, sep = "\t")
 
 
 # Reads the annotation file ~
-ids <- read.table("FPG.annot", stringsAsFactors = FALSE, sep = "\t", header = FALSE)
+ids <- read.table("FPG--GoodSamples_NoSrisoriaNoCpalumbusNoCrupestrisNoDuplicates.annot", stringsAsFactors = FALSE, sep = "\t", header = FALSE)
 
 
 # Adds column ids names ~
@@ -54,20 +56,20 @@ fulldf <- data.frame()
 
 
 # Ask Sama 2 ~
-x <- list(c(8, 10, 4, 2, 7, 9, 11, 14, 1, 3, 13, 5, 12, 6, 15),
-          c(9, 10, 13, 5, 12, 1, 4, 3, 6, 11, 7, 8, 14, 2),
-          c(3, 4, 11, 12, 10, 7, 6, 13, 2, 1, 9, 5, 8),
-          c(6, 10, 4, 8, 7, 2, 3, 1, 11, 5, 12, 9),
-          c(3, 11, 7, 5, 4, 6, 1, 8, 2, 9, 10),
-          c(3, 1, 10, 9, 2, 6, 4, 5, 7, 8),
-          c(3, 2, 6, 4, 1, 8, 7, 5, 9),
-          c(4, 8, 6, 2, 7, 3, 5, 1),
-          c(7, 6, 4, 3, 5, 1, 2),
-          c(2, 1, 6, 5, 4, 3),
-          c(5, 2, 3, 4, 1),
-          c(3, 2, 4, 1),
-          c(2, 3, 1),
-          c(1, 2))
+x <- list(c(12, 8, 7, 5, 10, 2, 6, 13, 9, 11, 1, 3, 15, 14, 4),
+          c(10, 6, 2, 12, 13, 14, 3, 8, 1, 4, 9, 11, 7, 5),
+          c(8, 7, 9, 11, 5, 12, 4, 2, 6, 13, 1, 3, 10),
+          c(10, 12, 4, 5, 1, 2, 9, 7, 8, 11, 3, 6),
+          c(7, 2, 4, 9, 10, 5, 1, 8, 6, 3, 11),
+          c(3, 6, 5, 7, 4, 8, 1, 2, 9, 10),
+          c(3, 2, 1, 8, 5, 7, 6, 9, 4),
+          c(2, 4, 8, 1, 3, 6, 5, 7),
+          c(5, 2, 1, 7, 6, 4, 3),
+          c(3, 4, 6, 2, 1, 5),
+          c(3, 4, 2, 1, 5),
+          c(2, 1, 4, 3),
+          c(3, 2, 1),
+          c(2, 1))
 
 
 # Defines samples' IDs ~
@@ -173,6 +175,8 @@ ggsave(ngsAdmix_G, file = "FPG--ngsAdmix_RColours.pdf", device = cairo_pdf, widt
 ### The END ~~~~~
 
 
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 #c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20),
