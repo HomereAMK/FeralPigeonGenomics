@@ -201,9 +201,7 @@ We used [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD) to create sp
 
 > [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/)
 
-##### _List of samples as in_ 7)
-
-##### Runs ANGSD:
+##### Runs ANGSD (_List of samples as in_ **7**):
 
 ```
 xsbatch -c 40 --mem-per-cpu 7000 -J FPGP_AllSites --time 10-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 40 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPGP/FPG--Analyses/FPG--Lists/FPG--GoodSamples.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((475*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((475*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -out ~/data/Pigeons/FPGP/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples
@@ -621,9 +619,7 @@ do
 done | xsbatch -c 34 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --time 3-00 --
 ```
 
-##### _`.annot` file as in_ 14)
-
-##### These ngsAdmix results were plotted using the Rscript below:
+##### These ngsAdmix results were plotted using the Rscript below (_`.annot` file as in_ **14**):
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
 ***
