@@ -126,6 +126,8 @@ middlePhylo2 <-
   basePhylo2_annot +
   geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
   geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 1.25, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07) +
+  #geom_hilight(aes(colour = Data2_annot$BioStatus)) +
+  gheatmap(BioStatus, width = .4, offset = 7, colnames = F) +
   geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.25, starstroke = .07) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data2_annot$BioStatus)), na.translate = FALSE) +
   scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data2_annot$Groups)), na.translate = FALSE) +
@@ -146,6 +148,17 @@ middlePhylo2 <-
          starshape = guide_legend(title = "Groups", title.theme = element_text(size = 11, face = "bold", family = "Helvetica"),
                                   label.theme = element_text(size = 8, family = "Helvetica"),
                                   override.aes = list(starshape = Shapes, size = 2.85, starstroke = .15), order = 3))
+
+Layka <- gheatmap(middlePhylo2, BioStatus, width = .4, offset = 7, colnames = F) %>% 
+  scale_x_ggtree
+Layka + scale_fill_brewer(palette="Set2") + theme_tree2() + 
+  scale_y_continuous(expand=c(0, 0.6)) + xlab("Time") +
+  theme(legend.text=element_text(size=8), 
+        legend.key.height=unit(.5, "cm"),
+        legend.key.width=unit(.4, "cm"), 
+        legend.position=c(.13, y=.945),
+        axis.text.x=element_text(size=10), 
+        axis.title.x = element_text(size=12))
 
 
 ggsave(middlePhylo2, file = "FPG--PhyloData_Middle.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
