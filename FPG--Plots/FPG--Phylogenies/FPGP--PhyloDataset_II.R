@@ -56,7 +56,6 @@ Data2_annot$Groups <- # Remote Localities Within Natural Range
 
 
 Data2_annot <- melt(Data2_annot)
-head(Data2_annot)
 
 
 # Defines the shapes to be used for each Group ~
@@ -77,12 +76,12 @@ Shapes <- as.vector(c(# Group A
 
 
 # Roots the phylogeny ~
-Data2_rooted <- root(Data2, which(Data2$tip.label == "Crupestris_01-WGS"))
+# Data2_rooted <- root(Data2, which(Data2$tip.label == "Crupestris_01-WGS"))
 
 
 # Selects clades to highlight ~
 highlightData2 <- list(group1 = c("Crupestris_01-WGS", "Crupestris_01-GBS"))
-Data2_rooted <- groupOTU(Data2_rooted, highlightData2)
+Data2 <- groupOTU(Data2, highlightData2)
 
 
 # Reorders BioStatus ~
@@ -113,21 +112,27 @@ Data2_annot$Groups <- factor(Data2_annot$Groups, ordered = T,
 
 # Creates base phylogeny ~
 basePhylo2 <-
-  ggtree(Data2_rooted, layout = "fan", aes(colour = group), size = .125) +
+  ggtree(Data2, layout = "fan", aes(colour = group), size = .125) +
   scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"))
 
 
 # Merges annotation to base phylogeny ~
 basePhylo2_annot <- basePhylo2 %<+% Data2_annot
 
+# Creates final phylo ~
+basePhylo2_annot + 
+  geom_fruit(
+    geom = geom_tile,
+    mapping = aes(y = label, x = BioStatus, fill = BioStatus),
+    offset = .08,
+    pwidth = .25)
+
 
 # Creates final phylogeny ~
 middlePhylo2 <-
-  basePhylo2_annot +
-  geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
+  Oi +
+  #geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
   geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 1.25, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07) +
-  #geom_hilight(aes(colour = Data2_annot$BioStatus)) +
-  gheatmap(BioStatus, width = .4, offset = 7, colnames = F) +
   geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.25, starstroke = .07) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data2_annot$BioStatus)), na.translate = FALSE) +
   scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data2_annot$Groups)), na.translate = FALSE) +
