@@ -110,10 +110,8 @@ parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -
 
 ### 5) Read Trimming & Mapping
 
-> Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
+> We trim and map all samples using [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
 #
-
-##### Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above:
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
@@ -196,7 +194,7 @@ zcat ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples.depth.pos.
 
 ### 8) Creation of Specific Datasets
 
-We used [ANGSD--v0.921](http://www.popgen.dk/angsd/index.php/ANGSD) to create specific datasets to be used by different downstream analyses.
+> We used [ANGSD--v0.935](http://www.popgen.dk/angsd/index.php/ANGSD) to create specific datasets to be used by different downstream analyses.
 #
 
 #### 8.1) ALL GOOD SAMPLES with the ReSeq Ferals (475 SAMPLES / 472 GBS & 3 WGS)
@@ -406,7 +404,7 @@ fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match
 
 ### 12) Initial Phylogenetic Recinstruction
 
-Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) and through the use of [ngsDist--v1.0.6](https://github.com/fgvieira/ngsDist) + [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/), we reconstruct the initial phylogenetic relationships to confirm the outgroups' placements.
+> Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) and through the use of [ngsDist--v1.0.6](https://github.com/fgvieira/ngsDist) + [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/), we reconstruct the initial phylogenetic relationships to confirm the outgroups' placements.
 
 ##### Generates matrix of genetic distances:
 
@@ -433,7 +431,7 @@ fastme -T 15 -i ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/NJ/FPG--GoodSa
 
 ### 13) Exhaustive Phylogenetic Reconstruction
 
-Based on [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/) and through the use of [ngsDist--v1.0.6](https://github.com/fgvieira/ngsDist), [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/) + [RAxML-NG--v0.5.1b](https://github.com/amkozlov/raxml-ng), we reconstruct the phylogenetic relationships.
+> Based on [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/) and through the use of [ngsDist--v1.0.6](https://github.com/fgvieira/ngsDist), [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/) + [RAxML-NG--v0.5.1b](https://github.com/amkozlov/raxml-ng), we reconstruct the phylogenetic relationships.
 
 ##### Generates matrix of genetic distances:
 
@@ -479,6 +477,8 @@ raxml-ng --threads 15 --support --tree ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phy
 ***
 
 ### 13) Population Genetics Statistics
+
+> We used [ANGSD--v0.935](http://www.popgen.dk/angsd/index.php/ANGSD) to calculate several population genetics statistics.
 
 ##### Creates ancestral sequence:
 
@@ -585,7 +585,7 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 
 ### 14) Multidimensional Scaling
 
-> Here we perform a _Multidimensional Scaling Anlysis_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/), we perform a _Multidimensional Scaling Anlysis_.
 
 ##### Creates a distance matrix using the `.beagle` file using [`ngsDist`](https://github.com/fgvieira/ngsDist):
 
@@ -612,7 +612,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 
 ### 15) Estimation of Individual Ancestries
 
-> Here we perform an _Analysis of Estimation of Individual Ancestries_ based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/).
+> Based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/), we perform an _Analysis of Estimation of Individual Ancestries_.
 
 ##### Runs [ngsAdmix--v32](http://www.popgen.dk/software/index.php/NgsAdmix) on the `.beagle` file using the [`wrapper_ngsAdmix`](./FPG--Scripts/wrapper_ngsAdmix.sh):
 
