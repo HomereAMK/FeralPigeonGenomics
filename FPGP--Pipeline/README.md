@@ -3,7 +3,7 @@
 
 ### Re-Sequencing + GBS Data Pipeline — by **Filipe G. VIEIRA** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George PACHECO** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
 
-**Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline. Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any question arise.
+**Feral Pigeon Genomics Project**: Documention outlining the entire reasoning behind this pipeline. Please, contact **George Pacheco** (ganpa@aqua.dtu.dk) should any questions arise.
 ***
 ***
 
@@ -207,7 +207,7 @@ zcat ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples.depth.pos.
 xsbatch -c 10 --mem-per-cpu 12000 -J FPG_AllSites --time 1-00 --force -- /groups/hologenomics/fgvieira/scripts/wrapper_angsd.sh -debug 2 -nThreads 10 -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -bam ~/data/Pigeons/FPG/FPG--Analyses/FPG--Lists/FPG--GoodSamples.list -sites ~/data/Pigeons/Reference/PBGP_FinalRun.EcoT22I_Extended_Merged_RemovedPossibleParalogs-g800.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -minInd $((475*95/100)) -doCounts 1 -GL 1 -doGlf 2 -doMajorMinor 1 -doMaf 1 -doPost 2 -doGeno 3 -doPlink 2 -geno_minDepth 3 -setMaxDepth $((475*150)) -dumpCounts 2 -postCutoff 0.95 -doHaploCall 1 -out ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples
 ```
 
-##### _Number of SITES_: **1,225,206**
+##### _Number of SITES_: 1,225,206
 
 ##### Gets Real Coverage (_Genotype Likelihoods_):
 
@@ -456,6 +456,7 @@ fastme -T 15 -i ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/NJ/FPG--GoodSa
 ```
 xsbatch -c 1 --mem-per-cpu 38000 -J FASTA --time 23:30:00 -- "zcat ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbus.haplo.gz | cut -f 4- | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/tsv_merge.pl --transp --ofs '' - | awk 'NR==FNR{id=$1; sub(".*\\/","",id); sub("\\..*","",id); x[FNR]=id} NR!=FNR{ print ">"x[FNR]"\n"$1}' ~/data/Pigeons/FPG/FPG--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbus.labels - > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/ML/FPG--GoodSamples_NoSrisoriaNoCpalumbus.fasta"
 ```
+xsbatch -c 1 --mem-per-cpu 33000 -J FASTA --time 23:30:00 -- ./ToCreateFasta_Article21.txt
 
 ##### Generates a ML phylogeny based on the `.fasta` file created above having the NJ phylogeny as a backbone:
 
