@@ -111,12 +111,13 @@
   \noindent\rule[.5pt]{\linewidth}{.4pt}\par%
 }
 
+% Definies my commands ~
 \newcommand{\myheaders}[1] {\noindent{\normalsize{\fontfamily{bch}\selectfont{\textbf{#1}}}}}
 \newcommand{\mysubheaders}[1] {\noindent{\fontfamily{bch}\selectfont{\textbf{#1}}}}
 \newcommand{\mytext}[1] {\noindent{\fontfamily{bch}\selectfont{#1}}}
 \newcommand{\mycaptions}[1] {\noindent{\scriptsize{\fontfamily{bch}\selectfont{#1}}}}
 
-% Figure captions
+% Figure captions ~
 \usepackage{caption}
 \DeclareCaptionFont{cfs}{\fontsize{8.5}{10.25}\selectfont}
 \DeclareCaptionLabelSeparator{vline}{\;|\;}
@@ -253,7 +254,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Map/FPG--Map.pdf}
 \begin{flushleft}
-\mycaptions{\textbf{Fig. 1 Sampling effort.} Map showing sampling localities Samples were divided into four categories: a) remote localities within natural range (green); b) urban localities within natural range (yellow), localities outside natural range (orange); d) captives (blue). The supposed natural range of \textit{Columbia livia} is depicted through a light green shade.}
+\caption*{\mycaptions{\textbf{Fig. 1 Sampling effort.} Map showing sampling localities Samples were divided into four categories: a) remote localities within natural range (green); b) urban localities within natural range (yellow), localities outside natural range (orange); d) captives (blue). The supposed natural range of \textit{Columbia livia} is depicted through a light green shade.}}
 \end{flushleft}
 \label{MainText:FPGP--Map}
 \end{figure}
@@ -262,7 +263,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Phylogenies/FPG--PhyloData_II.pdf}
 \begin{flushleft}
-\mycaptions{\textbf{Fig. 2 Maximum-likelihood phylogeny.} Phylogenetic relationships amongst over 450 pigeons representing 45 sampling localities. The outgroup \textit{C. rupestris} is depicted in red. Nodes with bootstrap values above 70\% are marked with green circles.}
+\caption*{\mycaptions{\textbf{Fig. 2 Maximum-likelihood phylogeny.} Phylogenetic relationships amongst over 450 pigeons representing 45 sampling localities. The outgroup \textit{C. rupestris} is depicted in red. Nodes with bootstrap values above 70\% are marked with green circles.}}
 \end{flushleft}
 \label{MainText:FPG--Phylo}
 \end{figure}
@@ -270,21 +271,21 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
-\mycaptions{\textbf{Fig. 3 Population genetics estimates.} a) Proportion of observed heterozygous sites. b) Nucleotide Diversity ($\pi$). c) Watterson's Theta ($\theta$w). d) Tajima’s D. All absolute values can be found in the Supplementary Spreadsheet.}
+\caption*{\mycaptions{\textbf{Fig. 3 Population genetics estimates.} a) Proportion of observed heterozygous sites. b) Nucleotide Diversity ($\pi$). c) Watterson's Theta ($\theta$w). d) Tajima’s D. All absolute values can be found in the Supplementary Spreadsheet.}}
 \label{MainText:FPG--PopGenEstimates}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_PairedColours.pdf}
-\mycaptions{\textbf{Fig. 4 Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). Individuals are sorted by sampling locality (light grey upper labels) and grouped per biological status.}
+\caption*{\mycaptions{\textbf{Fig. 4 Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). Individuals are sorted by sampling locality (light grey upper labels) and grouped per biological status.}}
 \label{MainText:FPG--ngsAdmix}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Plots/FPG--MDS/FPG--MDS_12.pdf}
-\mycaptions{\textbf{Fig. 5 Multidimensional scaling analysis.} Dimensions 1 and 2 are plotted and each point on the plot represents a single individual. The ellipses represent the rough distribution of the two most distinct groups.}
+\caption*{\mycaptions{\textbf{Fig. 5 Multidimensional scaling analysis.} Dimensions 1 and 2 are plotted and each point on the plot represents a single individual. The ellipses represent the rough distribution of the two most distinct groups.}}
 \label{MainText:FPG--MDS}
 \end{figure}
 

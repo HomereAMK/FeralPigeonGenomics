@@ -1,15 +1,15 @@
 [0] Config.pm:311> INFO - This is Biber 2.16
 [0] Config.pm:314> INFO - Logfile is 'FPG--MainText.blg'
-[158] biber-MSWIN32:340> INFO - === 
-[215] Biber.pm:415> INFO - Reading 'FPG--MainText.bcf'
-[384] Biber.pm:952> INFO - Found 1 citekeys in bib section 0
-[403] Biber.pm:4340> INFO - Processing section 0
-[420] Biber.pm:4531> INFO - Looking for bibtex format file 'FPG--MainText.bib' for section 0
-[496] bibtex.pm:1689> INFO - LaTeX decoding ...
-[503] bibtex.pm:1494> INFO - Found BibTeX data source 'FPG--MainText.bib'
-[556] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[556] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[556] Biber.pm:4168> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
-[557] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
-[565] bbl.pm:654> INFO - Writing 'FPG--MainText.bbl' with encoding 'UTF-8'
-[567] bbl.pm:757> INFO - Output to FPG--MainText.bbl
+[164] biber-MSWIN32:340> INFO - === 
+[218] Biber.pm:415> INFO - Reading 'FPG--MainText.bcf'
+[398] Biber.pm:952> INFO - Found 1 citekeys in bib section 0
+[419] Biber.pm:4340> INFO - Processing section 0
+[501] Biber.pm:4531> INFO - Looking for bibtex format file 'FPG--MainText.bib' for section 0
+[564] bibtex.pm:1689> INFO - LaTeX decoding ...
+[577] bibtex.pm:1494> INFO - Found BibTeX data source 'FPG--MainText.bib'
+[664] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[664] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[664] Biber.pm:4168> INFO - Sorting list 'ynt/global//global/global' of type 'entry' with template 'ynt' and locale 'en-US'
+[665] Biber.pm:4174> INFO - No sort tailoring available for locale 'en-US'
+[681] bbl.pm:654> INFO - Writing 'FPG--MainText.bbl' with encoding 'UTF-8'
+[684] bbl.pm:757> INFO - Output to FPG--MainText.bbl

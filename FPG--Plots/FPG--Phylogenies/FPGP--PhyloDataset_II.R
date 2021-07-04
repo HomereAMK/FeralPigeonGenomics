@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# ~ Plots FPG--Phylogeny | By George PACHECO
+# ~ Plots FPG--PhyloData_II | By George PACHECO
 
 
 # Cleans the environment ~ 
@@ -24,38 +24,38 @@ loadfonts(device = "win", quiet = TRUE)
 
 
 # Reads datasets ~
-Data2 <- read.tree(file = "FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.FINAL.raxml.support")
+Data <- read.tree(file = "FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.FINAL.raxml.support")
 
 
 # Reads annotations ~
-Data2_annot <- read.table("FPG--GoodSamples_FPG--GoodSamples_NoSrisoriaNoCpalumbus.annot", sep = "\t", header = FALSE, stringsAsFactors = FALSE)
-colnames(Data2_annot) <- c("label", "Population")
+Data_annot <- read.table("FPG--GoodSamples_FPG--GoodSamples_NoSrisoriaNoCpalumbus.annot", sep = "\t", header = FALSE, stringsAsFactors = FALSE)
+colnames(Data_annot) <- c("label", "Population")
 
 
 # Expands the data by adding BioStatus ~
-Data2_annot$BioStatus <- ifelse(Data2_annot$Population %in% c("Torshavn","Ejde","Sumba","LjosAir","Kunoy","Nolsoy", "Crete", "Sardinia","Vernelle","WadiHidan","PigeonIsland","Trincomalee"), "Remote_Localities_Within_Natural_Range",
-                         ifelse(Data2_annot$Population %in% c("Guimaraes","Lisbon","Barcelona","Berlin","Cambridge",
+Data_annot$BioStatus <- ifelse(Data_annot$Population %in% c("Torshavn","Ejde","Sumba","LjosAir","Kunoy","Nolsoy", "Crete", "Sardinia","Vernelle","WadiHidan","PigeonIsland","Trincomalee"), "Remote_Localities_Within_Natural_Range",
+                        ifelse(Data_annot$Population %in% c("Guimaraes","Lisbon","Barcelona","Berlin","Cambridge",
                                                               "Colombo","Copenhagen","London","Prague","Jihlava","Abadeh",
                                                               "Isfahan","Lahijan","Nowshahr","Tehran","TelAviv"), "Urban_Localities_Within_Natural_Range",
-                         ifelse(Data2_annot$Population %in% c("SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl",
+                        ifelse(Data_annot$Population %in% c("SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl",
                                                               "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
                                                               "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
-                         ifelse(Data2_annot$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captives", NA))))
+                        ifelse(Data_annot$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captives", NA))))
 
 
 # Expands the data by adding Groups ~
-Data2_annot$Groups <- # Remote Localities Within Natural Range
-                        ifelse(Data2_annot$Population %in% c("PigeonIsland", "Trincomalee"), "Group_A",
-                        ifelse(Data2_annot$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group_B",
-                        ifelse(Data2_annot$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group_C",
-                        ifelse(Data2_annot$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group_D",
-                        ifelse(Data2_annot$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group_E",
-                        ifelse(Data2_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F",
-                        ifelse(Data2_annot$Population %in% c("Wattala"), "Not_Grouped", NA)))))))
+Data_annot$Groups <- # Remote Localities Within Natural Range
+                        ifelse(Data_annot$Population %in% c("PigeonIsland", "Trincomalee"), "Group_A",
+                        ifelse(Data_annot$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group_B",
+                        ifelse(Data_annot$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group_C",
+                        ifelse(Data_annot$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group_D",
+                        ifelse(Data_annot$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group_E",
+                        ifelse(Data_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F",
+                        ifelse(Data_annot$Population %in% c("Wattala"), "Not_Grouped", NA)))))))
 
 
-
-Data2_annot <- melt(Data2_annot)
+# Melts the annotation dataset ~
+Data_annot <- melt(Data_annot)
 
 
 # Defines the shapes to be used for each Group ~
@@ -76,31 +76,35 @@ Shapes <- as.vector(c(# Group A
 
 
 # Roots the phylogeny ~
-# Data2_rooted <- root(Data2, which(Data2$tip.label == "Crupestris_01-WGS"))
+Data_rooted <- root(Data, node = 481)
 
+# 481
 
 # Selects clades to highlight ~
-highlightData2 <- list(group1 = c("Crupestris_01-WGS", "Crupestris_01-GBS"))
-Data2 <- groupOTU(Data2, highlightData2)
+groups <- list(group1 = c("Crupestris_01-WGS", "Crupestris_01-GBS"))
+Data_rooted <- groupOTU(Data_rooted, groups)
+
+groups <- list(group1 = c("Crupestris_01-WGS", "Crupestris_01-GBS"))
+Data <- groupOTU(Data, groups)
 
 
 # Reorders BioStatus ~
-Data2_annot$BioStatus <- factor(Data2_annot$BioStatus, ordered = T,
-                           levels = c("Remote_Localities_Within_Natural_Range",
-                                      "Urban_Localities_Within_Natural_Range",
-                                      "Localities_Outside_Natural_Range",
-                                      "Captives"))
+Data_annot$BioStatus <- factor(Data_annot$BioStatus, ordered = T,
+                        levels = c("Remote_Localities_Within_Natural_Range",
+                                   "Urban_Localities_Within_Natural_Range",
+                                   "Localities_Outside_Natural_Range",
+                                   "Captives"))
 
 
 # Reorders Groups ~
-Data2_annot$Groups <- factor(Data2_annot$Groups, ordered = T,
-                           levels = c("Group_A",
-                                      "Group_B",
-                                      "Group_C",
-                                      "Group_D",
-                                      "Group_E",
-                                      "Group_F",
-                                      "Not_Grouped"))
+Data_annot$Groups <- factor(Data_annot$Groups, ordered = T,
+                     levels = c("Group_A",
+                                "Group_B",
+                                "Group_C",
+                                "Group_D",
+                                "Group_E",
+                                "Group_F",
+                                "Not_Grouped"))
 
 # Corrects groups ~
 #levels(Data2_annot$Groups <- sub("Torshavn", "Tórshavn", fulldf$Population))
@@ -112,32 +116,25 @@ Data2_annot$Groups <- factor(Data2_annot$Groups, ordered = T,
 
 # Creates base phylogeny ~
 basePhylo2 <-
-  ggtree(Data2, layout = "fan", aes(colour = group), size = .125) +
+  ggtree(Data, layout = "fan", aes(colour = group), size = .125) +
   scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"))
 
 
 # Merges annotation to base phylogeny ~
-basePhylo2_annot <- basePhylo2 %<+% Data2_annot
-
-# Creates final phylo ~
-basePhylo2_annot + 
-  geom_fruit(
-    geom = geom_tile,
-    mapping = aes(y = label, x = BioStatus, fill = BioStatus),
-    offset = .08,
-    pwidth = .25)
+basePhylo_annot <- basePhylo2 %<+% Data_annot
 
 
 # Creates final phylogeny ~
-middlePhylo2 <-
-  Oi +
+Plot <-
+ basePhylo_annot +
+  geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .05, width = 0.004, show.legend = FALSE) +
   #geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
   geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 1.25, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07) +
   geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.25, starstroke = .07) +
-  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data2_annot$BioStatus)), na.translate = FALSE) +
-  scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data2_annot$Groups)), na.translate = FALSE) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data_annot$BioStatus)), na.translate = FALSE) +
+  scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data_annot$Groups)), na.translate = FALSE) +
   #geom_treescale(x = 12, y = 12, label = "Scale", fontsize = 4, offset.label = 4, family = "Helvetica") +
-  #geom_text(aes(label = node), size = 1, hjust = -.3) +
+  geom_text(aes(label = node), size = 1, hjust = -.3) +
   theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
         plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.position = c(.11, .875),
@@ -154,24 +151,14 @@ middlePhylo2 <-
                                   label.theme = element_text(size = 8, family = "Helvetica"),
                                   override.aes = list(starshape = Shapes, size = 2.85, starstroke = .15), order = 3))
 
-Layka <- gheatmap(middlePhylo2, BioStatus, width = .4, offset = 7, colnames = F) %>% 
-  scale_x_ggtree
-Layka + scale_fill_brewer(palette="Set2") + theme_tree2() + 
-  scale_y_continuous(expand=c(0, 0.6)) + xlab("Time") +
-  theme(legend.text=element_text(size=8), 
-        legend.key.height=unit(.5, "cm"),
-        legend.key.width=unit(.4, "cm"), 
-        legend.position=c(.13, y=.945),
-        axis.text.x=element_text(size=10), 
-        axis.title.x = element_text(size=12))
 
-
-ggsave(middlePhylo2, file = "FPG--PhyloData_Middle.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
+# Saves plot ~
+ggsave(Plot, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
 
 
 # Tel Aviv Colony ~
 collapsePhylo2_1 <-
- middlePhylo2 %>% collapse(node = 588, 'max', fill = "#56B4E9", alpha = .7)
+ Plot %>% collapse(node = 588, 'max', fill = "#56B4E9", alpha = .7)
 
 # Faroe Islands ~
 collapsePhylo2_2 <-
@@ -252,9 +239,11 @@ finalPhylo2 <-
   geom_star(aes(subset = (node == 480)), starshape = 29, size = 1.25, fill = "#44AA99", alpha = .9, starstroke = .07, show.legend = FALSE)
 
  
-ggsave(finalPhylo2, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
+ggsave(finalPhylo2, file = "FPG--PhyloData_II_Collapsed.pdf", device = cairo_pdf, width = 12, height = 18, dpi = 600)
 
 
 #
 ##
 ### The END ~~~~~
+
+geom_text(aes(label = node), size = 1, hjust = -.3) +

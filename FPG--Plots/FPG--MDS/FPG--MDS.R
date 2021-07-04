@@ -302,7 +302,7 @@ MDS_23 <-
 
 
 # Creates & Saves the final MDS Panel ~
-ggsave(MDS_23, file = "FPG--MDS_23.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+ggsave(MDS_23, file = "FPG--MDS_23.pdf", device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
 
 
 #

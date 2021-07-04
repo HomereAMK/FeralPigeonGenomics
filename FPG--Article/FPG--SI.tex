@@ -1,4 +1,4 @@
-%%% The BEGINNING ~~~~
+%%% The BEGINNING ~~~~~
 %%
 % ~ Writes FPG--SI | By Filipe G. VIEIRA & George PACHECO
 
@@ -107,6 +107,7 @@
 \newcommand{\myheaders}[1] {\noindent{\normalsize{\fontfamily{bch}\selectfont{\textbf{#1}}}}}
 \newcommand{\mysubheaders}[1] {\noindent{\fontfamily{bch}\selectfont{\textbf{#1}}}}
 \newcommand{\mytext}[1] {\noindent{\fontfamily{bch}\selectfont{#1}}}
+\newcommand{\mycaptions}[1] {\noindent{\scriptsize{\fontfamily{bch}\selectfont{#1}}}}
 
 % Figure captions
 \usepackage{caption}
@@ -207,55 +208,10 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \myheaders{Suplementary Notes} \\
 \mysubheaders{Sampling effort.} \mytext{To investigate the genomic patterns of current pigeon populations of different evolutionary histories, we intentionally targeted our sampling to cover four distinct categories (Figure 1). Furthermore, to help root the evolutionary relationships between these groups, we also included a small number of individuals representing the Columba livia intermedia (Strickland, 1844) subspecies. Specifically in this regard, we sampled five populations from Sri Lanka, where two of them were from urban localities (Colombo and Trincomalee), one was from a Conservation National Park (Pigeon Island) and two others were captive populations maintained by local breeders (Wattala and Wellawatte) (Supplementary Fig. 1). To check for data reproducibility, we sequenced two of the samples twice (Tehran\textunderscore16-GBS and Perth\textunderscore02-GBS) to serve as replicates. Finally, to serve as external outgroups, we also generated data from five samples of (\textit{Columba palumbus Linnaeus}, 1758) captured in Copenhagen (Denmark), one captive sample of (\textit{Streptopelia risoria} Linnaeus, 1758), and additionally incorporated previously published whole genome resequence data from a Columba rupestris8. (we also included the WGS library to serve as another replicate) (Supplementary Spreadsheet).}
 
-\mysubheaders{Sequencing data and filtering.}\\
-\mysubheaders{Population genetics statistics.}\\
-\mysubheaders{Phylogenetic relationships among feral pigeon populations.}\\
-\mysubheaders{Population structure among pigeon populations.}\\
-\mysubheaders{Contribution of pigeon breeds to current non-domesticated populations.}\\
-
-% Discussion %
-
-\myheaders{Discussion} \\
-
 % Methods %
-
 \myheaders{Methods} \\
 
-\mysubheaders{Sequencing data generation and processing.} \\
-\mysubheaders{Data analysis.} \\
-\mysubheaders{Population genetics statistics.} \\
-\mysubheaders{Phylogenetic reconstruction.} \\
-\mysubheaders{Inference of Population Structure.} \\
-\mysubheaders{Contribution of pigeon breeds to current non-domesticated populations.} \\
 \end{multicols}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Map/FPG--Map.pdf}
-\caption*{ \scriptsize \textbf{Fig. 1 Map of sampling effort.} This is a trial attempt.}
-\label{MainText:FPGP--Map}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
-\caption*{ \scriptsize \textbf{Fig. 2 Map of sampling effort.} This is a trial attempt.}
-\label{MainText:FPGP--PopGenEstimates}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--MDS/FPG--MDS_12.pdf}
-\caption*{ \scriptsize \textbf{Fig. 2 Map of sampling effort.} This is a trial attempt.}
-\label{MainText:FPG--MDS}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.pdf}
-\caption*{ \scriptsize \textbf{Fig. 3 Map of sampling effort.} This is a trial attempt.}
-\label{MainText:FPG--ngsAdmix}
-\end{figure}
 
 \newpage
 \clearpage
@@ -266,20 +222,6 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 
 \hfill
 
-\myheaders{Data Availability} \\
-\mytext{All demultiplexed GBS sequencing data is publicly available at SRA (Project Number: PRJNA495951), as well as additional data uploaded to the University of Copenhagen’s long term storage (\url{https://sid.erda.dk/wsgi-bin/ls.py?share_id=aKqQoJvH4Y}).} \\
-
-\myheaders{Acknowledgements} \\
-\mytext{We would like to thank our local lab managers Charlotte Hansen, Pernille V. S. Olsen and Tina B. Brand at the Centre for GeoGenetics for their prompt support during the execution of the project. We are grateful to the Cornell University Biotechnology Resource Center for its genotyping services, especially to Sharon E. Mitchell and all lab technicians that worked on this project. Moreover, we deeply thank Gary Jakeman and Kristian Murphy Gregersen for their fieldwork assistance regarding the sampling in England and Denmark, respectively. We also thank Vladimir Orduña for his willingness to let us sample some of the Mexico City pigeons kept at his lab facilities.} \\
-
-\myheaders{Author Contributions} \\
-\mytext{M.T.P.G. conceived the project and obtained financial support. M.T.P.G., G.P. and F.G.V. designed the study. G.P. led the project. M.T.P.G., G.P., M.T.O., T.dF.R., P.H., P.N., C.S., I.L-R., S.S.S., K.M., C. L.-F., G.S., R.F., J.D., J. F., N.H., F.K., R. D., A.H., M.B.A. M. C. A.-A. and P. R. E. contributed to sampling. M.D.S. collected and provided the breed samples. G.P. performed the vast majority of DNA extraction and QC. K.M. performed DNA extraction and QC on Sri Lanka samples. G.P. and F.G.V. conducted the computational analyses assisted by M.D.M. G.P., F.G.V., M.T.O and M.T.P.G. interpreted the results. G.P. wrote the first draft of the manuscript with great input from M.T.P.G. and F.G.V. All authors critically reviewed and approved the final manuscript.} \\
-
-\myheaders{Funding} \\
-\mytext{This project was funded by Lundbeck Foundation (award R52-5062) and European Research Council (Consolidator grant 681396) granted to MTPG. G.P. was supported by a Danish Government Scholarship and Tuition Fee Waiver Grant provided by the Danish Ministry of Science, Innovation and Higher Education and subsequently by a Ciência Sem Fronteiras Full PhD Abroad Scholarship (Grant Number: 201761/2014-9) provided by the Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) in Brazil.} \\
-
-\myheaders{Competing Interests} \\
-\mytext{We have no competing interests.}
 \end{multicols}
 
 \newpage
@@ -287,8 +229,8 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Stats/FPG--CovHeatMap/FPG--CovHeatMap.pdf}
-\caption*{\scriptsize{\mytext{\textbf{Supplementary Fig. 1. Coverage heatmap.} Heatmap based on the presence/absence matrix. Individual samples are represented by each column, whereas clusters of loci are represented by the rows.}}}
+\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Fig. 1. Coverage heatmap.} Heatmap based on the presence/absence matrix. Individual samples are represented by each column, whereas clusters of loci are represented by the rows.}}
 \label{SI:FPG--CovHeatMap}
 \end{figure}
 
@@ -296,13 +238,27 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Stats/FPG--CovDistribution/FPG--GoodSamples--GlobalCov.pdf}
-\caption*{\scriptsize{\mytext{\textbf{Supplementary Fig. 1. Coverage heatmap.} Heatmap based on the presence/absence matrix. Individual samples are represented by each column, whereas clusters of loci are represented by the rows.}}}
+\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Stats/FPG--GlobalCoverage/FPG--GlobalCoverage.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Fig. 1. Global depth distribution.} Heatmap based on the presence/absence matrix. Individual samples are represented by each column, whereas clusters of loci are represented by the rows.}}
 \label{SI:FPG--CovDistribution}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_Labels-RColours.pdf}
+\caption*{\mycaptions{\textbf{Fig. 3 Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). Individuals are sorted by sampling locality (light grey upper labels) and grouped per biological status}}
+\label{MainText:FPG--ngsAdmixSI}
+\end{figure}
+  
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--MDS/FPG--MDS_13.pdf}
+\caption*{\mycaptions{\textbf{Fig. 2 Multidimensional scaling analysis.} a) Dimensions 1 and 3 are plotted. b) Dimensions 2 and 3 are plotted. Each point on the plot represents a single individual. The ellipses represent the rough distribution of the two most distinct groups.}}
+\label{MainText:FPG--MDS_13}
 \end{figure}
 
 \end{document}
 
 % 
 %%
-%%% The END ~~~~
+%%% The END ~~~~~
