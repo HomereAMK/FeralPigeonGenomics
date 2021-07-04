@@ -92,7 +92,7 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline run --jre-opt
 parallel --plus --keep-order --dryrun "samtools view {} | grep -v '^#' | awk '\$6~/[HS]/ && \$10~/ATGCAT/{print \$1}' | sort -u > $TMP_DIR/{/...}.Chimeras.id" ::: ~/data/Pigeons/Analysis/PaleoMix_GBS_BEFORE-FILTEREDCHIMERAS/*.bam | xsbatch -R --max-array-jobs XXX -c 1 --time XXX --
 ```
 
-##### Excludes these identified reads using the software package [QIIME](http://qiime.org/). A filtered `.fastq` file is created inside the respectives folders of each original demultiplexed files.
+##### Excludes these identified reads using the software package [QIIME--v1.9.1](http://qiime.org/). A filtered `.fastq` file is created inside the respectives folders of each original demultiplexed files.
 
 ```
 module load blast/v2.2.26
