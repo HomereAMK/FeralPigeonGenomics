@@ -327,7 +327,9 @@ zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples_NoSris
 ```
 ***
 
-### 10) Sites Info | [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/)
+### 10) Sites Info
+
+> Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/), we calculate some overall statistics.
 
 ##### Here we calculate the number of scaffolds with at least one SITE reported:
 
@@ -360,9 +362,9 @@ awk '{if ($3!=0) print;}' ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/Si
 [`FPG--ScaffoldLengthVsNumberOfSites.R`](../FPG--Plots/FPG--Stats/FPG--SitesInfo/FPG--ScaffoldLengthVsNumberOfSites.R.R)
 ***
 
-### 11) Heterozygosity Calculation | [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/)
+### 11) Heterozygosity Calculation
 
-Here we calculate the percentage of heterozygous genotypes.
+> Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/), we calculate the percentage of heterozygous genotypes of each sample.
 
 ##### Generates a `.bed` file based on the `.mafs` file:
 
@@ -402,13 +404,7 @@ fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match
 
 ### 12) Initial Phylogenetic Recinstruction
 
-Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) and through the use of [ngsDist--v1.0.6](https://github.com/fgvieira/ngsDist) + [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/), we reconstruct the initial phylogenetic relationships.
-
-#### We frist generated a simple NJ phylogeny just to confirm the positions of the out-groups.
-
-### NJ Phylogeny | [ngsDist--v](https://github.com/fgvieira/ngsDist), [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/) + [RAxML-NG--v0.5.1b](https://github.com/amkozlov/raxml-ng)
-
-We generate here a NJ phylogeny reconstrution using a combination of several programs. This approach is better described here: 'https://github.com/fgvieira/ngsDist'
+Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) and through the use of [ngsDist--v1.0.6](https://github.com/fgvieira/ngsDist) + [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/), we reconstruct the initial phylogenetic relationships to confirm the outgroups' placements.
 
 #### Generates matrix of genetic distances:
 
