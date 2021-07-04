@@ -364,37 +364,37 @@ awk '{if ($3!=0) print;}' ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/Si
 
 ### 11) Heterozygosity Calculation
 
-> Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/), we calculate the percentage of heterozygous genotypes of each sample.
+> Based on [`Dataset II`](./FPG--Datasets/FPG--Dataset_II/) and using [ANGSD--v0.931](http://www.popgen.dk/angsd/index.php/ANGSD), we calculate the percentage of heterozygous genotypes of each sample.
 
 ##### Generates a `.bed` file based on the `.mafs` file:
 
 ```
-zcat ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--GoodSamples--Article--Ultra.mafs.gz | cut -f1,2 | tail -n +2 | awk '{print $1"\t"$2-1"\t"$2}' | bedtools merge -i - > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.bed
+zcat ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbus.mafs.gz | cut -f1,2 | tail -n +2 | awk '{print $1"\t"$2-1"\t"$2}' | bedtools merge -i - > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/FPG--GoodSamples_NoSrisoriaNoCpalumbus.bed
 ```
 
 ##### Creates a position file based on this new `.bed` and index it accordingly:
 
 ```
-awk '{print $1"\t"($2+1)"\t"$3}' ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.bed > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.pos
-angsd sites index ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.pos
+awk '{print $1"\t"($2+1)"\t"$3}' ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/FPG--GoodSamples_NoSrisoriaNoCpalumbus.bed > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/FPG--GoodSamples_NoSrisoriaNoCpalumbus.pos
+angsd sites index ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/FPG--GoodSamples_NoSrisoriaNoCpalumbus.pos
 ```
 
 ##### Gets files:
 
 ```
-parallel --plus --dryrun angsd -i {} -anc ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -sites ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/FPGP--GoodSamples--Article--Ultra.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -GL 1 -doSaf 1 -fold 1 -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -out ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/{/...} :::: ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Lists/FPGP--GoodSamples--Article--Ultra.list | xsbatch -x node923 -R --max-array-jobs 120 -c 1 --time 1-00 --mem-per-cpu 10000 -J HetCalc --
+parallel --plus --dryrun angsd -i {} -anc ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -ref ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun.fasta -sites ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/FPG--GoodSamples.pos -rf ~/data/Pigeons/Reference/DanishTumbler_Dovetail_ReRun_ChrGreater1kb.id -GL 1 -doSaf 1 -fold 1 -remove_bads 1 -uniqueOnly 1 -baq 1 -C 50 -minMapQ 30 -minQ 20 -out ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/Article2021/{/...} :::: ~/data/Pigeons/FPG/FPG--Analyses/FPG--Lists/FPG--GoodSamples.list | xsbatch -R --max-array-jobs 120 -c 1 --time 1-12 --mem-per-cpu 10000 -J HetCalc --
 ```
 
 ##### Gets fractions:
 
 ```
-parallel --plus "realSFS {} > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/{/..}.het" ::: ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/*.saf.idx
+parallel --plus "realSFS {} > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/Article2021/{/..}.het" ::: ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/Article2021/*.saf.idx
 ```
 
 ##### Calculates the percentage of heterozygous SITES:
 
 ```
-fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match($1,/(GBS|WGS|WGS\-GBS)/,lol);print $1"\t"$2"\t"lol[1]}' | sort -k 1,1gr | awk '{split($0,a,"_"); print $1"\t"a[1]"\t"$2"\t"$3'} > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--Miscellaneous/HeterozygosityCalc/AllGoodSamples/FPGP--GoodSamples--Article--Ultra.Heterozygosity.txt
+fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match($1,/(GBS|WGS|WGS\-GBS)/,lol);print $1"\t"$2"\t"lol[1]}' | sort -k 1,1gr | awk '{split($0,a,"_"); print $1"\t"a[1]"\t"$2"\t"$3'} > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Miscellaneous/HeterozygosityCalc/Article2021/FPG--GoodSamples.Heterozygosity.txt
 ```
 
 ##### These results were plotted using the Rscript below:
@@ -454,7 +454,7 @@ fastme -T 15 -i ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/NJ/FPG--GoodSa
 ##### Converts the `.haplo` file into a `.fasta` file:
 
 ```
-xsbatch -c 1 --mem-per-cpu 95000 -J FASTA --time 2-00 -- "zcat ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbus.haplo.gz | cut -f 4- | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/tsv_merge.pl --transp --ofs '' - | awk 'NR==FNR{id=$1; sub(".*\\/","",id); sub("\\..*","",id); x[FNR]=id} NR!=FNR{ print ">"x[FNR]"\n"$1}' ~/data/Pigeons/FPG/FPG--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbus.labels - > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/ML/FPG--GoodSamples_NoSrisoriaNoCpalumbus.fasta"
+xsbatch -c 1 --mem-per-cpu 38000 -J FASTA --time 23:30:00 -- "zcat ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbus.haplo.gz | cut -f 4- | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/tsv_merge.pl --transp --ofs '' - | awk 'NR==FNR{id=$1; sub(".*\\/","",id); sub("\\..*","",id); x[FNR]=id} NR!=FNR{ print ">"x[FNR]"\n"$1}' ~/data/Pigeons/FPG/FPG--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbus.labels - > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/ML/FPG--GoodSamples_NoSrisoriaNoCpalumbus.fasta"
 ```
 
 ##### Generates a ML phylogeny based on the `.fasta` file created above having the NJ phylogeny as a backbone:
