@@ -580,7 +580,7 @@ do
     done
 done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 ```
-[`FPG--PopGenEstimates.R`](../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.R)
+[`FPG--Fst.R`](../FPG--Plots/FPG--Fst/FPG--Fst.R)
 ***
 
 ### 14) Multidimensional Scaling
