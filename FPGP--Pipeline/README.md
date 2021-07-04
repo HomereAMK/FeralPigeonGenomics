@@ -9,7 +9,7 @@
 
 ### 1) Acess to Raw Data & Local Storage 
 
-The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command. This data is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353), and can be downloaded through the links below.
+> The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command. This data is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353), and can be downloaded through the links below.
 #
 
 - [FPG_1](https://sid.erda.dk/share_redirect/DUyRcvLTbq)
@@ -22,7 +22,7 @@ The GBS raw data was directly downloaded from the server of the _Institute of Bi
 
 ### 2) Sequencing Quality Check
 
-A general sequencing quality check of each plate was performed using [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
+> A general sequencing quality check of each plate was performed using [FASTQc--v0.11.5](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) under default options. The results of each run is stored inside the respectives folders of each plate. We considered that all the plates passed this general sequencing quality check.
 #
 
 ##### _Example_:
@@ -33,7 +33,7 @@ A general sequencing quality check of each plate was performed using [FASTQc--v0
 
 ### 3) Demultiplexing
 
-All the plates were demultiplexed in the very same way using the software [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
+> All the plates were demultiplexed in the very same way using the software [GBSX--v1.3](https://github.com/GenomicsCoreLeuven/GBSX) based on the barcode info provided by the key file of each plate. The idea was to minimally filter the reads here leaving this job to be performed by the PaleoMix run that will follow:
 #
 
 ##### **FPG_1**:
@@ -77,7 +77,7 @@ mv ~/data/Pigeons/FPGP/FPGP--GBS_Data/FPGP_5/FPGP_5-CA7YJANXX_8_Demultiplexed_GB
 
 ### 4) Filtering For Chimeric Reads
 
-We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same `.bed` file presented in this publication to restrict our analyses to the _GBS_ loci.
+> We filtered our GBS reads for chimeric reads in the same way presented by [Pacheco et al. 2020](https://academic.oup.com/gbe/article/12/3/136/5735467). We used the same `.bed` file presented in this publication to restrict our analyses to the _GBS_ loci.
 #
 
 ##### Executes an inicial _PaleoMix_ run with the original _GBSed_ demultiplexed files in order to be able to indetify the chemeric reads. We used the `.yaml` file below and respective command:
@@ -110,8 +110,10 @@ parallel --plus --keep-order --dryrun "zcat {} > {.} && filter_fasta.py -f {.} -
 
 ### 5) Read Trimming & Mapping
 
-Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
+> Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above, the only different being that now we used the filtered `.fastq` files.
 #
+
+##### Runs [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) on the same `.yaml` file used above:
 
 ```
 xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-option "-XmxXXXg" --max-threads XXX --bwa-max-threads XXX --adapterremoval-max-threads XXX --destination ~/data/Pigeons/Analysis/PaleoMix_GBS/ ~/data/Pigeons/Analysis/FPGP--Final_PaleoMix_GBS.yaml
@@ -120,7 +122,7 @@ xsbatch -c XXX --mem-per-cpu XXX -J XXX --time XXX -- bam_pipeline dryrun --jre-
 
 ### 6) Running Stats & Filtering of Bad Samples
 
-We used the outputs from _PaleoMix_ to create a summary file cointaing information on the mapping statistics of each sample. In addition, we used some scripts to perform several create some heatmap plots to help in the identification of bad SAMPLES.
+> We used the outputs from [PaleoMix--v1.2.5](https://github.com/MikkelSchubert/paleomix) to create a summary file cointaing information on the mapping statistics of each sample. In addition, we used some scripts to perform several create some heatmap plots to help in the identification of bad SAMPLES.
 #
 
 ##### Runs [`paleomix_summary2tsv.sh`](./FPG--Scripts/paleomix_summary2tsv.sh) to create a summary file with mapping information, and absence/presence `.tsv` files:
@@ -406,7 +408,7 @@ fgrep '.' *.het | tr ":" " " | awk '{print $1"\t"$3/($2+$3)*100}' | gawk '{match
 
 Based on [`Dataset I`](./FPG--Datasets/FPG--Dataset_I/) and through the use of [ngsDist--v1.0.6](https://github.com/fgvieira/ngsDist) + [FASTme--v2.1.5](http://www.atgc-montpellier.fr/fastme/), we reconstruct the initial phylogenetic relationships to confirm the outgroups' placements.
 
-#### Generates matrix of genetic distances:
+##### Generates matrix of genetic distances:
 
 ```
 xsbatch -c 15 --mem-per-cpu 2000 -J DistDataI --time 23:00:00 -- "ngsDist --n_threads 15 --geno ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples.beagle.gz --pairwise_del --seed 33 --probs --n_ind 475 --n_sites 1225206 --labels ~/data/Pigeons/FPG/FPG--Analyses/FPG--Lists/FPG--GoodSamples.labels --out ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/NJ/FPG--GoodSamples.dist"
