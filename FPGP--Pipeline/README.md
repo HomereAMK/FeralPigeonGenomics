@@ -476,7 +476,7 @@ raxml-ng --threads 15 --support --tree ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phy
 ```
 ***
 
-### 13) Population Genetics Statistics
+### 14) Population Genetics Statistics
 
 > We used [ANGSD--v0.935](http://www.popgen.dk/angsd/index.php/ANGSD) to calculate several population genetics statistics.
 
@@ -583,7 +583,7 @@ done > ~/data/Pigeons/FPGP/FPGP--Analyses/FPGP--ANGSDRuns/FPGP--Fst.tsv
 [`FPG--Fst.R`](../FPG--Plots/FPG--Fst/FPG--Fst.R)
 ***
 
-### 14) Multidimensional Scaling
+### 15) Multidimensional Scaling
 
 > Based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/), we perform a _Multidimensional Scaling Anlysis_.
 
@@ -610,7 +610,7 @@ cat ~/data/Pigeons/FPGP/FPGP--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoC
 [`FPG--MDS.R`](../FPG--Plots/FPG--MDS/FPG--MDS.R)
 ***
 
-### 15) Estimation of Individual Ancestries
+### 16) Estimation of Individual Ancestries
 
 > Based on [`Dataset III`](./FPG--Datasets/FPG--Dataset_III/), we perform an _Analysis of Estimation of Individual Ancestries_.
 
@@ -629,6 +629,8 @@ done | xsbatch -c 34 --mem-per-cpu 1024 --max-array-jobs 20 -J ngsAdmix -R --tim
 ##### These ngsAdmix results were plotted using the Rscript below (`.annot` file as in 14):
 
 [`FPG--ngsAdmix.R`](../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix.R)
+***
+***
 ***
 
 
