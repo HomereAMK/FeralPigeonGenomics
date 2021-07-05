@@ -456,7 +456,6 @@ fastme -T 15 -i ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/NJ/FPG--GoodSa
 ```
 xsbatch -c 1 --mem-per-cpu 38000 -J FASTA --time 23:30:00 -- "zcat ~/data/Pigeons/FPG/FPG--Analyses/FPG--ANGSDRuns/FPG--GoodSamples_NoSrisoriaNoCpalumbus.haplo.gz | cut -f 4- | tail -n +2 | perl /groups/hologenomics/fgvieira/scripts/tsv_merge.pl --transp --ofs '' - | awk 'NR==FNR{id=$1; sub(".*\\/","",id); sub("\\..*","",id); x[FNR]=id} NR!=FNR{ print ">"x[FNR]"\n"$1}' ~/data/Pigeons/FPG/FPG--Analyses/FPG--Lists/FPG--GoodSamples_NoSrisoriaNoCpalumbus.labels - > ~/data/Pigeons/FPG/FPG--Analyses/FPG--Phylogenies/ML/FPG--GoodSamples_NoSrisoriaNoCpalumbus.fasta"
 ```
-xsbatch -c 1 --mem-per-cpu 33000 -J FASTA --time 23:30:00 -- ./ToCreateFasta_Article21.txt
 
 ##### Generates a ML phylogeny based on the `.fasta` file created above having the NJ phylogeny as a backbone:
 

@@ -25,7 +25,7 @@ loadfonts(device = "win", quiet = TRUE)
 
 # Loads datasets ~
 PopGen <- read.table("FPGP--MDS.PopGenSummary", sep = "\t", header = FALSE); head(PopGen)
-Hets <- read.table("FPGP--HetProportions.HetSummary", sep = "\t", header = FALSE); head(Hets)
+Hets <- read.table("FPG--GoodSamples.Heterozygosity.txt", sep = "\t", header = FALSE); head(Hets)
 
 
 # Adds column names to datasets ~
