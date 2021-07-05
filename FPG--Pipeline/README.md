@@ -1,6 +1,3 @@
-# **FPG — _University of Copenhagen_**
-
-
 ### Re-Sequencing + GBS Data Pipeline — by **Filipe G. VIEIRA** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-8464-7770)  &  **George PACHECO** [![Foo](../FPG--GitHubAuxiliaryFiles/ORCIDGreenRoundIcon.png)](https://orcid.org/0000-0002-9367-6813)
 
 > **Feral Pigeon Genomics**: Documention outlining the entire reasoning behind this pipeline.  
@@ -8,7 +5,7 @@
 ***
 ***
 
-### 1) Acess to Raw Data & Local Storage hdgdhgdhdgdh
+### 1) Acess to Raw Data & Local Storage
 
 > The GBS raw data was directly downloaded from the server of the _Institute of Biotechnology_ — _University of Cornell_ using an ordinary `-wget` command. This data is now stored on [ERDA](https://www.erda.dk/) under Pacheco's account (DQM353), and can be downloaded through the links below.
 #
