@@ -3,8 +3,8 @@
 ### Code repository for analyses conducted in Pacheco et al. (2021).
 
 - Please visit the [Wiki page](https://github.com/layka-pacheco/FeralPigeonGenomics/wiki) for detailed information on the individual analyses.
-- The [LaTeX](https://en.wikipedia.org/wiki/LaTeX) code used to generate the preprint version of this manuscript is available in [`FPG--Article`](https://github.com/layka-pacheco/FeralPigeonGenomics/tree/main/FPG--Article).
-- The Rscript used to create the map presented as Figure 1 is available in [`FPG--Map`](https://github.com/layka-pacheco/FeralPigeonGenomics/blob/main/FPG--Pipeline/FPG--Plots/FPG--Map/FPGP--Map.R).
+- The [LaTeX](https://en.wikipedia.org/wiki/LaTeX) codes used to generate the preprint version of this manuscript is available from [`FPG--Article`](https://github.com/layka-pacheco/FeralPigeonGenomics/tree/main/FPG--Article).
+- The Rscript used to create the map presented as Figure 1 is available from [`FPG--Map`](https://github.com/layka-pacheco/FeralPigeonGenomics/blob/main/FPG--Pipeline/FPG--Plots/FPG--Map).
 ***
 ***
 
