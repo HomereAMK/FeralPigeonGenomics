@@ -10,6 +10,6 @@
 
 #### Feral pigeons in Doha, Qatar.
 ![](https://github.com/layka-pacheco/FeralPigeonGenomics/blob/main/FPG--Pipeline/FPG--GitHubAuxiliaryFiles/FPG--RepositoryImage.jpg)
-###### Photo courtesy of [Marie-Christine RUFENER](https://github.com/mcruf).
+###### Photo courtesy of [Marie-Christine Rufener](https://github.com/mcruf).
 
 
