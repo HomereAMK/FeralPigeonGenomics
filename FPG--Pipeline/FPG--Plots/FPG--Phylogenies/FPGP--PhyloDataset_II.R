@@ -24,7 +24,7 @@ loadfonts(device = "win", quiet = TRUE)
 
 
 # Reads datasets ~
-Data <- read.tree(file = "FPGP--GoodSamples_NoSrisoriaNoCpalumbus--Article--Ultra.FINAL.raxml.support")
+Data <- read.tree(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.ngsDist.raxml.bestTree")
 
 
 # Reads annotations ~
@@ -76,7 +76,7 @@ Shapes <- as.vector(c(# Group A
 
 
 # Roots the phylogeny ~
-Data_rooted <- root(Data, node = 481)
+Data_rooted <- root(Data, node = 521)
 
 # 481
 
@@ -116,7 +116,7 @@ Data_annot$Groups <- factor(Data_annot$Groups, ordered = T,
 
 # Creates base phylogeny ~
 basePhylo2 <-
-  ggtree(Data, layout = "fan", aes(colour = group), size = .125) +
+  ggtree(Data_rooted, layout = "fan", aes(colour = group), size = .125) +
   scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"))
 
 
@@ -127,14 +127,14 @@ basePhylo_annot <- basePhylo2 %<+% Data_annot
 # Creates final phylogeny ~
 Plot <-
  basePhylo_annot +
-  geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .05, width = 0.004, show.legend = FALSE) +
-  #geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
+  #geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .05, width = 0.004, show.legend = FALSE) +
+  geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
   geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 1.25, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07) +
   geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.25, starstroke = .07) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data_annot$BioStatus)), na.translate = FALSE) +
   scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data_annot$Groups)), na.translate = FALSE) +
   #geom_treescale(x = 12, y = 12, label = "Scale", fontsize = 4, offset.label = 4, family = "Helvetica") +
-  geom_text(aes(label = node), size = 1, hjust = -.3) +
+  #geom_text(aes(label = node), size = 1, hjust = -.3) +
   theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
         plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.position = c(.11, .875),

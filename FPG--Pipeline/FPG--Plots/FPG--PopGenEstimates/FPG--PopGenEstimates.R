@@ -75,7 +75,7 @@ PopGenUp$ID <- factor(paste("PopGen"))
 Hets$ID <- factor(paste("Hets"))
 
 
-# Bind the 2 DFs based on common columns ~
+# Binds the 2 DFs based on common columns ~
 fulldf <- mybind(PopGenUp, Hets)
 
 
