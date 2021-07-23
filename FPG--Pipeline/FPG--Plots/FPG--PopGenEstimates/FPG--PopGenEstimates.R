@@ -24,19 +24,30 @@ loadfonts(device = "win", quiet = TRUE)
 
 
 # Loads datasets ~
-PopGen <- read.table("FPGP--MDS.PopGenSummary", sep = "\t", header = FALSE); head(PopGen)
-Hets <- read.table("FPG--GoodSamples.Heterozygosity.txt", sep = "\t", header = FALSE); head(Hets)
+PopGen <- read.table("FPG--PopGenEstimates.txt", sep = "\t", header = FALSE); head(PopGen)
+Hets <- read.table("FPG--Heterozygosity.txt", sep = "\t", header = FALSE); head(Hets)
 
 
 # Adds column names to datasets ~
-colnames(PopGen) <- c("Population", "NSites", "Nucleotide_Diversity", "Watson_Theta", "Tajima_D", "BioStatus")
-colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType")
+colnames(PopGen) <- c("Population", "NSites", "Nucleotide_Diversity", "Watson_Theta", "Tajima_D"); head(PopGen)
+colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType"); head(Hets)
 
 
-# Tidies up data frames ~
-levels(PopGen$Population)
-PopGen$Population <- as.factor(gsub(" ", "", PopGen$Population))
-PopGen$BioStatus <- as.factor(gsub(" ", "_", PopGen$BioStatus))
+# Corrects Population names in Hets:
+levels(Hets$Population <- sub("FeralUT", "SaltLakeCity", Hets$Population))
+levels(Hets$Population <- sub("FeralVA", "Virginia", Hets$Population))
+
+
+# Expands Hets by adding BioStatus ~
+PopGen$BioStatus <- ifelse(PopGen$Population %in% c("Torshavn","Ejde","Sumba","LjosAir","Kunoy","Nolsoy","Crete",
+                                                    "Sardinia","Vernelle","WadiHidan","PigeonIsland","Trincomalee"), "Remote_Localities_Within_Natural_Range",
+                    ifelse(PopGen$Population %in% c("Guimaraes","Lisbon","Barcelona","Berlin","Cambridge",
+                                                    "Colombo","Copenhagen","London","Prague","Jihlava","Abadeh",
+                                                    "Isfahan","Lahijan","Nowshahr","Tehran","TelAviv"), "Urban_Localities_Within_Natural_Range",
+                    ifelse(PopGen$Population %in% c("SaltLakeCity","Denver","Virginia","TlaxcalaDeXicohtencatl",
+                                                    "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
+                                                    "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
+                    ifelse(PopGen$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", "Outgroups")))); head(PopGen)
 
 
 # Expands Hets by adding BioStatus ~
@@ -48,22 +59,24 @@ Hets$BioStatus <- ifelse(Hets$Population %in% c("Torshavn","Ejde","Sumba","LjosA
                   ifelse(Hets$Population %in% c("SaltLakeCity","Denver","Virginia","TlaxcalaDeXicohtencatl",
                                                 "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
                                                 "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
-                  ifelse(Hets$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", "Outgroups"))))
+                  ifelse(Hets$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captive_Populations", "Outgroups")))); head(Hets)
+
+
+# Tidies up data frames ~
+levels(PopGen$Population)
+PopGen$Population <- as.factor(gsub(" ", "", PopGen$Population))
 
 
 # Sets BioStatus from character -> factor (better for data manipulation & necessary for plotting)
+PopGen$BioStatus <- as.factor(PopGen$BioStatus)
 Hets$BioStatus <- as.factor(Hets$BioStatus)
 
 
 # Removes unwanted populations ~
 UnwantedPops <- c("Virginia", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy", "Cambridge", "Jihlava",
                   "Wattala", "Wellawatte", "Srisoria", "Cpalumbus", "Crupestris")
+PopGen <- filter(PopGen, !Population %in% UnwantedPops)
 Hets <- filter(Hets, !Population %in% UnwantedPops)
-
-
-# Corrects population names in Hets ~ ¡It is very disturbing that this needs to be done here -- please consider modifying the original .sh script!
-levels(PopGen$Population)[c(23, 30)] <- c("SanCristobalDeLasCasas",
-                                          "TlaxcalaDeXicohtencatl")
 
 
 # Converts DF from wide into long ~
@@ -155,6 +168,8 @@ PopGennEstimates <-
         strip.background.y = element_rect(colour = "#000000", fill = "#d6d6d6", size = 0.3),
         strip.text = element_text(colour = "#000000", size = 12, face = "bold", family = "Georgia"),
         legend.position = "top",
+        legend.margin = margin(t = 0, b = 0, r = 0, l = 0),
+        legend.box.margin = margin(t = 10, b = 20, r = 0, l = 0),
         legend.key = element_rect(fill = NA),
         legend.background =element_blank()) +
   guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),

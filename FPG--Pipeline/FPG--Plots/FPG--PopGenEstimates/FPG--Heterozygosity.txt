@@ -83,8 +83,8 @@ Denver_04-GBS.het	Denver	0.233811	GBS
 Denver_05-GBS.het	Denver	0.2256	GBS
 Denver_06-GBS.het	Denver	0.241071	GBS
 Ejde_01-GBS.het	Ejde	0.230383	GBS
-FeralUT_01-WGS.het	SaltLakeCity	0.21793	WGS
-FeralVA_01-WGS.het	Virginia	0.217495	WGS
+FeralUT_01-WGS.het	FeralUT	0.21793	WGS
+FeralVA_01-WGS.het	FeralVA	0.217495	WGS
 Guimaraes_01-GBS.het	Guimaraes	0.24424	GBS
 Guimaraes_02-GBS.het	Guimaraes	0.256117	GBS
 Guimaraes_03-GBS.het	Guimaraes	0.246221	GBS
