@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar, reshape2)
+pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar, reshape2, phangorn)
 
 
 # Load helper function ~
@@ -26,6 +26,16 @@ loadfonts(device = "win", quiet = TRUE)
 # Reads datasets ~
 Data <- read.tree(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.ngsDist.raxml.bestTree")
 
+Matrix <- as.matrix(read.table(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.dist", head = FALSE, row.names = 1))
+
+NJphylo <- nj(as.dist(Matrix))
+
+?nj
+
+plot(NJphylo, "u")
+
+write.tree(NJphylo, file = "NJphylo.nwk")
+
 
 # Reads annotations ~
 Data_annot <- read.table("FPG--GoodSamples_FPG--GoodSamples_NoSrisoriaNoCpalumbus.annot", sep = "\t", header = FALSE, stringsAsFactors = FALSE)
@@ -35,23 +45,23 @@ colnames(Data_annot) <- c("label", "Population")
 # Expands the data by adding BioStatus ~
 Data_annot$BioStatus <- ifelse(Data_annot$Population %in% c("Torshavn","Ejde","Sumba","LjosAir","Kunoy","Nolsoy", "Crete", "Sardinia","Vernelle","WadiHidan","PigeonIsland","Trincomalee"), "Remote_Localities_Within_Natural_Range",
                         ifelse(Data_annot$Population %in% c("Guimaraes","Lisbon","Barcelona","Berlin","Cambridge",
-                                                              "Colombo","Copenhagen","London","Prague","Jihlava","Abadeh",
-                                                              "Isfahan","Lahijan","Nowshahr","Tehran","TelAviv"), "Urban_Localities_Within_Natural_Range",
+                                                            "Colombo","Copenhagen","London","Prague","Jihlava","Abadeh",
+                                                            "Isfahan","Lahijan","Nowshahr","Tehran","TelAviv"), "Urban_Localities_Within_Natural_Range",
                         ifelse(Data_annot$Population %in% c("SaltLakeCity","Denver", "FeralVA", "FeralUT", "TlaxcalaDeXicohtencatl",
-                                                              "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
-                                                              "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
+                                                            "MexicoCity","Monterrey","SanCristobalDeLasCasas","Santiago",
+                                                            "Salvador","Tatui","Johannesburg","Nairobi","Perth"), "Localities_Outside_Natural_Range",
                         ifelse(Data_annot$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captives", NA))))
 
 
 # Expands the data by adding Groups ~
 Data_annot$Groups <- # Remote Localities Within Natural Range
-                        ifelse(Data_annot$Population %in% c("PigeonIsland", "Trincomalee"), "Group_A",
-                        ifelse(Data_annot$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group_B",
-                        ifelse(Data_annot$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group_C",
-                        ifelse(Data_annot$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group_D",
-                        ifelse(Data_annot$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group_E",
-                        ifelse(Data_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F",
-                        ifelse(Data_annot$Population %in% c("Wattala"), "Not_Grouped", NA)))))))
+                       ifelse(Data_annot$Population %in% c("PigeonIsland", "Trincomalee"), "Group_A",
+                       ifelse(Data_annot$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group_B",
+                       ifelse(Data_annot$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group_C",
+                       ifelse(Data_annot$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group_D",
+                       ifelse(Data_annot$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group_E",
+                       ifelse(Data_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F",
+                       ifelse(Data_annot$Population %in% c("Wattala"), "Not_Grouped", NA)))))))
 
 
 # Melts the annotation dataset ~
@@ -76,16 +86,12 @@ Shapes <- as.vector(c(# Group A
 
 
 # Roots the phylogeny ~
-Data_rooted <- root(Data, node = 521)
+Data_rooted <- root(Data, node = 522)
 
-# 481
 
 # Selects clades to highlight ~
 groups <- list(group1 = c("Crupestris_01-WGS", "Crupestris_01-GBS"))
 Data_rooted <- groupOTU(Data_rooted, groups)
-
-groups <- list(group1 = c("Crupestris_01-WGS", "Crupestris_01-GBS"))
-Data <- groupOTU(Data, groups)
 
 
 # Reorders BioStatus ~
@@ -106,6 +112,7 @@ Data_annot$Groups <- factor(Data_annot$Groups, ordered = T,
                                 "Group_F",
                                 "Not_Grouped"))
 
+
 # Corrects groups ~
 #levels(Data2_annot$Groups <- sub("Torshavn", "Tórshavn", fulldf$Population))
 #levels(Data2_annot$Groups <- sub("WadiHidan", "Wadi Hidan", fulldf$Population))
@@ -115,26 +122,30 @@ Data_annot$Groups <- factor(Data_annot$Groups, ordered = T,
 
 
 # Creates base phylogeny ~
-basePhylo2 <-
-  ggtree(Data_rooted, layout = "fan", aes(colour = group), size = .125) +
+basePhylo <-
+  ggtree(Data_rooted, layout = "fan", aes(colour = group), size = .125, branch.length = "none") +
   scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"))
 
 
 # Merges annotation to base phylogeny ~
-basePhylo_annot <- basePhylo2 %<+% Data_annot
+basePhylo_annot <- basePhylo %<+% Data_annot
 
 
 # Creates final phylogeny ~
 Plot <-
- basePhylo_annot +
-  #geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .05, width = 0.004, show.legend = FALSE) +
-  geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
-  geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 1.25, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07) +
-  geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.25, starstroke = .07) +
+  basePhylo_annot +
+  #geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
+  geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 4, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07, show.legend = FALSE) +
+  #geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.75, starstroke = .07) +
+  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = .75) +
+  geom_strip("Abadeh_08-GBS", "LjosAir_01-GBS", barsize = 1, color = "#000000", label = "Group B", offset.text = .75) +
+  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = .75) +
+  geom_strip("TelAviv_16-GBS", "WadiHidan_08-GBS", barsize = 1, color = "#000000", label = "Group C", offset.text = .75) +
+  geom_strip("Guimaraes_14-GBS", "", barsize = 1, color = "#000000", label = "Group D", offset.text = .75) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data_annot$BioStatus)), na.translate = FALSE) +
   scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data_annot$Groups)), na.translate = FALSE) +
+  geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .04, width = .5, show.legend = FALSE) +
   #geom_treescale(x = 12, y = 12, label = "Scale", fontsize = 4, offset.label = 4, family = "Helvetica") +
-  #geom_text(aes(label = node), size = 1, hjust = -.3) +
   theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
         plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.position = c(.11, .875),
@@ -153,63 +164,91 @@ Plot <-
 
 
 # Saves plot ~
-ggsave(Plot, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 12, dpi = 600)
+ggsave(Plot, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 20, dpi = 600)
 
 
-# Tel Aviv Colony ~
+# Pigeon Island & Trincomalee ~
 collapsePhylo2_1 <-
- Plot %>% collapse(node = 588, 'max', fill = "#56B4E9", alpha = .7)
+  Plot %>% collapse(node = 523, "max", fill = "#44AA99", alpha = .9)
+
+# Pigeon Island & Trincomalee ~
+collapsePhylo2_1 <- collapse(Plot, node = 523) + 
+  geom_point2(aes(subset = (node == 523)), shape = 21, size = 5, fill = "#44AA99")
 
 # Faroe Islands ~
 collapsePhylo2_2 <-
- collapsePhylo2_1 %>% collapse(node = 526, 'max', fill = "#44AA99", alpha = .7)
+  collapsePhylo2_1 %>% collapse(node = 567, "max", fill = "#44AA99", alpha = .7)
+
+# Sardinia ~
+collapsePhylo2_3 <-
+  collapsePhylo2_2 %>% collapse(node = 489, "max", fill = "#44AA99", alpha = .7)
+
+# Vernelle ~
+collapsePhylo2_4 <-
+  collapsePhylo2_3 %>% collapse(node = 553, "max", fill = "#44AA99", alpha = .7)
+
+
+# Tel Aviv Colony ~
+collapsePhylo2_5 <-
+  collapsePhylo2_4 %>% collapse(node = 596, "max", fill = "#44AA99", alpha = .7)
+
+
+
+
+
+
+# Tel Aviv, Tel Aviv Colony, Wadi Hidan ~
+collapsePhylo2_5 <-
+  collapsePhylo2_4 %>% collapse(node = 586, "max", fill = "#44AA99", alpha = .7)
+  
+
+
 
 # Barcelona ~
-collapsePhylo2_3 <-
- collapsePhylo2_2 %>% collapse(node = 900, 'max', fill = "#F0E442", alpha = .7)
+collapsePhylo2_4 <-
+ collapsePhylo2_3 %>% collapse(node = 900, 'max', fill = "#F0E442", alpha = .7)
 
 # Salvador ~
-collapsePhylo2_4 <-
- collapsePhylo2_3 %>% collapse(node = 886, 'max', fill = "#E69F00", alpha = .7)
+collapsePhylo2_5 <-
+ collapsePhylo2_4 %>% collapse(node = 886, 'max', fill = "#E69F00", alpha = .7)
 
 # Tatuí ~
-collapsePhylo2_5 <-
- collapsePhylo2_4 %>% collapse(node = 867, 'max', fill = "#E69F00", alpha = .7)
+collapsePhylo2_6 <-
+ collapsePhylo2_5 %>% collapse(node = 867, 'max', fill = "#E69F00", alpha = .7)
 
 # Santiago ~
-collapsePhylo2_6 <-
- collapsePhylo2_5 %>% collapse(node = 851, 'max', fill = "#E69F00", alpha = .7)
+collapsePhylo2_7 <-
+ collapsePhylo2_6 %>% collapse(node = 851, 'max', fill = "#E69F00", alpha = .7)
 
 # Monterrey ~
-collapsePhylo2_7 <-
-  collapsePhylo2_6 %>% collapse(node = 837, 'max', fill = "#E69F00", alpha = .7)
+collapsePhylo2_8 <-
+  collapsePhylo2_7 %>% collapse(node = 837, 'max', fill = "#E69F00", alpha = .7)
 
 # San Cristóbal de las Casas ~
-collapsePhylo2_8 <-
-  collapsePhylo2_7 %>% collapse(node = 824, 'max', fill = "#E69F00", alpha = .7)
+collapsePhylo2_9 <-
+  collapsePhylo2_8 %>% collapse(node = 824, 'max', fill = "#E69F00", alpha = .7)
 
 # Nairobi ~
-collapsePhylo2_9 <-
-  collapsePhylo2_8 %>% collapse(node = 639, 'max', fill = "#E69F00", alpha = .7)
+collapsePhylo2_10 <-
+  collapsePhylo2_9 %>% collapse(node = 639, 'max', fill = "#E69F00", alpha = .7)
 
 # Colombo ~
-collapsePhylo2_10 <-
-  collapsePhylo2_9 %>% collapse(node = 629, 'max', fill = "#F0E442", alpha = .7)
-
-# Colombo ~
-collapsePhylo2_10 <-
-  collapsePhylo2_9 %>% collapse(node = 629, 'max', fill = "#F0E442", alpha = .7)
-
-# Pigeon Island & Trincomalee ~
 collapsePhylo2_11 <-
-  collapsePhylo2_10 %>% collapse(node = 480, 'max', fill = "#44AA99", alpha = .7)
+  collapsePhylo2_10 %>% collapse(node = 629, 'max', fill = "#F0E442", alpha = .7)
+
+# Colombo ~
+collapsePhylo2_12 <-
+  collapsePhylo2_11 %>% collapse(node = 629, 'max', fill = "#F0E442", alpha = .7)
 
 
 finalPhylo2 <- 
- collapsePhylo2_11 +
+ collapsePhylo2_1 +
   
-  geom_text2(aes(subset = (node == 526)), label = "Faroe Islands", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = -1.6, hjust = -3.5, angle = 70, show.legend = FALSE) +
-  geom_star(aes(subset = (node == 526)), starshape = 13, size = 1.25, fill = "#44AA99", alpha = .9, starstroke = .07, show.legend = FALSE) +
+  geom_text2(aes(subset = (node == 523)), label = "Pigeon Island & Trincomalee", fontface = "bold", family = "Helvetica", cex = 3, vjust = 0, hjust = 0, show.legend = FALSE) +
+  geom_text2(aes(subset = (node == 567)), label = "Faroe Islands", fontface = "bold", family = "Helvetica", cex = 3, vjust = 0, hjust = -3, show.legend = FALSE) +
+  geom_text2(aes(subset = (node == 489)), label = "Sardinia", fontface = "bold", family = "Helvetica", cex = 3, vjust = 0, hjust = -6, show.legend = FALSE) +
+  geom_text2(aes(subset = (node == 553)), label = "Vernelle", fontface = "bold", family = "Helvetica", cex = 3, vjust = 0, hjust = -6, show.legend = FALSE) +
+  geom_text2(aes(subset = (node == 596)), label = "Tel Aviv Colony", fontface = "bold", family = "Helvetica", cex = 3, vjust = 0, hjust = -2, show.legend = FALSE)
   
   geom_text2(aes(subset = (node == 588)), label = "Tel Aviv Colony", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 0, hjust = -2, angle = 95, show.legend = FALSE) +
   geom_star(aes(subset = (node == 588)), starshape = 13, size = 1.25, fill = "#56B4E9", alpha = .9, starstroke = .07, show.legend = FALSE) +
@@ -233,10 +272,7 @@ finalPhylo2 <-
   geom_star(aes(subset = (node == 851)), starshape = 13, size = 1.25, fill = "#56B4E9", starstroke = .07, show.legend = FALSE) +
   
   geom_text2(aes(subset = (node == 824)), label = "San Cristóbal de las Casas", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = 0, hjust = 0, angle = 0, show.legend = FALSE) +
-  geom_star(aes(subset = (node == 824)), starshape = 13, size = 1.25, fill = "#56B4E9", starstroke = .07, show.legend = FALSE) +
-  
-  geom_text2(aes(subset = (node == 480)), label = "Pigeon Island & Trincomalee", fontface = "bold", family = "Helvetica", cex = 2.25, vjust = -8, hjust = -1.75, angle = 0, show.legend = FALSE) +
-  geom_star(aes(subset = (node == 480)), starshape = 29, size = 1.25, fill = "#44AA99", alpha = .9, starstroke = .07, show.legend = FALSE)
+  geom_star(aes(subset = (node == 824)), starshape = 13, size = 1.25, fill = "#56B4E9", starstroke = .07, show.legend = FALSE)
 
  
 ggsave(finalPhylo2, file = "FPG--PhyloData_II_Collapsed.pdf", device = cairo_pdf, width = 12, height = 18, dpi = 600)
