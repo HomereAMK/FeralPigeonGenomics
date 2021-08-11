@@ -12,11 +12,13 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar, reshape2, phangorn)
+pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar, reshape2, phangorn, adegenet)
 
 
 # Load helper function ~
 source("utilities.R")
+
+?adegenet
 
 
 # Imports extra fonts ~
@@ -28,11 +30,7 @@ Data <- read.tree(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.ngsDist.raxml.b
 
 Matrix <- as.matrix(read.table(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.dist", head = FALSE, row.names = 1))
 
-NJphylo <- nj(as.dist(Matrix))
-
-?nj
-
-plot(NJphylo, "u")
+NJphylo <- bionj(as.dist(Matrix))
 
 write.tree(NJphylo, file = "NJphylo.nwk")
 
