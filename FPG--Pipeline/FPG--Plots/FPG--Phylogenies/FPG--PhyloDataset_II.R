@@ -18,8 +18,6 @@ pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, 
 # Load helper function ~
 source("utilities.R")
 
-?adegenet
-
 
 # Imports extra fonts ~
 loadfonts(device = "win", quiet = TRUE)
@@ -29,7 +27,6 @@ loadfonts(device = "win", quiet = TRUE)
 Data <- read.tree(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.ngsDist.raxml.bestTree")
 
 Matrix <- as.matrix(read.table(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.dist", head = FALSE, row.names = 1))
-
 NJphylo <- bionj(as.dist(Matrix))
 
 write.tree(NJphylo, file = "NJphylo.nwk")
@@ -84,7 +81,7 @@ Shapes <- as.vector(c(# Group A
 
 
 # Roots the phylogeny ~
-Data_rooted <- root(Data, node = 522)
+Data_rooted <- root(Data, node = 521)
 
 
 # Selects clades to highlight ~
@@ -111,14 +108,6 @@ Data_annot$Groups <- factor(Data_annot$Groups, ordered = T,
                                 "Not_Grouped"))
 
 
-# Corrects groups ~
-#levels(Data2_annot$Groups <- sub("Torshavn", "Tórshavn", fulldf$Population))
-#levels(Data2_annot$Groups <- sub("WadiHidan", "Wadi Hidan", fulldf$Population))
-#levels(Data2_annot$Groups <- sub("Tatui", "Tatuí", fulldf$Population))
-#levels(Data2_annot$Groups <- sub("PigeonIsland", "Pigeon Island", fulldf$Population))
-#levels(Data2_annot$Groups <- sub("Guimaraes", "Guimarães", fulldf$Population))
-
-
 # Creates base phylogeny ~
 basePhylo <-
   ggtree(Data_rooted, layout = "fan", aes(colour = group), size = .125, branch.length = "none") +
@@ -132,14 +121,14 @@ basePhylo_annot <- basePhylo %<+% Data_annot
 # Creates final phylogeny ~
 Plot <-
   basePhylo_annot +
-  #geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
+  #geom_text(aes(label = node), hjust= -.15) +
+  geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
   geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 4, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07, show.legend = FALSE) +
   #geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.75, starstroke = .07) +
-  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = .75) +
-  geom_strip("Abadeh_08-GBS", "LjosAir_01-GBS", barsize = 1, color = "#000000", label = "Group B", offset.text = .75) +
-  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = .75) +
-  geom_strip("TelAviv_16-GBS", "WadiHidan_08-GBS", barsize = 1, color = "#000000", label = "Group C", offset.text = .75) +
-  geom_strip("Guimaraes_14-GBS", "", barsize = 1, color = "#000000", label = "Group D", offset.text = .75) +
+  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = 1) +
+  geom_strip("Abadeh_08-GBS", "Torshavn_03-GBS", barsize = 1, color = "#000000", label = "Group B", offset.text = 1) +
+  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = 1) +
+  geom_strip("TelAviv_16-GBS", "WadiHidan_08-GBS", barsize = 1, color = "#000000", label = "Group C", offset.text = 1.5) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data_annot$BioStatus)), na.translate = FALSE) +
   scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data_annot$Groups)), na.translate = FALSE) +
   geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .04, width = .5, show.legend = FALSE) +
@@ -162,7 +151,9 @@ Plot <-
 
 
 # Saves plot ~
-ggsave(Plot, file = "FPG--PhyloData_II.pdf", device = cairo_pdf, width = 12, height = 20, dpi = 600)
+ggsave(Plot, file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.ngsDist.raxml.pdf", device = cairo_pdf, width = 12, height = 20, dpi = 600)
+
+
 
 
 # Pigeon Island & Trincomalee ~
