@@ -2,6 +2,8 @@
 ##
 # ~ Plots FPG--Sites-ScaffoldsRegression | By George PACHECO
 
+This is a test.
+
 
 # Cleans the environment ~ 
 rm(list=ls())
