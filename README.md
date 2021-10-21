@@ -1,4 +1,4 @@
-# _Feral Pigeon Genomics_ hsdpdusdsdldhs
+# _Feral Pigeon Genomics_
 
 #### Code repository for analyses conducted in Pacheco et al. (2021).
 
