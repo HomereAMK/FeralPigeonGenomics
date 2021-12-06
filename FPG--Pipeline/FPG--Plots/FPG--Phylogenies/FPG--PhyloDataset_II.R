@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(ggtree, tidyverse, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar, reshape2, phangorn, adegenet)
+pacman::p_load(ggtree, tidyverse, naniar, ggrepel, extrafont, treeio, ape, ggtreeExtra, ggnewscale, ggstar, reshape2, phangorn, adegenet)
 
 
 # Load helper function ~
@@ -24,12 +24,7 @@ loadfonts(device = "win", quiet = TRUE)
 
 
 # Reads datasets ~
-Data <- read.tree(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.ngsDist.raxml.bestTree")
-
-Matrix <- as.matrix(read.table(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.dist", head = FALSE, row.names = 1))
-NJphylo <- bionj(as.dist(Matrix))
-
-write.tree(NJphylo, file = "NJphylo.nwk")
+Data <- read.tree(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus_100BSs.raxml.support")
 
 
 # Reads annotations ~
@@ -48,40 +43,12 @@ Data_annot$BioStatus <- ifelse(Data_annot$Population %in% c("Torshavn","Ejde","S
                         ifelse(Data_annot$Population %in% c("TelAvivColony","Wattala", "Wellawatte"), "Captives", NA))))
 
 
-# Expands the data by adding Groups ~
-Data_annot$Groups <- # Remote Localities Within Natural Range
-                       ifelse(Data_annot$Population %in% c("PigeonIsland", "Trincomalee"), "Group_A",
-                       ifelse(Data_annot$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group_B",
-                       ifelse(Data_annot$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group_C",
-                       ifelse(Data_annot$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group_D",
-                       ifelse(Data_annot$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group_E",
-                       ifelse(Data_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F",
-                       ifelse(Data_annot$Population %in% c("Wattala"), "Not_Grouped", NA)))))))
-
-
 # Melts the annotation dataset ~
 Data_annot <- melt(Data_annot)
 
 
-# Defines the shapes to be used for each Group ~
-Shapes <- as.vector(c(# Group A
-                      29, 
-                      # Group B
-                      11,
-                      # Group C
-                      13,
-                      # Group D
-                      7,
-                      # Group E
-                      14,
-                      # Group F
-                      28,
-                      # Not Grouped
-                      9))
-
-
 # Roots the phylogeny ~
-Data_rooted <- root(Data, node = 521)
+Data_rooted <- root(Data, node = 507)
 
 
 # Selects clades to highlight ~
@@ -97,21 +64,10 @@ Data_annot$BioStatus <- factor(Data_annot$BioStatus, ordered = T,
                                    "Captives"))
 
 
-# Reorders Groups ~
-Data_annot$Groups <- factor(Data_annot$Groups, ordered = T,
-                     levels = c("Group_A",
-                                "Group_B",
-                                "Group_C",
-                                "Group_D",
-                                "Group_E",
-                                "Group_F",
-                                "Not_Grouped"))
-
-
 # Creates base phylogeny ~
 basePhylo <-
-  ggtree(Data_rooted, layout = "fan", aes(colour = group), size = .125, branch.length = "none") +
-  scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"))
+  ggtree(Data_rooted, layout = "circular", size = .125, aes(colour = group), branch.length = "none") +
+  scale_colour_manual(labels = c("Columba livia", "Columba rupestris"), values = c("#000000", "#fb8072"), na.value = NA)
 
 
 # Merges annotation to base phylogeny ~
@@ -121,18 +77,15 @@ basePhylo_annot <- basePhylo %<+% Data_annot
 # Creates final phylogeny ~
 Plot <-
   basePhylo_annot +
-  #geom_text(aes(label = node), hjust= -.15) +
-  geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) +
-  geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 70), shape = 21, size = 4, fill = "#155211", colour = "#155211", alpha = .9, stroke = .07, show.legend = FALSE) +
-  #geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.75, starstroke = .07) +
-  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = 1) +
-  geom_strip("Abadeh_08-GBS", "Torshavn_03-GBS", barsize = 1, color = "#000000", label = "Group B", offset.text = 1) +
-  geom_strip("Trincomalee_05-GBS", "PigeonIsland_01-GBS", barsize = 1, color = "#000000", label = "Group A", offset.text = 1) +
-  geom_strip("TelAviv_16-GBS", "WadiHidan_08-GBS", barsize = 1, color = "#000000", label = "Group C", offset.text = 1.5) +
-  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(Data_annot$BioStatus)), na.translate = FALSE) +
-  scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data_annot$Groups)), na.translate = FALSE) +
-  geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .04, width = .5, show.legend = FALSE) +
-  #geom_treescale(x = 12, y = 12, label = "Scale", fontsize = 4, offset.label = 4, family = "Helvetica") +
+  geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 75), shape = 21, size = 1.75, fill = "#155211", colour = "#000000", alpha = .85, stroke = .07, show.legend = FALSE) +
+  geom_tippoint(aes(fill = BioStatus, subset = !is.na(BioStatus)), size = 1.75, alpha = 1, shape = 21, colour = "#000000", na.rm = TRUE) +
+  geom_strip("PigeonIsland_05-GBS", "Trincomalee_01-GBS", barsize = 3.5, color = "#d9d9d9", label = "Group A", fontsize = 6, offset = 1.25, offset.text = 2) +
+  geom_strip("Abadeh_04-GBS", "Torshavn_02-GBS", barsize = 3.5, color = "#bdbdbd", label = "Group B", fontsize = 6, offset = 1.25, offset.text = 2) +
+  geom_strip("TelAviv_07-GBS", "Isfahan_03-GBS", barsize = 3.5, color = "#969696", label = "Group C", fontsize = 6, offset = 1.25, offset.text = 6) +
+  geom_strip("Barcelona_15-GBS", "Monterrey_05-GBS", barsize = 3.5, color = "#636363", label = "Group D", fontsize = 6, offset = 1.25, offset.text = 7.5) +
+  geom_strip("Berlin_04-GBS", "London_05-GBS", barsize = 3.5, color = "#252525", label = "Group E", fontsize = 6, offset = 1.25, offset.text = 2) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9", "#ff0000"), labels = gsub("_", " ", levels(Data_annot$BioStatus)), na.translate = FALSE) +
+  #scale_fill_discrete(na.value = NA, na.translate = FALSE) +
   theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
         plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.position = c(.11, .875),
@@ -140,19 +93,73 @@ Plot <-
         legend.key.height = unit(.35, "cm"),
         legend.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.box.margin = margin(t = 5, b = -20, r = 0, l = 0)) +
-  guides(colour = guide_legend(title = "Species", title.theme = element_text(size = 11, face = "bold", family = "Helvetica"),
-                               label.theme = element_text(size = 8, family = "Helvetica", face = "italic"), override.aes = list(size = .8, starshape = NA), order = 1),
-         fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 11, face = "bold", family = "Helvetica"),
-                             label.theme = element_text(size = 8, family = "Helvetica"),
-                             override.aes = list(starshape = 21, size = 2.85, alpha = .9, starstroke = .0015), order = 2),
-         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 11, face = "bold", family = "Helvetica"),
-                                  label.theme = element_text(size = 8, family = "Helvetica"),
-                                  override.aes = list(starshape = Shapes, size = 2.85, starstroke = .15), order = 3))
+  guides(colour = guide_legend(title = "Species", title.theme = element_text(size = 11, face = "bold"),
+                               label.theme = element_text(size = 8, face = "italic"), override.aes = list(size = .8, starshape = NA), order = 1),
+         fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 11, face = "bold"),
+                             label.theme = element_text(size = 8),
+                             override.aes = list(starshape = 21, size = 2.85, alpha = .9, starstroke = .0015), order = 2))
 
 
 # Saves plot ~
-ggsave(Plot, file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.ngsDist.raxml.pdf", device = cairo_pdf, width = 12, height = 20, dpi = 600)
+ggsave(Plot, file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus_100BSs.pdf", device = cairo_pdf, width = 16, height = 16, scale = .9, dpi = 600)
+ggsave(Plot, file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus_100BSs.jpg", width = 16, height = 16, scale = .9, dpi = 300)
 
+
+#geom_text(aes(label = node), hjust= -.15) + # Shows node labels.
+#geom_tiplab(align = TRUE, linesize = .02, size = 1.5, show.legend = FALSE) + # Shows tip labels.
+#scale_starshape_manual(values = Shapes, labels = gsub("_", " ", levels(Data_annot$Groups)), na.translate = FALSE) +
+#geom_fruit(geom = geom_tile, mapping = aes(fill = BioStatus), alpha = .9, colour = NA, offset = .04, width = .5, show.legend = FALSE) +
+#geom_treescale(x = 12, y = 12, label = "Scale", fontsize = 4, offset.label = 4, family = "Helvetica") +
+#geom_star(mapping = aes(fill = BioStatus, starshape = Groups), size = 1.75, starstroke = .07) +
+
+
+
+
+
+#################################################################################################################
+       
+Matrix <- as.matrix(read.table(file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus.dist", head = FALSE, row.names = 1))
+NJphylo <- bionj(as.dist(Matrix))
+       
+#write.tree(NJphylo, file = "NJphylo.nwk")
+
+
+# Expands the data by adding Groups ~
+Data_annot$Groups <- # Remote Localities Within Natural Range
+  ifelse(Data_annot$Population %in% c("PigeonIsland", "Trincomalee"), "Group_A",
+  ifelse(Data_annot$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group_B",
+  ifelse(Data_annot$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group_C",
+  ifelse(Data_annot$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group_D",
+  ifelse(Data_annot$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group_E",
+  ifelse(Data_annot$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group_F",
+  ifelse(Data_annot$Population %in% c("Wattala"), "Not_Grouped", NA))))))))
+
+# Reorders Groups ~
+Data_annot$Groups <- factor(Data_annot$Groups, ordered = T,
+                            levels = c("Group_A",
+                                       "Group_B",
+                                       "Group_C",
+                                       "Group_D",
+                                       "Group_E",
+                                       "Group_F",
+                                       "Not_Grouped"))
+
+
+# Defines the shapes to be used for each Group ~
+Shapes <- as.vector(c(# Group A
+  29, 
+  # Group B
+  11,
+  # Group C
+  13,
+  # Group D
+  7,
+  # Group E
+  14,
+  # Group F
+  28,
+  # Not Grouped
+  9))
 
 
 

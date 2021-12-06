@@ -136,8 +136,8 @@ Map3 <-
                    nudge_x = c(0, 0, -0.35, 0, 0), nudge_y = c(-0.15, 0.15, 0, 0.15, -0.15), max.overlaps = Inf,
                    fontface = "bold", colour = "black", aes(x = Longitude, y = Latitude, label = LocationOnly,
                    fill = Class_Article, family = "Georgia"), alpha = 0.9, show.legend = FALSE) +
-  scale_fill_manual(values=c("#56B4E9", "#44AA99", "#F0E442"), drop=FALSE) +
-  scale_colour_manual(values=c("#56B4E9", "#44AA99", "#F0E442"), drop=FALSE) +
+  scale_fill_manual(values = c("#56B4E9", "#44AA99", "#F0E442"), drop=FALSE) +
+  scale_colour_manual(values = c("#56B4E9", "#44AA99", "#F0E442"), drop=FALSE) +
   scale_x_continuous(breaks = seq(79, 82, by = 0.5)) +
   scale_y_continuous(breaks = seq(6, 11, by = 0.5)) +
   coord_sf(xlim = c(78.55, 82.65), ylim = c(5.825, 9.90), expand = FALSE, label_graticule = "SE") +
