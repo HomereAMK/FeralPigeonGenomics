@@ -29,7 +29,7 @@ Hets <- read.table("FPG--Heterozygosity.txt", sep = "\t", header = FALSE); head(
 
 
 # Adds column names to datasets ~
-colnames(PopGen) <- c("Population", "NSites", "Nucleotide_Diversity", "Watson_Theta", "Tajima_D"); head(PopGen)
+colnames(PopGen) <- c("Population", "NSites", "Nucleotide_Diversity", "Watterson_Theta", "Tajima_D"); head(PopGen)
 colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType"); head(Hets)
 
 
@@ -80,7 +80,7 @@ Hets <- filter(Hets, !Population %in% UnwantedPops)
 
 
 # Converts DF from wide into long ~
-PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide_Diversity", "Watson_Theta", "Tajima_D")
+PopGenUp <- gather(PopGen, Estimate, Value, "Nucleotide_Diversity", "Watterson_Theta", "Tajima_D")
 
 
 # Adds data ID column to each DF ~
@@ -102,13 +102,13 @@ fulldf$Estimate <- factor(fulldf$Estimate)
 fulldf$Estimate <-
   factor(fulldf$Estimate, ordered = T, levels = c("PHS",
                                                   "Nucleotide_Diversity",
-                                                  "Watson_Theta",
+                                                  "Watterson_Theta",
                                                   "Tajima_D"))
 
 # Corrects the facet labels ~
 ylabel <- c("Nucleotide_Diversity" = "Nucelotide Diversity",
             "Tajima_D"= "Tajima's D",
-            "Watson_Theta" = "Watson's Theta",
+            "Watterson_Theta" = "Watterson's Theta",
             "PHS"= "Heterozygosity")
 
 

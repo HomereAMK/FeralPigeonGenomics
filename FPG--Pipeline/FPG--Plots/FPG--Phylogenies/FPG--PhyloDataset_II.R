@@ -74,6 +74,42 @@ basePhylo <-
 basePhylo_annot <- basePhylo %<+% Data_annot
 
 
+
+
+# Creates plot ~
+Phylo_Plot <- 
+ basePhylo_annot +
+  geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 85), shape = 21, size = 1.65, fill = "#155211", colour = "#155211", alpha = .85, stroke = .075, show.legend = FALSE) +
+  geom_tippoint(aes(fill = BioStatus, subset = !is.na(BioStatus)), size = 1.65, stroke = .075, colour = "#000000", alpha = 1, shape = 21, na.rm = TRUE) +
+  geom_strip("PigeonIsland_05-GBS", "Trincomalee_01-GBS", barsize = 3.5, color = "#d9d9d9", label = "Group A", fontsize = 6, offset = .75, offset.text = 1.5) +
+  geom_strip("Abadeh_04-GBS", "Torshavn_02-GBS", barsize = 3.5, color = "#bdbdbd", label = "Group B", fontsize = 6, offset = .75, offset.text = 1.5) +
+  geom_strip("TelAviv_07-GBS", "Isfahan_03-GBS", barsize = 3.5, color = "#969696", label = "Group C", fontsize = 6, offset = .75, offset.text = 7) +
+  geom_strip("Barcelona_15-GBS", "Monterrey_05-GBS", barsize = 3.5, color = "#636363", label = "Group D", fontsize = 6, offset = .75, offset.text = 9) +
+  geom_strip("Berlin_04-GBS", "London_05-GBS", barsize = 3.5, color = "#252525", label = "Group E", fontsize = 6, offset = .75, offset.text = 1.5) +
+  scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9", "#ff0000"), labels = gsub("_", " ", levels(Data_annot$BioStatus)), na.translate = FALSE) +
+  theme(panel.spacing = margin(t = 0, b = 0, r = 0, l = 0),
+        panel.border = element_blank(),
+        plot.margin = margin(t = 0, b = 0, r = 0, l = 0),
+        legend.position = c(.11, .875),
+        legend.spacing.y = unit(.4, "cm"),
+        legend.key.height = unit(.45, "cm"),
+        legend.margin = margin(t = 0, b = 0, r = 0, l = 0),
+        legend.box.margin = margin(t = 5, b = -20, r = 0, l = 30)) +
+  guides(colour = guide_legend(title = "Species", title.theme = element_text(size = 14, face = "bold"),
+                               label.theme = element_text(size = 10, face = "italic"), override.aes = list(size = .8, starshape = NA), order = 1),
+         fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 14, face = "bold"),
+                             label.theme = element_text(size = 10),
+                             override.aes = list(starshape = 21, size = 2.85, alpha = .9, starstroke = .0015), order = 2))
+
+
+# Saves plot ~
+ggsave(Phylo_Plot, file = "FPG--GoodSamples_NoSrisoriaNoCpalumbus_100BSs.pdf",
+       device = cairo_pdf, width = 14, height = 12, scale = 1, dpi = 600)
+
+
+
+
+
 # Creates final phylogeny ~
 Plot <-
   basePhylo_annot +
