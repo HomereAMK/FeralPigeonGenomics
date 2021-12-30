@@ -167,7 +167,8 @@ geom_label(aes(label = "Sri Lanka"), x = 0.57, y = 0.93, size = 7.5, fontface = 
 
 # Creates & Saves the final Map Panel ~
 MapPanel <- plot_grid(Map1, BottomRowUp, ncol = 1)
-ggsave(MapPanel, file = "FPGP--Map.pdf", device = cairo_pdf, width = 50, height = 50, scale = 0.335, limitsize = FALSE, dpi = 1000)
+ggsave(MapPanel, file = "FPGP--Map.pdf", device = cairo_pdf, width = 50, height = 50, scale = 0.335, limitsize = FALSE, dpi = 600)
+ggsave(MapPanel, file = "FPGP--Map.jpg", width = 50, height = 50, scale = 0.335, limitsize = FALSE, dpi = 300)
 
 
 #

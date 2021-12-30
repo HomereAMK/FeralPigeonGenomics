@@ -171,7 +171,7 @@ PopGennEstimates <-
         legend.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.box.margin = margin(t = 10, b = 20, r = 0, l = 0),
         legend.key = element_rect(fill = NA),
-        legend.background =element_blank()) +
+        legend.background = element_blank()) +
   guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
                              label.theme = element_text(size = 14, family = "Helvetica"),
                              override.aes = list(size = 5, alpha = .9)), colour = "none")

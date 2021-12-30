@@ -1,13 +1,13 @@
 %%% The BEGINNING ~~~~
 %%
-% ~ Writes FPGP--MainText | By Filipe G. VIEIRA & George PACHECO
+% ~ Writes FPG--MainText | By Filipe G. Vieira & George Pacheco.
 
 
 
 %% Preamble Settings %%
 
 % Defines document class and paper size ~
-\documentclass[twoside, british, a4paper]{article}
+\documentclass[twocolumn, twoside, british, a4paper]{article}
 
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -22,10 +22,7 @@
 \usepackage{float}
 \usepackage{blindtext}
 \usepackage[]{multicol}
-
-% Adds line numbers ~
-%\usepackage[columnwise,switch*,modulo]{lineno}
-%\let\makeLineNumberEven\relax
+\usepackage[switch]{lineno}
 
 % Fixes margins ~
 \usepackage{geometry}
@@ -50,7 +47,7 @@
 
 \pagestyle{fancy}
 \fancyhead[L]{Feral Pigeon Genomics}
-\fancyhead[R]{Pacheco et al. 2021}
+\fancyhead[R]{Pacheco et al. 2022}
 \fancypagestyle{firstpage}{%
 \fancyhf{}
 \lhead{}
@@ -157,6 +154,11 @@ sorting = ynt
 % Starts document ~
 \begin{document}\thispagestyle{empty}
 
+% Starts frist page ~
+\onecolumn
+\linenumbers
+\modulolinenumbers[1]
+
 % Sets title ~
 \LARGE{\bfseries{\fontfamily{cmr}\color[rgb]{0.25,0.25,0.25}\noindent{On the Origin and Spread of Feral Pigeons}}} \\
 
@@ -200,11 +202,9 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 % Sets abstract text ~
 \mytext{\noindent{\textbf{The rock pigeon (\textit{Columba livia} Gmelin, 1789) is presumed native to the Mediterranean, Saharo-Arabian and Eastern Oriental regions, and is believed to have been domesticated in the Middle East in the early Neolithic. At some point during the domestication process, the first feral pigeons arose, whose populations subsequently undertook a remarkable expansion that has resulted in them being found today across almost the entire global urban landscapes. Indeed the spread of these feral birds has been so prolific, that it raises questions about whether any true wild rock pigeon colonies still exist, or whether they have been admixed with, or even fully replaced, by feral birds? While several studies have investigated the complex evolutionary history of pigeon breeds, none have yet addressed the question of pigeon feralisation, and how this evolutionary process might be jeopardizing the species’ status as a wild entity. In this study, we generated and analysed a genomic dataset produced using the Genotyping-by-Sequencing (GBS) method of 450 feral pigeons sampled across 41 worldwide localities. Our analyses reveal that the global feral pigeon population can be divided into four major groups, each exhibiting different levels of genetic diversity and contamination with domesticated genotypes. We also find signs of strong population structure, including very divergent clades of what seems to be relatively wild populations. Lastly, we find evidence of human-mediated dispersal through past colonial links.}}} \\
 
-\hfill\break
-
 % Introduction %
 
-\begin{multicols}{2}
+\twocolumn
 \lettrine[findent=2pt]{\textbf{A}}{ }\mytext{rchaeological evidence suggests that the rock pigeon (\textit{Columba livia} Gmelin, 1789), and in particular the (\textit{C. l. livia}) subspecies, was first domesticated during the Neolithic period in the Middle East, probably via a commensal pathway2. While it was initially exploited as a source of food and fertiliser, later on, the extent of its service to humankind spanned a wider variety of roles, including incorporation into religious rituals, a tool for communication, a source of medicine, and even as a navigation aid3. Furthermore, in addition to its practical functional roles, and in parallel with many other domestic animals such as dogs, chickens and cats, the eighteenth century witnessed an explosion of interest in the development of so-called fancy breeds. Such interest led to the establishment of numerous pigeon breeds, of which over 230 are currently recognised by the \textit{American National Pigeon Association} (NPA; \mytext{\url{www.npausa.com}}). Artificial selection in modern breeds resulted in a truly fabulous amount of phenotypic diversity, which has long attracted the attention of scholars, and even formed a cornerstone of Darwin’s nascent thoughts on his famous theory concerning the evolutionary processes \cite{pacheco_darwins_2020}.} \\
 \indent\mytext{The history of the pigeon domestication has also been tightly coupled with a correlative evolutionary process—feralisation. The process of feralisation is thought to have begun through domestic pigeons escaping from captive stocks (kept within Europe, North Africa and Western Asia). As to the ecological niche of their wild ancestors, feral pigeons tend to utilise hardscape habitats as urban analogues of rocks/cliffs (Lundholm and Richardson, 2010) and become a synurbic species (Francis and Chadwick, 2012). As with other feralised domesticates, the species experienced an extreme ecological range expansion much later in time, when during the modern colonial period they were transmitted to, and subsequent release across, almost all continents of the world, successfully populating extensive urban areas. Therefore, at present, the feral pigeon is ubiquitous across the world’s urban landscapes, where it is often considered a pest species requiring active management. Furthermore, given that both domestic and feral pigeons can almost certainly still interbreed with their wild ancestor, it has been proposed that in regions of co-occurrence, the wild rock pigeon gene pools (and thus their integrity as a natural species) might be to some extent contaminated with domestic genotypes as has been demonstrated for other domestic species5,6.} \\
 \indent\mytext{Although studies aiming to shed light on the genomic relationships among pigeon breeds have been conducted7–9, fundamental questions concerning today's feral pigeon populations have yet to be addressed in depth. These include i) which breeds principally contributed to the formation of the feral pigeon populations, and ii) which are the genomic relationships among these populations. Additionally, in light of the global expansion of both domestic stocks and feral populations during the past few centuries, and a third key question is iii) whether the wild rock pigeon has undergone a process of genomic extinction as seen with the wild ancestors of other domesticates6,10.} \\
@@ -226,10 +226,6 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \mytext{Even though the levels of genetic diversity can give initial valuable insights regarding the past history of a given population, it is also important to infer the evolutionary relationships among the current pigeon populations. For that, we conducted the first phylogenetic reconstruction for non-domestic pigeon populations. Specifically, we first performed a Neighbour-joining (NJ) phylogenetic analyses based on Dataset 1 to confirm the appropriateness of the outgroups available (Supplementary Fig. 8). Having confirmed that Columba rupestris is the most appropriate outgroup, we proceeded with a Maximum-likelihood (ML) phylogenetic analysis based on Dataset 2 (excluding S. risoria and C. palumbus). Overall, the ML phylogeny reconstructed reveals a strong phylogenetic structure across the different pigeon populations studied (Fig. 1). Despite the low bootstrap values (BS) recovered for the internal nodes (probably because the evolution of pigeons is not a truly bifurcating process), we delineated six main groups on our phylogeny based on geographical distribution and biological assumptions; Group A: The Pigeon Island and Trincomalee \textit{C. l. intermedia} populations; Group B: Abadeh, Tehran, Crete, Sardinia, Vernelle and the Faroe Islands; Group C: Tel Aviv, Tel Aviv Colony and Wadi Hidan populations; Group D: Nairobi, Colombo, Lahijan, Nowshahr, Wellawatte and Isfahan populations; Group E: Guimaraes, Barcelona, Lisbon, Salvador, Tatui, Denver, Santiago, Tlaxcala de Xicohtencatl, Mexico City, Monterrey and San Cristobal de Las Casas populations; Group F: Jihlava, Prague, Berlin, Salt Lake City, Johannesburg, London, Cambridge, Perth and Copenhagen. Interestingly, the four individuals belonging to the Wattala population do not form a monophyletic group and are found scattered across the phylogeny.} \\
 \mytext{It is noteworthy that Group A, as well as both the Faroe Islands and the Tel Aviv Colony populations, have 100\% of BS, with the former also having a very elongated branch length. Moreover, all the three replicates (namely, Crupestris\_01, Tehran\_16 and Perth\_02) behave as expected, all clustering with 100\% of BS. Furthermore, although both the eight Wattala and Wellawatte captive populations were located within the Colombo region, these populations do not form a distinct clade together with the Colombo population with some Wattala individuals sitting on a rather different region of the phylogeny. As for the three captive populations included in our study, all 6 individuals belonging to the Tel Aviv Colony population form a clade with 100\% of BS and phylogenetic affinity with the Tel Aviv and the Hadi Hidan populations. The branch of this cluster is the longest across the entire phylogeny, in agreement with the fact that this colony has been maintained inbread for several generations.} \\
 
-\end{multicols}
-
-\begin{multicols}{2}
-
 \mysubheaders{Phylogenetic relationships among feral pigeon populations.}\\
 \mysubheaders{Population structure among pigeon populations.}\\
 \mysubheaders{Contribution of pigeon breeds to current non-domesticated populations.}\\
@@ -248,11 +244,12 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \mysubheaders{Phylogenetic reconstruction.} \\
 \mysubheaders{Inference of Population Structure.} \\
 \mysubheaders{Contribution of pigeon breeds to current non-domesticated populations.} \\
-\end{multicols}
+
+\onecolumn
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Map/FPG--Map.pdf}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Map/FPG--Map.pdf}
 \begin{flushleft}
 \caption*{\mycaptions{\textbf{Fig. 1 Sampling effort.} Map showing sampling localities Samples were divided into four categories: a) remote localities within natural range (green); b) urban localities within natural range (yellow), localities outside natural range (orange); d) captives (blue). The supposed natural range of \textit{Columbia livia} is depicted through a light green shade.}}
 \end{flushleft}
@@ -261,7 +258,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Phylogenies/FPG--PhyloData_II.pdf}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Phylogenies/FPG--PhyloData_II.pdf}
 \begin{flushleft}
 \caption*{\mycaptions{\textbf{Fig. 2 Maximum-likelihood phylogeny.} Phylogenetic relationships amongst over 450 pigeons representing 45 sampling localities. The outgroup \textit{C. rupestris} is depicted in red. Nodes with bootstrap values above 70\% are marked with green circles.}}
 \end{flushleft}
@@ -270,21 +267,21 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
 \caption*{\mycaptions{\textbf{Fig. 3 Population genetics estimates.} a) Proportion of observed heterozygous sites. b) Nucleotide Diversity ($\pi$). c) Watterson's Theta ($\theta$w). d) Tajima’s D. All absolute values can be found in the Supplementary Spreadsheet.}}
 \label{MainText:FPG--PopGenEstimates}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_PairedColours.pdf}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_PairedColours.pdf}
 \caption*{\mycaptions{\textbf{Fig. 4 Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). Individuals are sorted by sampling locality (light grey upper labels) and grouped per biological status.}}
 \label{MainText:FPG--ngsAdmix}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--MDS/FPG--MDS_12.pdf}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--MDS/FPG--MDS_12.pdf}
 \caption*{\mycaptions{\textbf{Fig. 5 Multidimensional scaling analysis.} Dimensions 1 and 2 are plotted and each point on the plot represents a single individual. The ellipses represent the rough distribution of the two most distinct groups.}}
 \label{MainText:FPG--MDS}
 \end{figure}
@@ -293,17 +290,21 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \newpage
 \clearpage
 
-\begin{multicols}{2}
+\twocolumn
+
 \myheaders{References}
 \printbibliography[heading=none]
 
 \hfill
 
+\myheaders{Acknowledgements} \\
+\mytext{We would like to thank our local lab managers Charlotte Hansen, Pernille V. S. Olsen and Tina B. Brand at the Centre for GeoGenetics for their prompt support during the execution of the project. We are grateful to the Cornell University Biotechnology Resource Center for its genotyping services, especially to Sharon E. Mitchell and all lab technicians that worked on this project. Moreover, we deeply thank Gary Jakeman and Kristian Murphy Gregersen for their fieldwork assistance regarding the sampling in England and Denmark, respectively. We also thank Vladimir Orduña for his willingness to let us sample some of the Mexico City pigeons kept at his lab facilities.} \\
+
 \myheaders{Data Availability} \\
 \mytext{All demultiplexed GBS sequencing data is publicly available at SRA (Project Number: PRJNA495951), as well as additional data uploaded to the University of Copenhagen’s long term storage (\url{https://sid.erda.dk/wsgi-bin/ls.py?share_id=aKqQoJvH4Y}).} \\
 
-\myheaders{Acknowledgements} \\
-\mytext{We would like to thank our local lab managers Charlotte Hansen, Pernille V. S. Olsen and Tina B. Brand at the Centre for GeoGenetics for their prompt support during the execution of the project. We are grateful to the Cornell University Biotechnology Resource Center for its genotyping services, especially to Sharon E. Mitchell and all lab technicians that worked on this project. Moreover, we deeply thank Gary Jakeman and Kristian Murphy Gregersen for their fieldwork assistance regarding the sampling in England and Denmark, respectively. We also thank Vladimir Orduña for his willingness to let us sample some of the Mexico City pigeons kept at his lab facilities.} \\
+\myheaders{Code Availability} \\
+\mytext{All codes required to reproduce the computational analyses are available from GitHub (\url{https://github.com/g-pacheco/FeralPigeonGenomics}).} \\
 
 \myheaders{Author Contributions} \\
 \mytext{M.T.P.G. conceived the project and obtained financial support. M.T.P.G., G.P. and F.G.V. designed the study. G.P. led the project. M.T.P.G., G.P., M.T.O., T.dF.R., P.H., P.N., C.S., I.L-R., S.S.S., K.M., C. L.-F., G.S., R.F., J.D., J. F., N.H., F.K., R. D., A.H., M.B.A. M. C. A.-A. and P. R. E. contributed to sampling. M.D.S. collected and provided the breed samples. G.P. performed the vast majority of DNA extraction and QC. K.M. performed DNA extraction and QC on Sri Lanka samples. G.P. and F.G.V. conducted the computational analyses assisted by M.D.M. G.P., F.G.V., M.T.O and M.T.P.G. interpreted the results. G.P. wrote the first draft of the manuscript with great input from M.T.P.G. and F.G.V. All authors critically reviewed and approved the final manuscript.} \\
@@ -313,7 +314,6 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 
 \myheaders{Competing Interests} \\
 \mytext{We have no competing interests.}
-\end{multicols}
 
 \end{document}
 

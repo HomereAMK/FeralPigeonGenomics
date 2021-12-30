@@ -1,9 +1,0 @@
-[0] Config.pm:311> INFO - This is Biber 2.16
-[0] Config.pm:314> INFO - Logfile is 'FPG--SI.blg'
-[171] biber-MSWIN32:340> INFO - === 
-[223] Biber.pm:415> INFO - Reading 'FPG--SI.bcf'
-[423] Biber.pm:952> INFO - Found 0 citekeys in bib section 0
-[434] Utils.pm:395> WARN - The file 'FPG--SI.bcf' does not contain any citations!
-[449] bbl.pm:654> INFO - Writing 'FPG--SI.bbl' with encoding 'UTF-8'
-[449] bbl.pm:757> INFO - Output to FPG--SI.bbl
-[450] Biber.pm:128> INFO - WARNINGS: 1
