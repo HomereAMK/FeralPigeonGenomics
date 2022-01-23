@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse, stringr, reshape)
+pacman::p_load(scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse, stringr, reshape, lemon)
 
 
 # Load helper function ~
@@ -143,14 +143,14 @@ fulldf$BioStatus <- factor(fulldf$BioStatus, ordered = T,
                                        "Outgroups"))
 
 
-# Creates the panel ~
+# Creates plot ~
 PopGennEstimates <- 
  ggplot() +
   geom_boxplot(data = subset(fulldf, ID == "Hets"),
                aes(x = Population, y = Het, fill = BioStatus), show.legend = FALSE, outlier.colour = "black", outlier.shape = 21, outlier.size = 1.85, width = .3, lwd = .1) +
-  geom_point(data = subset(fulldf, ID =="PopGen"),
+  geom_point(data = subset(fulldf, ID == "PopGen"),
              aes(x = Population, y = Value, fill = BioStatus), colour = "black", shape = 21, size = 3.5, alpha = .9) +
-  facet_grid(Estimate ~. , scales = "free", labeller = labeller(Estimate = ylabel)) +
+  facet_grid(Estimate ~., scales = "free", labeller = labeller(Estimate = ylabel)) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"),
                     labels = gsub("_", " ", levels(fulldf$BioStatus))) +
   scale_colour_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9")) +
@@ -159,6 +159,7 @@ PopGennEstimates <-
         panel.grid.major.y = element_blank(),
         panel.grid.minor = element_blank(), 
         panel.border = element_blank(),
+        panel.spacing.x = unit(10, "lines"),
         axis.line = element_line(colour = "#000000", size = .3),
         axis.title = element_blank(),
         axis.text.x = element_text(colour="#000000", size = 16, face = "bold", family = "Helvetica", angle = 90, vjust = .5, hjust = 1),
@@ -177,8 +178,9 @@ PopGennEstimates <-
                              override.aes = list(size = 5, alpha = .9)), colour = "none")
 
 
-# Saves the panel ~
-ggsave(PopGennEstimates, file = "FPG--PopGenEstimates.pdf", device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
+# Saves plot ~
+ggsave(PopGennEstimates, file = "FPG--PopGenEstimates.pdf",
+       device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
 
 
 #

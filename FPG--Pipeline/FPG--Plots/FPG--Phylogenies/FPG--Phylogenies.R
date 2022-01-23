@@ -87,7 +87,10 @@ Phylo_1_Plot <-
 
 
 # Saves Phylo_1 plot ~
-ggsave(Phylo_1_Plot, file = "FPG--Phylogeny--Dataset_I.pdf", device = cairo_pdf, width = 4, height = 4, scale = 1.5, dpi = 600)
+ggsave(Phylo_1_Plot, file = "FPG--Phylogeny--Dataset_I.pdf",
+       device = cairo_pdf, width = 4, height = 4, scale = 1.5, dpi = 600)
+ggsave(Phylo_1_Plot, file = "FPG--Phylogeny--Dataset_I.jpg",
+       width = 4, height = 4, scale = 1.5, dpi = 600)
 
 
 # Creates Phylo_2 plot ~

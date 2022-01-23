@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~
 ##
-# ~ Plots FPGP--PopGenEstimates | By Marie-Christine RUFENER & George PACHECO
+# ~ Plots FPG--Fst | By George Pacheco.
 
 
 # Cleans the environment ~ 
@@ -59,7 +59,7 @@ write.table(Fst, "FPG--Fst-Fst.txt", sep = "\t", row.names = TRUE, col.names = T
 
 # Creates & Saves the heatmap ~
 pheatmap(Fst, clustering_distance_rows = "correlation", clustering_distance_cols = "correlation", border_color = "black", cellwidth = 10, cellheight = 10,
-         treeheight_row = 55, treeheight_col = 55, filename = "FPG--Fst.pdf")
+         treeheight_row = 55, treeheight_col = 55, filename = "FPG--Fst.jpg")
 
 
 #

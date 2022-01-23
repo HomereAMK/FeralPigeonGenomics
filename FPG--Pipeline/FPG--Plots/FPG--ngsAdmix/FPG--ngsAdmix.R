@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# ~ Plots FPGP--ngsAdmix | First written by Jose SAMANIEGO and modified by George PACHECO.
+# ~ Plots FPG--ngsAdmix | First written by Jose Samaniego and modified by George Pacheco.
 
 
 # Cleans the environment ~ 
@@ -103,10 +103,11 @@ levels(fulldf$Population_Alt <- sub("TelAviv", "Tel Aviv", fulldf$Population_Alt
 
 
 # Reorganises the data ~
-fulldf$Population_Alt <- factor(fulldf$Population_Alt, ordered = T, levels = c("Faroe Islands", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
-                                                                         "Guimarães", "Lisbon", "Barcelona", "London", "Cambridge", "Copenhagen", "Berlin", "Prague", "Jihlava", "Abadeh", "Isfahan", "Lahijan", "Nowshahr", "Tehran", "Tel Aviv", "Colombo",
-                                                                         "Salt Lake City", "Denver", "FeralVA", "Mexico City", "Monterrey", "Tlaxcala de Xicohténcatl", "San Cristóbal de las Casas", "Santiago", "Salvador", "Tatuí", "Nairobi", "Johannesburg", "Perth",
-                                                                         "Tel Aviv Colony","Wattala", "Wellawatte"))
+fulldf$Population_Alt <- factor(fulldf$Population_Alt, ordered = T,
+                                levels = c("Faroe Islands", "Crete", "Sardinia", "Vernelle", "Wadi Hidan", "Pigeon Island", "Trincomalee",
+                                           "Guimarães", "Lisbon", "Barcelona", "London", "Cambridge", "Copenhagen", "Berlin", "Prague", "Jihlava", "Abadeh", "Isfahan", "Lahijan", "Nowshahr", "Tehran", "Tel Aviv", "Colombo",
+                                           "Salt Lake City", "Denver", "FeralVA", "Mexico City", "Monterrey", "Tlaxcala de Xicohténcatl", "San Cristóbal de las Casas", "Santiago", "Salvador", "Tatuí", "Nairobi", "Johannesburg", "Perth",
+                                           "Tel Aviv Colony","Wattala", "Wellawatte"))
 
 
 # Defines the target to be plotted ~
@@ -116,6 +117,7 @@ target = "Population_Alt"
 # Creates the plots ~
 ngsAdmix <-
  ggplot(fulldf, aes(x = Sample_ID, y = Value, fill = K)) +
+  #geom_bar(stat = "identity", width = .85) +
   geom_bar(stat = "identity", width = 2.15) +
    facet_grid(K_Value ~ get(target), space = "free_x", scales = "free_x") +
    scale_x_discrete(expand = c(0, 0)) + 
@@ -128,13 +130,21 @@ ngsAdmix <-
       plot.title = element_blank(),
       axis.title = element_blank(),
       axis.text.x = element_blank(),
-      #axis.text.x.bottom = element_text(colour = "#000000", size = 6, angle = 90, vjust = 0, hjust = 1),
+      #axis.text.x.bottom = element_text(colour = "#000000", size = 6, angle = 90, vjust = .5, hjust = 1),
       axis.text.y = element_blank(),
       axis.ticks = element_blank(),
       strip.background = element_rect(colour = "#000000", fill = '#FAFAFA', size = 0.05),
+      #strip.text.x = element_blank(),
       strip.text.x = element_text(colour = "#000000", face = "bold", size = 10, angle = 90, margin = margin(.1, 0, .1, 0, "cm")),
       strip.text.y = element_text(colour = "#000000", face = "bold", size = 10, angle = 90, margin = margin(0, .1, 0, .1, "cm")),
       legend.position = "none")
+
+
+# Saves the final plot ~
+ggsave(ngsAdmix, file = "FPG--ngsAdmix_Labels-RColours.pdf",
+       device = cairo_pdf, width = 40, height = 15, dpi = 600)
+ggsave(ngsAdmix, file = "FPG--ngsAdmix_Labels-RColours.jpg",
+       width = 40, height = 15, dpi = 600)
 
 
 # Adds grob ~
@@ -167,7 +177,10 @@ grid.draw(ngsAdmix_G)
 
 
 # Saves the final plot ~
-ggsave(ngsAdmix_G, file = "FPG--ngsAdmix_RColours.pdf", device = cairo_pdf, width = 40, height = 15, dpi = 600)
+ggsave(ngsAdmix_G, file = "FPG--ngsAdmix-RColours.pdf",
+       device = cairo_pdf, width = 40, height = 15, dpi = 600)
+ggsave(ngsAdmix_G, file = "FPG--ngsAdmix-RColours.jpg",
+       width = 40, height = 15, dpi = 600)
 
 
 #

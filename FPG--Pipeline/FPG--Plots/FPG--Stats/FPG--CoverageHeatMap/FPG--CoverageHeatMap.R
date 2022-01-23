@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# ~ Creates FPGP--CoverageHeatMap | By George PACHECO
+# ~ Creates FPGP--CoverageHeatMap | By George Pacheco.
 
 
 # Cleans the environment ~ 
@@ -46,12 +46,12 @@ colours = list(SampleStatus = c(BadSample = "#bf00ff", GoodSample = "#00a387"))
 
 # Creates the plot ~
 pheatmap(KMs,
-         border_color="black", annotation = QC, annotation_colors = colours, annotation_legend = TRUE,
+         border_color = "black", annotation = QC, annotation_colors = colours, annotation_legend = TRUE,
          clustering_distance_cols = Dist_Weighted, clustering_distance_rows = "manhattan",
          cellwidth = 10, cellheight = 10,
          cutree_rows = max(5, floor(NR * 20/1000)), cutree_cols = max(5, floor(NC * 20/1000)),
          treeheight_row = max(10, floor(NR * .5)), treeheight_col=max(10,floor(NC * .5)),
-         filename = "FPG--CoverageHeatMap.pdf")
+         filename = "FPG--CoverageHeatMap.jpg")
 
 
 #
