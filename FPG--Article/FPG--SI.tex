@@ -19,6 +19,7 @@
 \usepackage{siunitx}
 \usepackage{balance}
 \usepackage{float}
+\usepackage{pdflscape}
 
 % Fixes margins ~
 \usepackage{geometry}
@@ -43,11 +44,24 @@
 
 \pagestyle{fancy}
 \fancyhead[L]{Feral Pigeon Genomics}
-\fancyhead[R]{Pacheco et al. 2021}
+\fancyhead[R]{Pacheco et al. 2022}
 \fancypagestyle{firstpage}{%
 \fancyhf{}
 \lhead{}
 \rhead{}}
+
+
+\fancypagestyle{mylandscape}{
+\fancyhf{} %Clears the header/footer
+\fancyfoot{% Footer
+\makebox[\textwidth][r]{% Right
+  \rlap{\hspace{.75cm}% Push out of margin by \footskip
+    \smash{% Remove vertical height
+      \raisebox{4.87in}{% Raise vertically
+        \rotatebox{90}{\thepage}}}}}}% Rotate counter-clockwise
+\renewcommand{\headrulewidth}{0pt}% No header rule
+\renewcommand{\footrulewidth}{0pt}% No footer rule
+}
 
 % Loads packages for images ~
 \usepackage{graphicx}
@@ -107,7 +121,7 @@
 \newcommand{\myheaders}[1] {\noindent{\normalsize{\fontfamily{bch}\selectfont{\textbf{#1}}}}}
 \newcommand{\mysubheaders}[1] {\noindent{\fontfamily{bch}\selectfont{\textbf{#1}}}}
 \newcommand{\mytext}[1] {\noindent{\fontfamily{bch}\selectfont{#1}}}
-\newcommand{\mycaptions}[1] {\noindent{\scriptsize{\fontfamily{bch}\selectfont{#1}}}}
+\newcommand{\mycaptions}[1] {\noindent{\footnotesize{\fontfamily{bch}\selectfont{#1}}}}
 
 % Figure captions
 \usepackage{caption}
@@ -202,60 +216,82 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 
 \hfill
 
+\newpage
+\clearpage
+
 % Suplementary Notes %
 
 \begin{multicols}{2}
 \myheaders{Suplementary Notes} \\
-\mysubheaders{Sampling effort.} \mytext{To investigate the genomic patterns of current pigeon populations of different evolutionary histories, we intentionally targeted our sampling to cover four distinct categories (Figure 1). Furthermore, to help root the evolutionary relationships between these groups, we also included a small number of individuals representing the Columba livia intermedia (Strickland, 1844) subspecies. Specifically in this regard, we sampled five populations from Sri Lanka, where two of them were from urban localities (Colombo and Trincomalee), one was from a Conservation National Park (Pigeon Island) and two others were captive populations maintained by local breeders (Wattala and Wellawatte) (Supplementary Fig. 1). To check for data reproducibility, we sequenced two of the samples twice (Tehran\textunderscore16-GBS and Perth\textunderscore02-GBS) to serve as replicates. Finally, to serve as external outgroups, we also generated data from five samples of (\textit{Columba palumbus Linnaeus}, 1758) captured in Copenhagen (Denmark), one captive sample of (\textit{Streptopelia risoria} Linnaeus, 1758), and additionally incorporated previously published whole genome resequence data from a Columba rupestris8. (we also included the WGS library to serve as another replicate) (Supplementary Spreadsheet).}
-
-% Methods %
-\myheaders{Methods} \\
-
 \end{multicols}
 
 \newpage
 \clearpage
 
-\begin{multicols}{2}
-\myheaders{References}
-\printbibliography[heading=none]
-
-\hfill
-
-\end{multicols}
-
-\newpage
-\clearpage
-
-\begin{figure}[ht]
+\begin{landscape}
+\thispagestyle{mylandscape}
+\begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Fig. 1. Coverage heatmap.} Heatmap based on the presence/absence matrix. Individual samples are represented by each column, whereas clusters of loci are represented by the rows.}}
+\includegraphics[width=1.5\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Fig. 1. Coverage heatmap.} Columns represent individual samples, while rows represent clusters of loci. Those samples that failed to produce sufficient GBS reads and the blank samples are marked in purple.}}
 \label{SI:FPG--CovHeatMap}
 \end{figure}
+\end{landscape}
 
-\hfill
-
-\begin{figure}[H]
+\begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--Stats/FPG--GlobalCoverage/FPG--GlobalCoverage.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Fig. 1. Global depth distribution.} Heatmap based on the presence/absence matrix. Individual samples are represented by each column, whereas clusters of loci are represented by the rows.}}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--GlobalCoverage/FPG--GlobalCoverage.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Fig. 2. Global Depth (GD) distribution.} Density plot of the Global Depth calculated across 475 samples. The purple vertical dashed line indicates the cutoff used, which was a maximum of 150X times the number of individuals in the specific \textit{ANGSD} run.}}
 \label{SI:FPG--CovDistribution}
 \end{figure}
 
-\begin{figure}[!ht]
+\newpage
+\clearpage
+
+\begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_Labels-RColours.pdf}
-\caption*{\mycaptions{\textbf{Fig. 3 Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). Individuals are sorted by sampling locality (light grey upper labels) and grouped per biological status}}
-\label{MainText:FPG--ngsAdmixSI}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--SitesInfo/FPG--Sites-ScaffoldsRegression.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Figure 3. Scaffold Length Vs Number of Sites Regression.} Plot of the regression analysis based on Dataset I showing the correlation between the scaffold lengths and numbers of sites found in each scaffold.}}
+\label{SI:FPG--SitesInfo}
 \end{figure}
-  
-\begin{figure}[!ht]
+
+\begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{../FPG--Plots/FPG--MDS/FPG--MDS_13.pdf}
-\caption*{\mycaptions{\textbf{Fig. 2 Multidimensional scaling analysis.} a) Dimensions 1 and 3 are plotted. b) Dimensions 2 and 3 are plotted. Each point on the plot represents a single individual. The ellipses represent the rough distribution of the two most distinct groups.}}
-\label{MainText:FPG--MDS_13}
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Phylogenies/FPG--Phylogeny--Dataset_I.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.} Initial phylogeny describing the relationships amongst \textit{Columba livia} (black), \textit{C. rupestris} (red), \textit{C. palumbus} (purple) and \textit{Streptopelia risoria} (green).}}
+\label{SI:FPG--Phylogeny--Dataset_I}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Fst/FPG--Fst.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Figure 5. Heatmap of the Pairwise Fst values.} All absolute values can be found in the Supplementary Spreadsheet.}}
+\label{MainText:FPG--Fst}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Figure 6. Population genetics estimates per sampling locality.} The populations are grouped by the four categories (colours). All absolute values can be found in the Supplementary Spreadsheet.}}
+\label{MainText:FPG--PopGenEstimates}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--MDS/FPG--MDS_SI.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Figure 7. Multidimensional Scaling analysis.} \textbf{A)} Dimensions 1 and 2 are plotted. \textbf{B)} Dimensions 2 and 3 are plotted. Each point on the plot represent a single individual. Individuals are grouped by the four categories (colours), and also by the groups defined in the phylogeny (shapes). The ellipses encompass the distribution of the three most homogeneous groups.}}
+\label{MainText:FPG--MDS_SI}
+\end{figure}
+
+\begin{landscape}
+\thispagestyle{mylandscape}
+\begin{figure}
+\centering
+\includegraphics[width=1.5\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_Labels-RColours.pdf}
+\caption*{\mycaptions{\textbf{Supplementary Figure 8. Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). This is the same plot presented in the main text but here with the individual labels for all samples.}}
+\label{MainText:FPG--ngsAdmix_Labels}
+\end{figure}
+\end{landscape}
 
 \end{document}
 

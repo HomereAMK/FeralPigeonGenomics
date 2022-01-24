@@ -107,6 +107,7 @@ Phylo_2_BasePhylo_Annot <- Phylo_2_BasePhylo %<+% Phylo_2_Annot
 Phylo_2_Plot <- 
   Phylo_2_BasePhylo_Annot +
   geom_point2(aes(label = label, subset = !is.na(as.numeric(label)) & as.numeric(label) > 85), shape = 21, size = 1.65, fill = "#155211", colour = "#155211", alpha = .85, stroke = .075, show.legend = FALSE) +
+  #geom_tiplab(align = TRUE, linesize = .02, offset = .5, size = 1.2, show.legend = FALSE) +
   geom_tippoint(aes(fill = BioStatus, subset = !is.na(BioStatus)), size = 1.65, stroke = .075, colour = "#000000", alpha = 1, shape = 21, na.rm = TRUE) +
   geom_strip("PigeonIsland_05-GBS", "Trincomalee_01-GBS", barsize = 3.5, color = "#d9d9d9", label = "Group A", fontsize = 6, offset = .75, offset.text = 1.5) +
   geom_strip("Abadeh_04-GBS", "Torshavn_02-GBS", barsize = 3.5, color = "#bdbdbd", label = "Group B", fontsize = 6, offset = .75, offset.text = 1.5) +
@@ -128,8 +129,12 @@ Phylo_2_Plot <-
                              label.theme = element_text(size = 10),
                              override.aes = list(starshape = 21, size = 2.85, alpha = .9, starstroke = .0015), order = 2))
 
-# Saves Phylo_1 plot ~
-ggsave(Phylo_2_Plot, file = "FPG--Phylogeny--Dataset_II.pdf", device = cairo_pdf, width = 14, height = 12, scale = 1, dpi = 600)
+
+# Saves Phylo_2 plot ~
+ggsave(Phylo_2_Plot, file = "FPG--Phylogeny--Dataset_II.pdf",
+       device = cairo_pdf, width = 14, height = 12, scale = 1, dpi = 600)
+ggsave(Phylo_2_Plot, file = "FPG--Phylogeny--Dataset_II.jpg",
+       width = 14, height = 12, scale = 1, dpi = 600)
 
 
 #

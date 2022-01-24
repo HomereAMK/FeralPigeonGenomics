@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# ~ Plots FPGP--PopGenEstimates | By Marie-Christine RUFENER & George PACHECO
+# ~ Plots FPGP--PopGenEstimates | By Marie-Christine Rufener & George Pacheco.
 
 
 # Cleans the environment ~ 
@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse, stringr, reshape, lemon)
+pacman::p_load(scales, extrafont, dplyr, grid, lubridate, cowplot, egg, tidyverse, stringr, reshape, lemon, ggplotify, cowplot)
 
 
 # Load helper function ~
@@ -24,13 +24,13 @@ loadfonts(device = "win", quiet = TRUE)
 
 
 # Loads datasets ~
-PopGen <- read.table("FPG--PopGenEstimates.txt", sep = "\t", header = FALSE); head(PopGen)
-Hets <- read.table("FPG--Heterozygosity.txt", sep = "\t", header = FALSE); head(Hets)
+PopGen <- read.table("FPG--PopGenEstimates.txt", sep = "\t", header = FALSE)
+Hets <- read.table("FPG--Heterozygosity.txt", sep = "\t", header = FALSE)
 
 
 # Adds column names to datasets ~
-colnames(PopGen) <- c("Population", "NSites", "Nucleotide_Diversity", "Watterson_Theta", "Tajima_D"); head(PopGen)
-colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType"); head(Hets)
+colnames(PopGen) <- c("Population", "NSites", "Nucleotide_Diversity", "Watterson_Theta", "Tajima_D")
+colnames(Hets) <- c("Sample_ID", "Population", "Het", "DataType")
 
 
 # Corrects Population names in Hets:
@@ -155,32 +155,33 @@ PopGennEstimates <-
                     labels = gsub("_", " ", levels(fulldf$BioStatus))) +
   scale_colour_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9")) +
   theme(panel.background = element_rect(fill = "#ffffff"),
-        panel.grid.major.x = element_line(color = "#ededed", linetype = "dashed", size = .00005),
-        panel.grid.major.y = element_blank(),
+        panel.grid.major = element_line(color = "#ededed", linetype = "dashed", size = .00005),
         panel.grid.minor = element_blank(), 
         panel.border = element_blank(),
-        panel.spacing.x = unit(10, "lines"),
+        panel.spacing.y = unit(1, "cm"),
         axis.line = element_line(colour = "#000000", size = .3),
         axis.title = element_blank(),
-        axis.text.x = element_text(colour="#000000", size = 16, face = "bold", family = "Helvetica", angle = 90, vjust = .5, hjust = 1),
-        axis.text.y = element_text(color="#000000", size = 16, family = "Helvetica"),
+        axis.text.x = element_text(colour="#000000", size = 15, face = "bold", angle = 45, vjust = 1, hjust = 1),
+        axis.text.y = element_text(color="#000000", size = 15, face = "bold"),
         axis.ticks.x = element_line(color="#000000", size = .3),
         axis.ticks.y = element_line(color="#000000", size = .3),
         strip.background.y = element_rect(colour = "#000000", fill = "#d6d6d6", size = 0.3),
-        strip.text = element_text(colour = "#000000", size = 12, face = "bold", family = "Georgia"),
+        strip.text = element_text(colour = "#000000", size = 13, face = "bold", family = "Georgia"),
         legend.position = "top",
         legend.margin = margin(t = 0, b = 0, r = 0, l = 0),
         legend.box.margin = margin(t = 10, b = 20, r = 0, l = 0),
         legend.key = element_rect(fill = NA),
         legend.background = element_blank()) +
-  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                             label.theme = element_text(size = 14, family = "Helvetica"),
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 15, face = "bold"),
+                             label.theme = element_text(size = 15),
                              override.aes = list(size = 5, alpha = .9)), colour = "none")
 
 
 # Saves plot ~
 ggsave(PopGennEstimates, file = "FPG--PopGenEstimates.pdf",
-       device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
+       device = cairo_pdf, width = 12, height = 10, scale = 1.5, dpi = 600)
+ggsave(PopGennEstimates, file = "FPG--PopGenEstimates.jpg",
+       width = 12, height = 10, scale = 1.5, dpi = 600)
 
 
 #

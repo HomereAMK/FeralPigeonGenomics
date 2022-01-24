@@ -1,6 +1,6 @@
 ### The BEGINNING ~~~~~
 ##
-# ~ Plots FPG--MDS | First written by Filipe G. VIEIRA with later modifications by George PACHECO.
+# ~ Plots FPG--MDS | First written by Filipe G. Vieira with later modifications by George Pacheco.
 
 
 # Cleans the environment ~ 
@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 # Loads required packages ~
-pacman::p_load(optparse, tidyverse, plyr, RColorBrewer, extrafont, ggforce, ggstar)
+pacman::p_load(optparse, tidyverse, plyr, RColorBrewer, extrafont, ggforce, ggstar, cowplot, ggpubr)
 
 
 # Imports extra fonts ~
@@ -111,9 +111,18 @@ data$Groups <- # Remote Localities Within Natural Range
                  ifelse(data$Population %in% c("PigeonIsland", "Trincomalee"), "Group A",
                  ifelse(data$Population %in% c("Abadeh", "Tehran", "Crete", "Sardinia", "Vernelle", "Torshavn", "Ejde", "Sumba", "LjosAir", "Kunoy", "Nolsoy"), "Group B",
                  ifelse(data$Population %in% c("TelAviv", "TelAvivColony", "WadiHidan"), "Group C",
-                 ifelse(data$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan"), "Group D",
-                 ifelse(data$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui","Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "MexicoCity", "Monterrey", "SanCristobalDeLasCasas"), "Group E",
-                 ifelse(data$Population %in% c("Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group F", "Not Grouped"))))))
+                 ifelse(data$Population %in% c("Nairobi", "Colombo", "Lahijan", "Nowshahr", "Wellawatte", "Isfahan", "MexicoCity"), "Group D",
+                 ifelse(data$Population %in% c("Guimaraes", "Barcelona", "Lisbon", "Salvador", "Tatui", "Denver" , "Santiago", "TlaxcalaDeXicohtencatl", "Monterrey", "SanCristobalDeLasCasas",
+                                               "Jihlava", "Prague", "Berlin", "SaltLakeCity", "Johannesburg", "London", "Cambridge", "Perth", "Copenhagen"), "Group E",
+                                               "Not Grouped")))))
+
+
+# Corrects Groups ~
+data$Groups <- # Corrects Groups
+                 ifelse(data$Sample_ID %in% c("Tehran_16A-GBS", "Guimaraes_14-GBS"), "Group C",
+                 ifelse(data$Sample_ID %in% c("Lahijan_16-GBS"), "Group B",
+                 ifelse(data$Sample_ID %in% c("Vernelle_12-GBS", "Wattala_01-GBS", "Wattala_02-GBS", "Nowshahr_12-GBS", "Isfahan_01-GBS", "MexicoCity_08-GBS"), "Group E",
+                        data$Groups)))
                                                                           
 
 # Creates alternative Population column ~
@@ -148,8 +157,6 @@ Shapes <- as.vector(c(# Group A
                       7,
                       # Group E
                       14,
-                      # Group F
-                      28,
                       # Not Grouped
                       9))
 
@@ -171,7 +178,7 @@ ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
                     label.buffer = unit(40, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
-                    label.buffer = unit(16, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
+                    label.buffer = unit(30, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   scale_x_continuous("Dimension 1 (3.19%)",
                      breaks = c(-0.075, -0.05, -0.025, 0, 0.025),
                      labels = c("-0.075", "-0.05", "-0.025", "0", "0.025"),
@@ -191,22 +198,25 @@ ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
         legend.position = "right",
         legend.title = element_text(color = "#000000", size = 13),
         legend.text = element_text(size = 11),
-        axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
-        axis.title.y = element_text(size = 18, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.text = element_text(color = "#000000", size = 13),
+        axis.title.x = element_text(size = 20, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        axis.title.y = element_text(size = 20, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text = element_text(color = "#000000", size = 13, face = "bold"),
         axis.ticks = element_line(color = "#000000", size = 0.3),
         axis.line = element_line(colour = "#000000", size = 0.3)) +
-  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                             label.theme = element_text(size = 14, family = "Helvetica"),
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold"),
+                             label.theme = element_text(size = 14),
                              override.aes = list(starshape = 21, size = 5, alpha = .9, starstroke = .15), order = 1),
-         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                              label.theme = element_text(size = 14, family = "Helvetica"),
+         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold"),
+                              label.theme = element_text(size = 14),
                               override.aes = list(starshape = Shapes, size = 5, alpha = .9, starstroke = .15), order = 2),
          colour = "none")
 
 
 # Creates & Saves the final MDS Panel ~
-ggsave(MDS_12, file = "FPG--MDS_12.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+ggsave(MDS_12, file = "FPG--MDS_12.pdf",
+       device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+ggsave(MDS_12, file = "FPG--MDS_12.png",
+       scale = 1.5, width = 12, height = 8, dpi = 600)
 
 
 MDS_13 <-
@@ -239,22 +249,25 @@ MDS_13 <-
         legend.position = "right",
         legend.title = element_text(color = "#000000", size = 13),
         legend.text = element_text(size = 11),
-        axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
-        axis.title.y = element_text(size = 18, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.text = element_text(color = "#000000", size = 13),
+        axis.title.x = element_text(size = 20, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        axis.title.y = element_text(size = 20, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text = element_text(color = "#000000", size = 13, face = "bold"),
         axis.ticks = element_line(color = "#000000", size = 0.3),
         axis.line = element_line(colour = "#000000", size = 0.3)) +
-  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                             label.theme = element_text(size = 14, family = "Helvetica"),
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold"),
+                             label.theme = element_text(size = 14),
                              override.aes = list(starshape = 21, size = 5, alpha = .9, starstroke = .15), order = 1),
-         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                                  label.theme = element_text(size = 14, family = "Helvetica"),
+         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold"),
+                                  label.theme = element_text(size = 14),
                                   override.aes = list(starshape = Shapes, size = 5, alpha = .9, starstroke = .15), order = 2),
          colour = "none")
 
 
 # Creates & Saves the final MDS Panel ~
-ggsave(MDS_13, file = "FPG--MDS_13.pdf", device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+ggsave(MDS_13, file = "FPG--MDS_13.pdf",
+       device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
+ggsave(MDS_13, file = "FPG--MDS_13.jpg",
+       scale = 1.5, width = 12, height = 8, dpi = 600)
 
 
 MDS_23 <-
@@ -287,22 +300,37 @@ MDS_23 <-
         legend.position = "right",
         legend.title = element_text(color = "#000000", size = 13),
         legend.text = element_text(size = 11),
-        axis.title.x = element_text(size = 18, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
-        axis.title.y = element_text(size = 18, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.text = element_text(color = "#000000", size = 13),
+        axis.title.x = element_text(size = 20, face = "bold", margin = margin(t = 20, r = 0, b = 0, l = 0)),
+        axis.title.y = element_text(size = 20, face = "bold", margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.text = element_text(color = "#000000", size = 13, face = "bold"),
         axis.ticks = element_line(color = "#000000", size = 0.3),
         axis.line = element_line(colour = "#000000", size = 0.3)) +
-  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                             label.theme = element_text(size = 14, family = "Helvetica"),
+  guides(fill = guide_legend(title = "Biological Status", title.theme = element_text(size = 16, face = "bold"),
+                             label.theme = element_text(size = 14),
                              override.aes = list(starshape = 21, size = 5, alpha = .9, starstroke = .15), order = 1),
-         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold", family = "Helvetica"),
-                                  label.theme = element_text(size = 14, family = "Helvetica"),
+         starshape = guide_legend(title = "Groups", title.theme = element_text(size = 16, face = "bold"),
+                                  label.theme = element_text(size = 14),
                                   override.aes = list(starshape = Shapes, size = 5, alpha = .9, starstroke = .15), order = 2),
          colour = "none")
 
 
 # Creates & Saves the final MDS Panel ~
-ggsave(MDS_23, file = "FPG--MDS_23.pdf", device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
+ggsave(MDS_23, file = "FPG--MDS_23.pdf",
+       device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
+ggsave(MDS_23, file = "FPG--MDS_23.jpg",
+       width = 12, height = 8, scale = 1.5, dpi = 600)
+
+
+# Creates MDS_SI ~
+MDS_SI <- ggarrange(MDS_13, MDS_23, labels = c("A", "B"), ncol = 1, nrow = 2,
+          common.legend = TRUE, legend = "right")
+
+
+# Saves MDS_SI ~
+ggsave(MDS_SI, file = "FPG--MDS_SI.pdf",
+       device = cairo_pdf, width = 12, height = 14, scale = 1.5, dpi = 600)
+ggsave(MDS_SI, file = "FPG--MDS_SI.jpg",
+       width = 12, height = 14, scale = 1.5, dpi = 600)
 
 
 #
