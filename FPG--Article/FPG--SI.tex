@@ -15,13 +15,16 @@
 \usepackage{tgtermes}
 \usepackage{anyfontsize}
 \usepackage{enumitem}
-\usepackage{subfig}
 \usepackage{siunitx}
 \usepackage{balance}
 \usepackage{float}
 \usepackage{pdflscape}
 \usepackage[nottoc]{tocbibind}
-%\usepackage[english]{babel}
+
+\usepackage{subfigure}
+\usepackage[subfigure]{tocloft}
+\setlength\cftbeforefigskip{20pt}
+\cftsetindents{fig}{0pt}{0pt}
 
 % Fixes margins ~
 \usepackage{geometry}
@@ -256,7 +259,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1.5\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 1. Coverage heatmap.]{\textbf{Supplementary Figure 1. Coverage heatmap.} Columns represent individual samples, while rows represent clusters of loci. Those samples that failed to produce sufficient GBS reads and the blank samples are marked in purple.}
+\caption[\textbf{Supplementary Figure 1. Coverage heatmap.}]{\textbf{Supplementary Figure 1. Coverage heatmap.} Columns represent individual samples, while rows represent clusters of loci. Those samples that failed to produce sufficient GBS reads and the blank samples are marked in purple.}
 \label{SI:FPG--CovHeatMap}
 \end{figure}
 \end{landscape}
@@ -265,7 +268,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--GlobalCoverage/FPG--GlobalCoverage.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 2. Global Depth (GD) distribution.]{\textbf{Supplementary Figure 2. Global Depth (GD) distribution.} Density plot of the Global Depth calculated across 475 samples. The purple vertical dashed line indicates the cutoff used, which was a maximum of 150X times the number of individuals in the specific \textit{ANGSD} run.}
+\caption[\textbf{Supplementary Figure 2. Global Depth (GD) distribution.}]{\textbf{Supplementary Figure 2. Global Depth (GD) distribution.} Density plot of the Global Depth calculated across 475 samples. The purple vertical dashed line indicates the cutoff used, which was a maximum of 150X times the number of individuals in the specific \textit{ANGSD} run.}
 \label{SI:FPG--CovDistribution}
 \end{figure}
 
@@ -276,7 +279,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--SitesInfo/FPG--Sites-ScaffoldsRegression.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 3. Scaffold Length Vs Number of Sites Regression.]{\textbf{Supplementary Figure 3. Scaffold Length Vs Number of Sites Regression.} Plot of the regression analysis based on Dataset I showing the correlation between the scaffold lengths and numbers of sites found in each scaffold.}
+\caption[\textbf{Supplementary Figure 3. Scaffold Length Vs Number of Sites regression.}]{\textbf{Supplementary Figure 3. Scaffold Length Vs Number of Sites regression.} Plot of the regression analysis based on Dataset I showing the correlation between the scaffold lengths and numbers of sites found in each scaffold.}
 \label{SI:FPG--SitesInfo}
 \end{figure}
 
@@ -284,7 +287,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Phylogenies/FPG--Phylogeny--Dataset_I.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.]{\textbf{Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.} Initial phylogeny describing the relationships amongst \textit{Columba livia} (black), \textit{C. rupestris} (red), \textit{C. palumbus} (purple) and \textit{Streptopelia risoria} (green).}
+\caption[\textbf{Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.}]{\textbf{Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.} Initial phylogeny describing the relationships amongst \textit{Columba livia} (black), \textit{C. rupestris} (red), \textit{C. palumbus} (purple) and \textit{Streptopelia risoria} (green).}
 \label{SI:FPG--Phylogeny--Dataset_I}
 \end{figure}
 
@@ -292,7 +295,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Fst/FPG--Fst.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 5. Heatmap of the Pairwise Fst values.]{\textbf{Supplementary Figure 5. Heatmap of the Pairwise Fst values.} All absolute values can be found in the Supplementary Spreadsheet.}
+\caption[\textbf{Supplementary Figure 5. Heatmap of the Pairwise Fst values.}]{\textbf{Supplementary Figure 5. Heatmap of the Pairwise Fst values.} All absolute values can be found in the Supplementary Spreadsheet.}
 \label{MainText:FPG--Fst}
 \end{figure}
 
@@ -300,7 +303,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 6. Population genetics estimates per sampling locality.]{\textbf{Supplementary Figure 6. Population genetics estimates per sampling locality.} The populations are grouped by the four categories (colours). All absolute values can be found in the Supplementary Spreadsheet.}
+\caption[\textbf{Supplementary Figure 6. Population genetics estimates per sampling locality.}]{\textbf{Supplementary Figure 6. Population genetics estimates per sampling locality.} The populations are grouped by the four categories (colours). All absolute values can be found in the Supplementary Spreadsheet.}
 \label{MainText:FPG--PopGenEstimates}
 \end{figure}
 
@@ -308,7 +311,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--MDS/FPG--MDS_SI.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 7. Multidimensional Scaling analysis.]{\textbf{Supplementary Figure 7. Multidimensional Scaling analysis.} \textbf{A)} Dimensions 1 and 2 are plotted. \textbf{B)} Dimensions 2 and 3 are plotted. Each point on the plot represent a single individual. Individuals are grouped by the four categories (colours), and also by the groups defined in the phylogeny (shapes).}
+\caption[\textbf{Supplementary Figure 7. Multidimensional Scaling analysis.}]{\textbf{Supplementary Figure 7. Multidimensional Scaling analysis.} \textbf{A)} Dimensions 1 and 2 are plotted. \textbf{B)} Dimensions 2 and 3 are plotted. Each point on the plot represent a single individual. Individuals are grouped by the four categories (colours), and also by the groups defined in the phylogeny (shapes).}
 \label{MainText:FPG--MDS_SI}
 \end{figure}
 
@@ -318,7 +321,7 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \centering
 \includegraphics[width=1.5\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_Labels-RColours.pdf}
 \captionsetup{labelformat=empty}
-\caption[Supplementary Figure 8. Estimation of Admixture proportions.]{\textbf{Supplementary Figure 8. Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). This is the same plot presented in the main text but here with the individual labels for all samples.}
+\caption[\textbf{Supplementary Figure 8. Estimation of Admixture proportions.}]{\textbf{Supplementary Figure 8. Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). This is the same plot presented in the main text but here with the individual labels for all samples.}
 \label{MainText:FPG--ngsAdmix_Labels}
 \end{figure}
 \end{landscape}
