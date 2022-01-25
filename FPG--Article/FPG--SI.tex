@@ -1,6 +1,6 @@
 %%% The BEGINNING ~~~~~
 %%
-% ~ Writes FPG--SI | By Filipe G. VIEIRA & George PACHECO
+% ~ Writes FPG--SI | By Filipe G. Vieira & George Pacheco.
 
 %% Preamble Settings %%
 
@@ -20,10 +20,12 @@
 \usepackage{balance}
 \usepackage{float}
 \usepackage{pdflscape}
+\usepackage[nottoc]{tocbibind}
+%\usepackage[english]{babel}
 
 % Fixes margins ~
 \usepackage{geometry}
-\geometry{reset,ignoreall,
+\geometry{reset, ignoreall,
   textheight = 253mm,
   textwidth = 175mm,
   bottom = 21mm,
@@ -31,7 +33,6 @@
   footskip = 8mm,
   headsep = 5mm,
   headheight = 10pt}
-\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
 \renewcommand{\headrule}{}
@@ -74,7 +75,7 @@
 % Loads packages for tables ~
 \usepackage{float}
 \usepackage{multirow}
-\usepackage{lmodern}
+\usepackage{charter}
 \usepackage{textcomp}
 \usepackage[utf8]{inputenc}
 \usepackage[TU]{fontenc}
@@ -103,8 +104,9 @@
   tabsize = 3}
   
 % Changes caption starting text ~
-\renewcommand{\figurename}{Supplementary Figure}
-\renewcommand{\tablename}{Supplementary Table}
+\renewcommand{\listfigurename}{List of Supplementary Figures}
+\renewcommand{\figurename}{}
+\renewcommand{\tablename}{}
 
 % Loads packages for typing ~
 \usepackage{lettrine}
@@ -125,12 +127,12 @@
 
 % Figure captions
 \usepackage{caption}
-\DeclareCaptionFont{cfs}{\fontsize{8.5}{10.25}\selectfont}
+\DeclareCaptionFont{charter}{\footnotesize{\fontfamily{charter}\selectfont{#1}}}
 \DeclareCaptionLabelSeparator{vline}{\;|\;}
 \captionsetup{
  labelsep=vline, 
- font={sf,cfs}, 
- labelfont={cfs,bf},
+ font={charter}, 
+ labelfont={charter},
  belowskip=-12pt}
 \newcommand{\figurecaption}[2]{\caption[#1]{\textbf{#1.} #2}}
 \usepackage{hyperref}
@@ -138,8 +140,9 @@
 \definecolor{mycolor}{HTML}{F7F8E0}
 \definecolor{myorange}{RGB}{245,156,74}
 \hypersetup{
-  colorlinks=true,
-  urlcolor=-myorange}
+  colorlinks = true,
+  linkcolor = [RGB]{58, 121, 175},
+  urlcolor = -myorange}
 
 \usepackage{fontawesome}
 
@@ -162,6 +165,12 @@ sorting = ynt
 \usepackage{multicol}
 
 %% Starts Document %%
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}  % Adds figure numbering 1.1, 1.2, ..., 2.1 etc. 
+\AtBeginDocument{%
+\counterwithin{lstlisting}{section}  % Adds figure numbering 1.1, 1.2, ..., 2.1 etc. 
+}
 
 % Starts document ~
 \begin{document}\thispagestyle{empty}
@@ -219,8 +228,21 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \newpage
 \clearpage
 
+% Table of Contents %
+
+\clearpage
+\pagenumbering{roman}
+\let\oldnumberline\numberline
+\renewcommand{\numberline}[1]{\oldnumberline{}}
+\hfill\break
+\listoffigures
+\let\numberline\oldnumberline
+\newpage
+
 % Suplementary Notes %
 
+\clearpage
+\pagenumbering{arabic}
 \begin{multicols}{2}
 \myheaders{Suplementary Notes} \\
 \end{multicols}
@@ -233,7 +255,8 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \begin{figure}
 \centering
 \includegraphics[width=1.5\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--CoverageHeatMap/FPG--CoverageHeatMap.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Fig. 1. Coverage heatmap.} Columns represent individual samples, while rows represent clusters of loci. Those samples that failed to produce sufficient GBS reads and the blank samples are marked in purple.}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 1. Coverage heatmap.]{\textbf{Supplementary Figure 1. Coverage heatmap.} Columns represent individual samples, while rows represent clusters of loci. Those samples that failed to produce sufficient GBS reads and the blank samples are marked in purple.}
 \label{SI:FPG--CovHeatMap}
 \end{figure}
 \end{landscape}
@@ -241,7 +264,8 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--GlobalCoverage/FPG--GlobalCoverage.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Fig. 2. Global Depth (GD) distribution.} Density plot of the Global Depth calculated across 475 samples. The purple vertical dashed line indicates the cutoff used, which was a maximum of 150X times the number of individuals in the specific \textit{ANGSD} run.}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 2. Global Depth (GD) distribution.]{\textbf{Supplementary Figure 2. Global Depth (GD) distribution.} Density plot of the Global Depth calculated across 475 samples. The purple vertical dashed line indicates the cutoff used, which was a maximum of 150X times the number of individuals in the specific \textit{ANGSD} run.}
 \label{SI:FPG--CovDistribution}
 \end{figure}
 
@@ -251,35 +275,40 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Stats/FPG--SitesInfo/FPG--Sites-ScaffoldsRegression.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Figure 3. Scaffold Length Vs Number of Sites Regression.} Plot of the regression analysis based on Dataset I showing the correlation between the scaffold lengths and numbers of sites found in each scaffold.}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 3. Scaffold Length Vs Number of Sites Regression.]{\textbf{Supplementary Figure 3. Scaffold Length Vs Number of Sites Regression.} Plot of the regression analysis based on Dataset I showing the correlation between the scaffold lengths and numbers of sites found in each scaffold.}
 \label{SI:FPG--SitesInfo}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Phylogenies/FPG--Phylogeny--Dataset_I.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.} Initial phylogeny describing the relationships amongst \textit{Columba livia} (black), \textit{C. rupestris} (red), \textit{C. palumbus} (purple) and \textit{Streptopelia risoria} (green).}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.]{\textbf{Supplementary Figure 4. Cladogram of initial neighbour-joining phylogeny of pigeons.} Initial phylogeny describing the relationships amongst \textit{Columba livia} (black), \textit{C. rupestris} (red), \textit{C. palumbus} (purple) and \textit{Streptopelia risoria} (green).}
 \label{SI:FPG--Phylogeny--Dataset_I}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--Fst/FPG--Fst.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Figure 5. Heatmap of the Pairwise Fst values.} All absolute values can be found in the Supplementary Spreadsheet.}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 5. Heatmap of the Pairwise Fst values.]{\textbf{Supplementary Figure 5. Heatmap of the Pairwise Fst values.} All absolute values can be found in the Supplementary Spreadsheet.}
 \label{MainText:FPG--Fst}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--PopGenEstimates/FPG--PopGenEstimates.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Figure 6. Population genetics estimates per sampling locality.} The populations are grouped by the four categories (colours). All absolute values can be found in the Supplementary Spreadsheet.}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 6. Population genetics estimates per sampling locality.]{\textbf{Supplementary Figure 6. Population genetics estimates per sampling locality.} The populations are grouped by the four categories (colours). All absolute values can be found in the Supplementary Spreadsheet.}
 \label{MainText:FPG--PopGenEstimates}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--MDS/FPG--MDS_SI.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Figure 7. Multidimensional Scaling analysis.} \textbf{A)} Dimensions 1 and 2 are plotted. \textbf{B)} Dimensions 2 and 3 are plotted. Each point on the plot represent a single individual. Individuals are grouped by the four categories (colours), and also by the groups defined in the phylogeny (shapes). The ellipses encompass the distribution of the three most homogeneous groups.}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 7. Multidimensional Scaling analysis.]{\textbf{Supplementary Figure 7. Multidimensional Scaling analysis.} \textbf{A)} Dimensions 1 and 2 are plotted. \textbf{B)} Dimensions 2 and 3 are plotted. Each point on the plot represent a single individual. Individuals are grouped by the four categories (colours), and also by the groups defined in the phylogeny (shapes).}
 \label{MainText:FPG--MDS_SI}
 \end{figure}
 
@@ -288,7 +317,8 @@ M. Thomas P. Gilbert\,$^{1}$\textsuperscript{\faEnvelopeO} \\
 \begin{figure}
 \centering
 \includegraphics[width=1.5\textwidth]{../FPG--Pipeline/FPG--Plots/FPG--ngsAdmix/FPG--ngsAdmix_Labels-RColours.pdf}
-\caption*{\mycaptions{\textbf{Supplementary Figure 8. Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). This is the same plot presented in the main text but here with the individual labels for all samples.}}
+\captionsetup{labelformat=empty}
+\caption[Supplementary Figure 8. Estimation of Admixture proportions.]{\textbf{Supplementary Figure 8. Estimation of Admixture proportions.} Individuals are represented by columns, while rows depict the Admixture proportions based on the assumption of different numbers of ancestral populations (K = 2 - 15). This is the same plot presented in the main text but here with the individual labels for all samples.}
 \label{MainText:FPG--ngsAdmix_Labels}
 \end{figure}
 \end{landscape}

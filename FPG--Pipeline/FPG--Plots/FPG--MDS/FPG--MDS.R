@@ -215,8 +215,8 @@ ggplot(data, aes_string(x = "D1_3.18814763506453", y = "D2_1.93889781570542")) +
 # Creates & Saves the final MDS Panel ~
 ggsave(MDS_12, file = "FPG--MDS_12.pdf",
        device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
-ggsave(MDS_12, file = "FPG--MDS_12.png",
-       scale = 1.5, width = 12, height = 8, dpi = 600)
+#ggsave(MDS_12, file = "FPG--MDS_12.png",
+#       scale = 1.5, width = 12, height = 8, dpi = 600)
 
 
 MDS_13 <-
@@ -224,12 +224,12 @@ MDS_13 <-
   geom_star(aes(starshape = Groups, fill = BioStatus), size = 2.8, alpha = .9, starstroke = .15) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   scale_starshape_manual(values = Shapes) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
-                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
-                    label.buffer = unit(22, 'mm'), con.cap = unit(5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
-                    label.buffer = unit(14, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
+  #geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
+  #                  label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
+  #geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
+  #                  label.buffer = unit(22, 'mm'), con.cap = unit(5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
+  #geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
+  #                  label.buffer = unit(14, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   scale_x_continuous("Dimension 1 (3.19%)",
                      breaks = c(-0.05, -0.025, 0, 0.025),
                      labels = c("-0.05", "-0.025", "0", "0.025"),
@@ -266,8 +266,8 @@ MDS_13 <-
 # Creates & Saves the final MDS Panel ~
 ggsave(MDS_13, file = "FPG--MDS_13.pdf",
        device = cairo_pdf, scale = 1.5, width = 12, height = 8, dpi = 600)
-ggsave(MDS_13, file = "FPG--MDS_13.jpg",
-       scale = 1.5, width = 12, height = 8, dpi = 600)
+#ggsave(MDS_13, file = "FPG--MDS_13.jpg",
+#       scale = 1.5, width = 12, height = 8, dpi = 600)
 
 
 MDS_23 <-
@@ -275,12 +275,12 @@ MDS_23 <-
   geom_star(aes(starshape = Groups, fill = BioStatus), size = 2.8, alpha = .9, starstroke = .15) +
   scale_fill_manual(values = c("#44AA99", "#F0E442", "#E69F00", "#56B4E9"), labels = gsub("_", " ", levels(data$BioStatus))) +
   scale_starshape_manual(values = Shapes) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
-                    label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
-                    label.buffer = unit(20, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
-  geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
-                    label.buffer = unit(16, 'mm'), con.cap = unit(11.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
+  #geom_mark_ellipse(aes(color = BioStatus, group = Population_cbind, filter = Population_cbind == "FaroeIslands", label = "Faroe Islands"),
+  #                  label.buffer = unit(8, 'mm'), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
+  #geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "PigeonIsland", label = "Pigeon Island"),
+  #                  label.buffer = unit(20, 'mm'), con.cap = unit(8.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
+  #geom_mark_ellipse(aes(color = BioStatus, group = Population, filter = Population == "Trincomalee", label = "Trincomalee"),
+  #                  label.buffer = unit(16, 'mm'), con.cap = unit(11.5, "mm"), con.colour = "black", con.type = "elbow", label.fill = NA, show.legend = FALSE) +
   scale_x_continuous("Dimension 2 (1.94%)",
                      breaks = c(-0.05, -0.025, 0, 0.025, 0.05),
                      labels = c("-0.05", "-0.025", "0", "0.025", "0.05"),
@@ -317,8 +317,8 @@ MDS_23 <-
 # Creates & Saves the final MDS Panel ~
 ggsave(MDS_23, file = "FPG--MDS_23.pdf",
        device = cairo_pdf, width = 12, height = 8, scale = 1.5, dpi = 600)
-ggsave(MDS_23, file = "FPG--MDS_23.jpg",
-       width = 12, height = 8, scale = 1.5, dpi = 600)
+#ggsave(MDS_23, file = "FPG--MDS_23.jpg",
+#       width = 12, height = 8, scale = 1.5, dpi = 600)
 
 
 # Creates MDS_SI ~
@@ -329,8 +329,8 @@ MDS_SI <- ggarrange(MDS_13, MDS_23, labels = c("A", "B"), ncol = 1, nrow = 2,
 # Saves MDS_SI ~
 ggsave(MDS_SI, file = "FPG--MDS_SI.pdf",
        device = cairo_pdf, width = 12, height = 14, scale = 1.5, dpi = 600)
-ggsave(MDS_SI, file = "FPG--MDS_SI.jpg",
-       width = 12, height = 14, scale = 1.5, dpi = 600)
+#ggsave(MDS_SI, file = "FPG--MDS_SI.jpg",
+#       width = 12, height = 14, scale = 1.5, dpi = 600)
 
 
 #
